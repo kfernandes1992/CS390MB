@@ -28,6 +28,7 @@
 		93B38BE917E5E785002F12B0 /* InfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 93B38BE817E5E785002F12B0 /* InfoViewController.m */; };
 		93C9D1B917E371A600B6C374 /* CoreMotion.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 93C9D1B817E371A600B6C374 /* CoreMotion.framework */; };
 		93C9D1BA17E371A600B6C374 /* CoreMotion.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 93C9D1B817E371A600B6C374 /* CoreMotion.framework */; };
+		CEDC9D8017E7AD4E002F186E /* ResourcesDiscussionsAndLinks in Resources */ = {isa = PBXBuildFile; fileRef = CEDC9D7F17E7AD4E002F186E /* ResourcesDiscussionsAndLinks */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -68,6 +69,7 @@
 		93B38BE717E5E785002F12B0 /* InfoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InfoViewController.h; sourceTree = "<group>"; };
 		93B38BE817E5E785002F12B0 /* InfoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InfoViewController.m; sourceTree = "<group>"; };
 		93C9D1B817E371A600B6C374 /* CoreMotion.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMotion.framework; path = System/Library/Frameworks/CoreMotion.framework; sourceTree = SDKROOT; };
+		CEDC9D7F17E7AD4E002F186E /* ResourcesDiscussionsAndLinks */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = ResourcesDiscussionsAndLinks; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -100,6 +102,7 @@
 		936CD62117E36D3900B69E9B = {
 			isa = PBXGroup;
 			children = (
+				CEDC9D7F17E7AD4E002F186E /* ResourcesDiscussionsAndLinks */,
 				936CD63317E36D3900B69E9B /* CMPSCI390MB Accelerometer */,
 				936CD65A17E36D3900B69E9B /* CMPSCI390MB AccelerometerTests */,
 				936CD62C17E36D3900B69E9B /* Frameworks */,
@@ -255,6 +258,7 @@
 				936CD64417E36D3900B69E9B /* Default-568h@2x.png in Resources */,
 				936CD64717E36D3900B69E9B /* MainStoryboard_iPhone.storyboard in Resources */,
 				936CD64A17E36D3900B69E9B /* MainStoryboard_iPad.storyboard in Resources */,
+				CEDC9D8017E7AD4E002F186E /* ResourcesDiscussionsAndLinks in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
