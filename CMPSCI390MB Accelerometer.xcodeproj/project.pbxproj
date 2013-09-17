@@ -24,11 +24,11 @@
 		936CD65717E36D3900B69E9B /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 936CD62F17E36D3900B69E9B /* Foundation.framework */; };
 		936CD65F17E36D3900B69E9B /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 936CD65D17E36D3900B69E9B /* InfoPlist.strings */; };
 		936CD66217E36D3900B69E9B /* CMPSCI390MB_AccelerometerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 936CD66117E36D3900B69E9B /* CMPSCI390MB_AccelerometerTests.m */; };
-		936CD66C17E36F4600B69E9B /* CoreMotion.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 936CD66B17E36F4600B69E9B /* CoreMotion.framework */; };
+		938E628E17E7E40E000ED8D3 /* MotionManager390.m in Sources */ = {isa = PBXBuildFile; fileRef = 938E628D17E7E40E000ED8D3 /* MotionManager390.m */; };
+		93A1FEF517E919330085B15B /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 93A1FEF417E919330085B15B /* MessageUI.framework */; };
 		93B38BE917E5E785002F12B0 /* InfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 93B38BE817E5E785002F12B0 /* InfoViewController.m */; };
 		93C9D1B917E371A600B6C374 /* CoreMotion.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 93C9D1B817E371A600B6C374 /* CoreMotion.framework */; };
 		93C9D1BA17E371A600B6C374 /* CoreMotion.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 93C9D1B817E371A600B6C374 /* CoreMotion.framework */; };
-		CEDC9D8017E7AD4E002F186E /* ResourcesDiscussionsAndLinks in Resources */ = {isa = PBXBuildFile; fileRef = CEDC9D7F17E7AD4E002F186E /* ResourcesDiscussionsAndLinks */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -65,11 +65,12 @@
 		936CD65E17E36D3900B69E9B /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		936CD66017E36D3900B69E9B /* CMPSCI390MB_AccelerometerTests.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CMPSCI390MB_AccelerometerTests.h; sourceTree = "<group>"; };
 		936CD66117E36D3900B69E9B /* CMPSCI390MB_AccelerometerTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CMPSCI390MB_AccelerometerTests.m; sourceTree = "<group>"; };
-		936CD66B17E36F4600B69E9B /* CoreMotion.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMotion.framework; path = System/Library/Frameworks/CoreMotion.framework; sourceTree = SDKROOT; };
+		938E628C17E7E40E000ED8D3 /* MotionManager390.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MotionManager390.h; sourceTree = "<group>"; };
+		938E628D17E7E40E000ED8D3 /* MotionManager390.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MotionManager390.m; sourceTree = "<group>"; };
+		93A1FEF417E919330085B15B /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
 		93B38BE717E5E785002F12B0 /* InfoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InfoViewController.h; sourceTree = "<group>"; };
 		93B38BE817E5E785002F12B0 /* InfoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InfoViewController.m; sourceTree = "<group>"; };
 		93C9D1B817E371A600B6C374 /* CoreMotion.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMotion.framework; path = System/Library/Frameworks/CoreMotion.framework; sourceTree = SDKROOT; };
-		CEDC9D7F17E7AD4E002F186E /* ResourcesDiscussionsAndLinks */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = ResourcesDiscussionsAndLinks; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -77,7 +78,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				936CD66C17E36F4600B69E9B /* CoreMotion.framework in Frameworks */,
+				93A1FEF517E919330085B15B /* MessageUI.framework in Frameworks */,
 				936CD62E17E36D3900B69E9B /* UIKit.framework in Frameworks */,
 				936CD63017E36D3900B69E9B /* Foundation.framework in Frameworks */,
 				936CD63217E36D3900B69E9B /* CoreGraphics.framework in Frameworks */,
@@ -102,7 +103,6 @@
 		936CD62117E36D3900B69E9B = {
 			isa = PBXGroup;
 			children = (
-				CEDC9D7F17E7AD4E002F186E /* ResourcesDiscussionsAndLinks */,
 				936CD63317E36D3900B69E9B /* CMPSCI390MB Accelerometer */,
 				936CD65A17E36D3900B69E9B /* CMPSCI390MB AccelerometerTests */,
 				936CD62C17E36D3900B69E9B /* Frameworks */,
@@ -122,6 +122,7 @@
 		936CD62C17E36D3900B69E9B /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				93A1FEF417E919330085B15B /* MessageUI.framework */,
 				93C9D1B817E371A600B6C374 /* CoreMotion.framework */,
 				936CD62D17E36D3900B69E9B /* UIKit.framework */,
 				936CD62F17E36D3900B69E9B /* Foundation.framework */,
@@ -142,6 +143,8 @@
 				936CD64817E36D3900B69E9B /* MainStoryboard_iPad.storyboard */,
 				936CD64B17E36D3900B69E9B /* ViewController.h */,
 				936CD64C17E36D3900B69E9B /* ViewController.m */,
+				938E628C17E7E40E000ED8D3 /* MotionManager390.h */,
+				938E628D17E7E40E000ED8D3 /* MotionManager390.m */,
 				936CD63417E36D3900B69E9B /* Supporting Files */,
 			);
 			path = "CMPSCI390MB Accelerometer";
@@ -164,7 +167,6 @@
 		936CD65A17E36D3900B69E9B /* CMPSCI390MB AccelerometerTests */ = {
 			isa = PBXGroup;
 			children = (
-				936CD66B17E36F4600B69E9B /* CoreMotion.framework */,
 				936CD66017E36D3900B69E9B /* CMPSCI390MB_AccelerometerTests.h */,
 				936CD66117E36D3900B69E9B /* CMPSCI390MB_AccelerometerTests.m */,
 				936CD65B17E36D3900B69E9B /* Supporting Files */,
@@ -258,7 +260,6 @@
 				936CD64417E36D3900B69E9B /* Default-568h@2x.png in Resources */,
 				936CD64717E36D3900B69E9B /* MainStoryboard_iPhone.storyboard in Resources */,
 				936CD64A17E36D3900B69E9B /* MainStoryboard_iPad.storyboard in Resources */,
-				CEDC9D8017E7AD4E002F186E /* ResourcesDiscussionsAndLinks in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -297,6 +298,7 @@
 				936CD63E17E36D3900B69E9B /* AppDelegate.m in Sources */,
 				936CD64D17E36D3900B69E9B /* ViewController.m in Sources */,
 				93B38BE917E5E785002F12B0 /* InfoViewController.m in Sources */,
+				938E628E17E7E40E000ED8D3 /* MotionManager390.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

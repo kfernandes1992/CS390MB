@@ -8,17 +8,20 @@
 
 #import <UIKit/UIKit.h>
 #import <CoreMotion/CoreMotion.h>
+#import "MotionManager390.h"
+#import <MessageUI/MessageUI.h>
 
-@interface ViewController : UIViewController <UIAccelerometerDelegate>
+@interface ViewController : UIViewController <UIAccelerometerDelegate, UIActionSheetDelegate, MFMailComposeViewControllerDelegate>
 
 -(IBAction)toggle;
 
 @property(nonatomic, assign) BOOL on;
-@property(nonatomic, weak) IBOutlet UILabel *xLabel;
-@property(nonatomic, weak) IBOutlet UILabel *yLabel;
-@property(nonatomic, weak) IBOutlet UILabel *zLabel;
-@property(nonatomic, weak) IBOutlet UIButton *toggleButton;
-//@property(nonatomic, weak) UIAccelerometer *accelerometer;
+@property(nonatomic, strong) NSMutableArray *logArray;
+@property(nonatomic, strong) IBOutlet UILabel *xLabel;
+@property(nonatomic, strong) IBOutlet UILabel *yLabel;
+@property(nonatomic, strong) IBOutlet UILabel *zLabel;
+@property(nonatomic, strong) IBOutlet UIButton *toggleButton;
+//@property(nonatomic, strong) MotionManager390 *manager;
 
 @property(strong, nonatomic) CMMotionManager *motionManager;
 
