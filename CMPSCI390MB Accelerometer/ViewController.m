@@ -28,7 +28,6 @@
 static const NSTimeInterval accelerationInterval= .1;
 
 -(void)toggle{
-    NSLog(@"performed toggle");
     on = !on;
     if(on){
         
@@ -91,34 +90,31 @@ static const NSTimeInterval accelerationInterval= .1;
     NSLog(@"%@", writeString);
     
     [writeString writeToFile:filePath atomically:TRUE encoding:NSUTF8StringEncoding error:NULL];
-    
-//    MFMailComposeViewController *picker = [[MFMailComposeViewController alloc] init];
-//    picker.mailComposeDelegate = self;
-//
-//    [picker setSubject:@"Hello from California!"];
-//    
-//    // Set up recipients
-////    NSArray *toRecipients = [NSArray arrayWithObject:@"erisinger@umass.com"];
-////    NSArray *ccRecipients = [NSArray arrayWithObjects:nil];
-////    NSArray *bccRecipients = [NSArray arrayWithObject:nil];
-////    
-////    [picker setToRecipients:toRecipients];
-////    [picker setCcRecipients:ccRecipients];
-////    [picker setBccRecipients:bccRecipients];
-//    
-//    // Attach an image to the email
-////    NSString *path = [[NSBundle mainBundle] pathForResource:@"accelerometerlog.txt" ofType:@"txt"];
-////    NSData *myData = [NSData dataWithContentsOfFile:filePath];
-////    [picker addAttachmentData:myData mimeType:@"txt" fileName:@"accelerometerlog.txt"];
-//    
-//    // Fill out the email body text
-////    NSString *emailBody = @"It is raining in sunny California!";
-//    [picker setMessageBody:writeString isHTML:NO];
-//    
-//    [self presentViewController:picker animated:YES completion:NULL];
-    
 }
 
+
+-(IBAction)emailFile:(id)sender withFilePath:(NSString*) filePath{
+    NSLog(@"Email File Pressed");
+    
+    NSString *emailTitle = @"Great Photo and Doc";
+    NSString *messageBody = @"Hey, check this out!";
+    NSArray *toRecipents = [NSArray arrayWithObject:@"kevinf@umass.edu"];
+    
+    MFMailComposeViewController *mc = [[MFMailComposeViewController alloc] init];
+    mc.mailComposeDelegate = self;
+    [mc setSubject:emailTitle];
+    [mc setMessageBody:messageBody isHTML:NO];
+    [mc setToRecipients:toRecipents];
+    
+   // Get the resource path and read the file using NSData
+    NSString *filename=@"accelerometerlog.csv";
+    NSString *mimeType=@"text/csv";
+    
+    NSData *fileData = [NSData dataWithContentsOfFile:filePath];
+    
+    [mc addAttachmentData:fileData mimeType:mimeType fileName:filename];
+    
+}
 //- (void)mailComposeController:(MFMailComposeViewController*)controller
 //          didFinishWithResult:(MFMailComposeResult)result error:(NSError*)error
 //{
@@ -145,6 +141,10 @@ static const NSTimeInterval accelerationInterval= .1;
 
 //    [self dismissViewControllerAnimated:YES completion:NULL];
 //}
+
+- (void)mailComposeController:(MFMailComposeViewController*)controller didFinishWithResult:(MFMailComposeResult)result error:(NSError*)error{
+    NSLog(@"Email Sent");
+};
 
 -(BOOL)shouldAutorotate{
     return NO;
