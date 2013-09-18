@@ -88,18 +88,19 @@ static const NSTimeInterval accelerationInterval= .1;
         [writeString appendString: s];
     }
     NSLog(@"%@", writeString);
+    NSString *finalString= [[NSString alloc] initWithString:writeString];
     
     [writeString writeToFile:filePath atomically:TRUE encoding:NSUTF8StringEncoding error:NULL];
     
-    [self emailFileWithFilePath:filePath];
+    [self emailFileWithFilePath:filePath withMessageBody:finalString];
 }
 
 
--(IBAction)emailFileWithFilePath:(NSString*) filePath{
+-(IBAction)emailFileWithFilePath:(NSString*) filePath withMessageBody: (NSString *) mbody{
     NSLog(@"Email File Run");
     
     NSString *emailTitle = @"Accelerometer Data CSV";
-    NSString *messageBody = @"Hey, check this out!";
+    NSString *messageBody = mbody;
     NSArray *toRecipents = [NSArray arrayWithObject:@"kevinf@umass.edu"];
     
     MFMailComposeViewController *mc = [[MFMailComposeViewController alloc] init];
@@ -114,7 +115,7 @@ static const NSTimeInterval accelerationInterval= .1;
     
     NSData *fileData = [NSData dataWithContentsOfFile:filePath];
     
-    [mc addAttachmentData:fileData mimeType:mimeType fileName:filename];
+  //  [mc addAttachmentData:fileData mimeType:mimeType fileName:filename];
     [self presentViewController:mc animated:TRUE completion:NULL];
 }
 
