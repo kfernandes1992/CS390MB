@@ -20,7 +20,6 @@
 @property(nonatomic, strong) IBOutlet UILabel *yLabel;
 @property(nonatomic, strong) IBOutlet UILabel *zLabel;
 @property(nonatomic, strong) IBOutlet UIButton *toggleButton;
-//@property(nonatomic, strong) MotionManager390 *manager;
 @property (weak, nonatomic) IBOutlet UIButton *emailButton;
 
 @property(strong, nonatomic) CMMotionManager *motionManager;
