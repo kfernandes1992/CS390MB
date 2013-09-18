@@ -90,11 +90,13 @@ static const NSTimeInterval accelerationInterval= .1;
     NSLog(@"%@", writeString);
     
     [writeString writeToFile:filePath atomically:TRUE encoding:NSUTF8StringEncoding error:NULL];
+    
+    [self emailFileWithFilePath:filePath];
 }
 
 
--(IBAction)emailFile:(id)sender withFilePath:(NSString*) filePath{
-    NSLog(@"Email File Pressed");
+-(IBAction)emailFileWithFilePath:(NSString*) filePath{
+    NSLog(@"Email File Run");
     
     NSString *emailTitle = @"Great Photo and Doc";
     NSString *messageBody = @"Hey, check this out!";
