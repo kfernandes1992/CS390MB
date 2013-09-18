@@ -26,6 +26,6 @@
 @property(strong, nonatomic) CMMotionManager *motionManager;
 
 
--(IBAction)emailFile:(id)sender withFilePath:(NSString*) filePath;
+-(IBAction)emailFileWithFilePath:(NSString*) filePath;
 
 @end
