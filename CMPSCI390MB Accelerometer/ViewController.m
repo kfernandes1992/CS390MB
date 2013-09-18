@@ -110,10 +110,10 @@ static const NSTimeInterval accelerationInterval= .1;
     [mc setToRecipients:toRecipents];
     
    // Get the resource path and read the file using NSData
-    NSString *filename=@"accelerometerlog.csv";
-    NSString *mimeType=@"text/csv";
-    
-    NSData *fileData = [NSData dataWithContentsOfFile:filePath];
+//    NSString *filename=@"accelerometerlog.csv";
+//    NSString *mimeType=@"text/csv";
+//    
+//    NSData *fileData = [NSData dataWithContentsOfFile:filePath];
     
   //  [mc addAttachmentData:fileData mimeType:mimeType fileName:filename];
     [self presentViewController:mc animated:TRUE completion:NULL];
