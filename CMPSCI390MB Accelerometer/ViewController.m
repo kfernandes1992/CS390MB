@@ -98,7 +98,7 @@ static const NSTimeInterval accelerationInterval= .1;
 -(IBAction)emailFileWithFilePath:(NSString*) filePath{
     NSLog(@"Email File Run");
     
-    NSString *emailTitle = @"Great Photo and Doc";
+    NSString *emailTitle = @"Accelerometer Data CSV";
     NSString *messageBody = @"Hey, check this out!";
     NSArray *toRecipents = [NSArray arrayWithObject:@"kevinf@umass.edu"];
     
@@ -119,7 +119,7 @@ static const NSTimeInterval accelerationInterval= .1;
 }
 
 - (void)mailComposeController:(MFMailComposeViewController*)controller didFinishWithResult:(MFMailComposeResult)result error:(NSError*)error{
-    NSLog(@"Email Sent");
+    [self dismissViewControllerAnimated:TRUE completion:NULL];
 };
 
 -(BOOL)shouldAutorotate{
