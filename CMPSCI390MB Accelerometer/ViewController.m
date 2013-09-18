@@ -115,7 +115,7 @@ static const NSTimeInterval accelerationInterval= .1;
     NSData *fileData = [NSData dataWithContentsOfFile:filePath];
     
     [mc addAttachmentData:fileData mimeType:mimeType fileName:filename];
-    
+    [self presentViewController:mc animated:TRUE completion:NULL];
 }
 
 - (void)mailComposeController:(MFMailComposeViewController*)controller didFinishWithResult:(MFMailComposeResult)result error:(NSError*)error{
