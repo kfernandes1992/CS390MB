@@ -117,32 +117,6 @@ static const NSTimeInterval accelerationInterval= .1;
     [mc addAttachmentData:fileData mimeType:mimeType fileName:filename];
     
 }
-//- (void)mailComposeController:(MFMailComposeViewController*)controller
-//          didFinishWithResult:(MFMailComposeResult)result error:(NSError*)error
-//{
-//    self.feedbackMsg.hidden = NO;
-//    // Notifies users about errors associated with the interface
-//    switch (result)
-//    {
-//        case MFMailComposeResultCancelled:
-//            self.feedbackMsg.text = @"Result: Mail sending canceled";
-//            break;
-//        case MFMailComposeResultSaved:
-//            self.feedbackMsg.text = @"Result: Mail saved";
-//            break;
-//        case MFMailComposeResultSent:
-//            self.feedbackMsg.text = @"Result: Mail sent";
-//            break;
-//        case MFMailComposeResultFailed:
-//            self.feedbackMsg.text = @"Result: Mail sending failed";
-//            break;
-//        default:
-//            self.feedbackMsg.text = @"Result: Mail not sent";
-//            break;
-//    }
-
-//    [self dismissViewControllerAnimated:YES completion:NULL];
-//}
 
 - (void)mailComposeController:(MFMailComposeViewController*)controller didFinishWithResult:(MFMailComposeResult)result error:(NSError*)error{
     NSLog(@"Email Sent");

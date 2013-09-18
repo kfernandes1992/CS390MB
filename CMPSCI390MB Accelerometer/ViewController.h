@@ -8,7 +8,6 @@
 
 #import <UIKit/UIKit.h>
 #import <CoreMotion/CoreMotion.h>
-#import "MotionManager390.h"
 #import <MessageUI/MessageUI.h>
 
 @interface ViewController : UIViewController <UIAccelerometerDelegate, UIActionSheetDelegate, MFMailComposeViewControllerDelegate>
