@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="2.0" toolsVersion="3084" systemVersion="12E55" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="2">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="2.0" toolsVersion="3084" systemVersion="12F37" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="2">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="2083"/>
     </dependencies>
@@ -21,14 +21,14 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Y" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="roQ-bJ-zJe">
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="110" id="MdH-m0-fCO"/>
-                                </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="48"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Z" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lE3-RE-tN9">
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="110" id="c5P-SG-AjJ"/>
+                                </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="48"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
@@ -37,6 +37,7 @@
                                 <color key="backgroundColor" red="0.94650135869565222" green="0.94650135869565222" blue="0.94650135869565222" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="54" id="NxU-vk-gaU"/>
+                                    <constraint firstAttribute="width" constant="146" id="sBD-mC-cpo"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="32"/>
                                 <state key="normal" title="Start">
@@ -63,65 +64,26 @@
                                     <segue destination="dFz-K3-yVS" kind="modal" modalTransitionStyle="flipHorizontal" id="dgM-DC-Jqx"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="M0L-sK-jSx">
-                                <color key="backgroundColor" red="0.94650135869999996" green="0.94650135869999996" blue="0.94650135869999996" alpha="1" colorSpace="calibratedRGB"/>
-                                <fontDescription key="fontDescription" type="boldSystem" pointSize="32"/>
-                                <state key="normal" title="Email">
-                                    <color key="titleColor" red="0.34916355300000002" green="0.34916355300000002" blue="0.34916355300000002" alpha="1" colorSpace="calibratedRGB"/>
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <state key="highlighted">
-                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <action selector="toggle" destination="2" eventType="touchUpInside" id="RPc-9T-6cw"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OSW-rJ-KHW">
-                                <color key="backgroundColor" red="0.94650135869999996" green="0.94650135869999996" blue="0.94650135869999996" alpha="1" colorSpace="calibratedRGB"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="146" id="7Xf-h1-O4r"/>
-                                    <constraint firstAttribute="height" constant="54" id="iT8-Tq-NMc"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" type="boldSystem" pointSize="32"/>
-                                <state key="normal" title="Email">
-                                    <color key="titleColor" red="0.34916355300000002" green="0.34916355300000002" blue="0.34916355300000002" alpha="1" colorSpace="calibratedRGB"/>
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <state key="highlighted">
-                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                            </button>
                         </subviews>
                         <color key="backgroundColor" red="0.34916355300000002" green="0.34916355300000002" blue="0.34916355300000002" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstItem="lE3-RE-tN9" firstAttribute="trailing" secondItem="3" secondAttribute="trailing" type="default" id="274-GP-DT5"/>
-                            <constraint firstItem="OSW-rJ-KHW" firstAttribute="leading" secondItem="xfA-rU-PSl" secondAttribute="leading" type="default" id="3pk-8r-1Sy"/>
-                            <constraint firstItem="OSW-rJ-KHW" firstAttribute="baseline" secondItem="M0L-sK-jSx" secondAttribute="baseline" type="default" id="9aG-72-5X2"/>
-                            <constraint firstItem="M0L-sK-jSx" firstAttribute="trailing" secondItem="xfA-rU-PSl" secondAttribute="trailing" type="default" id="A3B-il-btU"/>
+                            <constraint firstItem="lE3-RE-tN9" firstAttribute="top" secondItem="3" secondAttribute="top" constant="236" id="8mC-On-mul"/>
                             <constraint firstItem="lE3-RE-tN9" firstAttribute="top" secondItem="roQ-bJ-zJe" secondAttribute="bottom" constant="8" symbolic="YES" type="default" id="A95-EW-PRs"/>
                             <constraint firstItem="ond-xN-Gne" firstAttribute="top" secondItem="3" secondAttribute="top" type="default" id="CWZ-QY-YgD"/>
                             <constraint firstItem="roQ-bJ-zJe" firstAttribute="top" secondItem="ond-xN-Gne" secondAttribute="bottom" constant="8" symbolic="YES" type="default" id="F9E-YT-e1N"/>
-                            <constraint firstItem="OSW-rJ-KHW" firstAttribute="leading" secondItem="3" secondAttribute="leading" constant="82" id="I8d-bw-KWE"/>
                             <constraint firstItem="roQ-bJ-zJe" firstAttribute="leading" secondItem="3" secondAttribute="leading" type="default" id="Kvg-Se-X5R"/>
+                            <constraint firstItem="xfA-rU-PSl" firstAttribute="centerX" secondItem="lE3-RE-tN9" secondAttribute="centerX" type="default" id="LDe-Bt-RjW"/>
+                            <constraint firstAttribute="bottom" secondItem="xfA-rU-PSl" secondAttribute="bottom" constant="43" id="LdJ-6V-LDp"/>
                             <constraint firstAttribute="bottom" secondItem="JRN-Tg-83b" secondAttribute="bottom" constant="20" symbolic="YES" type="default" id="NdR-uM-mT7"/>
-                            <constraint firstAttribute="bottom" secondItem="M0L-sK-jSx" secondAttribute="bottom" constant="64" id="PEu-rd-Xec"/>
                             <constraint firstItem="roQ-bJ-zJe" firstAttribute="trailing" secondItem="3" secondAttribute="trailing" type="default" id="Ukg-ib-rXg"/>
-                            <constraint firstItem="xfA-rU-PSl" firstAttribute="top" secondItem="lE3-RE-tN9" secondAttribute="bottom" constant="8" symbolic="YES" type="default" id="V1d-TW-ZoJ"/>
                             <constraint firstItem="ond-xN-Gne" firstAttribute="leading" secondItem="3" secondAttribute="leading" type="default" id="X6h-pl-Brj"/>
                             <constraint firstAttribute="trailing" secondItem="JRN-Tg-83b" secondAttribute="trailing" constant="20" symbolic="YES" type="default" id="bp4-EK-T8H"/>
-                            <constraint firstItem="OSW-rJ-KHW" firstAttribute="leading" secondItem="M0L-sK-jSx" secondAttribute="leading" type="default" id="bxH-QG-B3g"/>
-                            <constraint firstItem="OSW-rJ-KHW" firstAttribute="top" secondItem="M0L-sK-jSx" secondAttribute="top" type="default" id="cAA-7w-Kfr"/>
-                            <constraint firstItem="M0L-sK-jSx" firstAttribute="baseline" secondItem="xfA-rU-PSl" secondAttribute="baseline" type="default" id="cP7-Kb-nv7"/>
-                            <constraint firstItem="OSW-rJ-KHW" firstAttribute="bottom" secondItem="M0L-sK-jSx" secondAttribute="bottom" type="default" id="g9A-A3-IL6"/>
                             <constraint firstItem="ond-xN-Gne" firstAttribute="trailing" secondItem="3" secondAttribute="trailing" type="default" id="hOL-x6-I7r"/>
-                            <constraint firstItem="OSW-rJ-KHW" firstAttribute="trailing" secondItem="M0L-sK-jSx" secondAttribute="trailing" type="default" id="nDo-Og-o3R"/>
-                            <constraint firstAttribute="bottom" secondItem="xfA-rU-PSl" secondAttribute="bottom" constant="140" id="vQY-Zv-PPs"/>
                             <constraint firstItem="lE3-RE-tN9" firstAttribute="leading" secondItem="3" secondAttribute="leading" type="default" id="xHz-Nw-zVE"/>
                         </constraints>
                     </view>
                     <connections>
-                        <outlet property="emailButton" destination="OSW-rJ-KHW" id="Eow-88-axB"/>
                         <outlet property="toggleButton" destination="xfA-rU-PSl" id="RYW-4d-ABh"/>
                         <outlet property="xLabel" destination="ond-xN-Gne" id="av4-vL-L8v"/>
                         <outlet property="yLabel" destination="roQ-bJ-zJe" id="tuu-lE-sQU"/>
