@@ -53,69 +53,79 @@ static const NSTimeInterval accelerationInterval= .1;
                                  yVal,
                                  zVal]];
             
-//            NSLog(@"Logged %f, %@, %@, %@", secondsSince1970, xVal, yVal, zVal);
+            
+            //periodically log and refresh array. May need a new thread
+            if([logArray count] >=1000){
+               [self arrayToFile:logArray]; 
+            }
+            
         }];
     }
     
     else{
         //reset labels, kill updates
+        [motionManager stopAccelerometerUpdates];
         [toggleButton setTitle:@"Start" forState:UIControlStateNormal];
         xLabel.text = @"X";
         yLabel.text = @"Y";
         zLabel.text = @"Z";
         
-        [motionManager stopAccelerometerUpdates];
+
         
-        //do something with logged data
-//        for(NSString *s in logArray){
-//            NSLog(@"%@", s);
-//            //[xLabel setText:[[NSString alloc] initWithString: s]];
-//        }
+        //write array to file
+        
         if ([logArray count] > 0) {
             [self arrayToFile:logArray];
         }
+        
+        [self emailFile];
     }
 }
 
 -(void)arrayToFile:(NSMutableArray *) log{
     
+    
+    // create a filePath with the name accelerometerlog.csv
     NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
     NSString *documentsDirectory = [paths objectAtIndex:0];
-    NSString *filePath = [documentsDirectory stringByAppendingPathComponent:@"accelerometerlog.csv"];
+    NSString *fp = [documentsDirectory stringByAppendingPathComponent:@"accelerometerlog.csv"];
+    NSURL *filePath= [[NSURL alloc] initWithString:fp];
     
+    
+    //from the array of strings, create one big string
     NSMutableString *writeString = [NSMutableString stringWithCapacity:0];
     for(NSMutableString *s in log){
         [writeString appendString: s];
     }
-    NSLog(@"%@", writeString);
-    NSString *finalString= [[NSString alloc] initWithString:writeString];
-    
-    [writeString writeToFile:filePath atomically:TRUE encoding:NSUTF8StringEncoding error:NULL];
-    
-    [self emailFileWithFilePath:filePath withMessageBody:finalString];
+
+    [writeString writeToURL:filePath atomically:FALSE encoding:NSUTF8StringEncoding error:NULL];
 }
 
 
--(IBAction)emailFileWithFilePath:(NSString*) filePath withMessageBody: (NSString *) mbody{
-    NSLog(@"Email File Run");
+-(IBAction)emailFile{
     
-    NSString *emailTitle = @"Accelerometer Data CSV";
-    NSString *messageBody = mbody;
+    //find the accelerometer file
+    NSBundle *fileBundle= [[NSBundle alloc] init];
+    NSURL *filePath = [[NSURL alloc] initFileURLWithPath:[fileBundle pathForResource:@"accelerometerlog" ofType:@".csv"]];
+    NSLog(@"Filepath: %@", filePath);
+    
+    //get the data from the file
+    
+    NSData *fileData = [NSData dataWithContentsOfURL:filePath];
+    
+    //set email parameters
+    NSString *emailTitle = @"Accelerometer Data .csv File";
     NSArray *toRecipents = [NSArray arrayWithObject:@"kevinf@umass.edu"];
     
+    
+    //create email VC
     MFMailComposeViewController *mc = [[MFMailComposeViewController alloc] init];
     mc.mailComposeDelegate = self;
     [mc setSubject:emailTitle];
-    [mc setMessageBody:messageBody isHTML:NO];
     [mc setToRecipients:toRecipents];
+    [mc addAttachmentData:fileData mimeType:@"text/html" fileName:@"Accelerometer Data .csv File"];
     
-   // Get the resource path and read the file using NSData
-    NSString *filename=@"accelerometerlog.csv";
-    NSString *mimeType=@"text/csv";
-    
-    NSData *fileData = [NSData dataWithContentsOfFile:filePath];
-    
-  //  [mc addAttachmentData:fileData mimeType:mimeType fileName:filename];
+    //present VC
     [self presentViewController:mc animated:TRUE completion:NULL];
 }
 
