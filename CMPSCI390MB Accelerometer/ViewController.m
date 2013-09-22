@@ -23,7 +23,6 @@
 @synthesize zLabel;
 @synthesize toggleButton;
 @synthesize motionManager;
-//@synthesize manager;
 
 static const NSTimeInterval accelerationInterval= .1;
 
@@ -97,6 +96,8 @@ static const NSTimeInterval accelerationInterval= .1;
     for(NSMutableString *s in log){
         [writeString appendString: s];
     }
+    
+///TO DO: ensure that file is not being overwritten every 1000th time
 
     [writeString writeToURL:filePath atomically:FALSE encoding:NSUTF8StringEncoding error:NULL];
 }
@@ -106,7 +107,9 @@ static const NSTimeInterval accelerationInterval= .1;
     
     //find the accelerometer file
     NSBundle *fileBundle= [[NSBundle alloc] init];
-    NSURL *filePath = [[NSURL alloc] initFileURLWithPath:[fileBundle pathForResource:@"accelerometerlog" ofType:@".csv"]];
+    NSString *fp=[fileBundle pathForResource:@"accelerometerlog" ofType:@".csv"];
+    NSLog(@"fp: %@", fp);
+    NSURL *filePath = [[NSURL alloc] initFileURLWithPath:fp];
     NSLog(@"Filepath: %@", filePath);
     
     //get the data from the file
