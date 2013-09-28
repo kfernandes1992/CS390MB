@@ -12,7 +12,9 @@
 
 @interface ViewController : UIViewController <UIAccelerometerDelegate, UIActionSheetDelegate, MFMailComposeViewControllerDelegate>
 
+-(IBAction)buttonPress;
 -(IBAction)toggle;
+
 
 @property(nonatomic, assign) BOOL on;
 @property(nonatomic, strong) NSMutableArray *logArray;
@@ -20,12 +22,12 @@
 @property(nonatomic, strong) IBOutlet UILabel *yLabel;
 @property(nonatomic, strong) IBOutlet UILabel *zLabel;
 @property(nonatomic, strong) IBOutlet UIButton *toggleButton;
-//@property(nonatomic, strong) MotionManager390 *manager;
 @property (weak, nonatomic) IBOutlet UIButton *emailButton;
 
 @property(strong, nonatomic) CMMotionManager *motionManager;
+@property BOOL hasBeenPressed;
 
 
--(IBAction)emailFile:(id)sender withFilePath:(NSString*) filePath;
+-(IBAction)emailFile;
 
 @end

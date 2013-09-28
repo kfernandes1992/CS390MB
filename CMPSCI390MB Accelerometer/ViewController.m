@@ -23,9 +23,14 @@
 @synthesize zLabel;
 @synthesize toggleButton;
 @synthesize motionManager;
-//@synthesize manager;
+@synthesize hasBeenPressed;
 
 static const NSTimeInterval accelerationInterval= .1;
+
+-(IBAction)buttonPress{
+    hasBeenPressed = TRUE;
+    [self toggle];
+}
 
 -(void)toggle{
     on = !on;
@@ -53,97 +58,88 @@ static const NSTimeInterval accelerationInterval= .1;
                                  yVal,
                                  zVal]];
             
-//            NSLog(@"Logged %f, %@, %@, %@", secondsSince1970, xVal, yVal, zVal);
+            
+            //periodically log and refresh array. May need a new thread
+            if([logArray count] >=1000){
+               [self arrayToFile:logArray]; 
+            }
+            
         }];
     }
     
     else{
         //reset labels, kill updates
+        [motionManager stopAccelerometerUpdates];
         [toggleButton setTitle:@"Start" forState:UIControlStateNormal];
         xLabel.text = @"X";
         yLabel.text = @"Y";
         zLabel.text = @"Z";
         
-        [motionManager stopAccelerometerUpdates];
+
         
-        //do something with logged data
-//        for(NSString *s in logArray){
-//            NSLog(@"%@", s);
-//            //[xLabel setText:[[NSString alloc] initWithString: s]];
-//        }
+        //write array to file
+        
         if ([logArray count] > 0) {
             [self arrayToFile:logArray];
         }
+        
+        [self emailFile];
     }
 }
 
 -(void)arrayToFile:(NSMutableArray *) log{
     
+    
+    // create a filePath with the name accelerometerlog.csv
     NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
     NSString *documentsDirectory = [paths objectAtIndex:0];
-    NSString *filePath = [documentsDirectory stringByAppendingPathComponent:@"accelerometerlog.csv"];
+    NSString *fp = [documentsDirectory stringByAppendingPathComponent:@"accelerometerlog.csv"];
+    NSURL *filePath= [[NSURL alloc] initWithString:fp];
     
+    
+    //from the array of strings, create one big string
     NSMutableString *writeString = [NSMutableString stringWithCapacity:0];
     for(NSMutableString *s in log){
         [writeString appendString: s];
     }
-    NSLog(@"%@", writeString);
     
-    [writeString writeToFile:filePath atomically:TRUE encoding:NSUTF8StringEncoding error:NULL];
+///TO DO: ensure that file is not being overwritten every 1000th time
+
+    [writeString writeToURL:filePath atomically:FALSE encoding:NSUTF8StringEncoding error:NULL];
 }
 
 
--(IBAction)emailFile:(id)sender withFilePath:(NSString*) filePath{
-    NSLog(@"Email File Pressed");
+-(IBAction)emailFile{
     
-    NSString *emailTitle = @"Great Photo and Doc";
-    NSString *messageBody = @"Hey, check this out!";
+    //find the accelerometer file
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    NSString *documentsDirectory = [paths objectAtIndex:0];
+    NSString *fp = [documentsDirectory stringByAppendingPathComponent:@"accelerometerlog.csv"];
+    NSURL *filePath= [[NSURL alloc] initWithString:fp];
+
+    
+    //get the data from the file
+    
+    NSData *fileData = [NSData dataWithContentsOfURL:filePath];
+    
+    //set email parameters
+    NSString *emailTitle = @"Accelerometer Data .csv File";
     NSArray *toRecipents = [NSArray arrayWithObject:@"kevinf@umass.edu"];
     
+    
+    //create email VC
     MFMailComposeViewController *mc = [[MFMailComposeViewController alloc] init];
     mc.mailComposeDelegate = self;
     [mc setSubject:emailTitle];
-    [mc setMessageBody:messageBody isHTML:NO];
     [mc setToRecipients:toRecipents];
+    [mc addAttachmentData:fileData mimeType:@"text/html" fileName:@"Accelerometer Data .csv File"];
     
-   // Get the resource path and read the file using NSData
-    NSString *filename=@"accelerometerlog.csv";
-    NSString *mimeType=@"text/csv";
-    
-    NSData *fileData = [NSData dataWithContentsOfFile:filePath];
-    
-    [mc addAttachmentData:fileData mimeType:mimeType fileName:filename];
-    
+    //present VC
+    [self presentViewController:mc animated:TRUE completion:NULL];
 }
-//- (void)mailComposeController:(MFMailComposeViewController*)controller
-//          didFinishWithResult:(MFMailComposeResult)result error:(NSError*)error
-//{
-//    self.feedbackMsg.hidden = NO;
-//    // Notifies users about errors associated with the interface
-//    switch (result)
-//    {
-//        case MFMailComposeResultCancelled:
-//            self.feedbackMsg.text = @"Result: Mail sending canceled";
-//            break;
-//        case MFMailComposeResultSaved:
-//            self.feedbackMsg.text = @"Result: Mail saved";
-//            break;
-//        case MFMailComposeResultSent:
-//            self.feedbackMsg.text = @"Result: Mail sent";
-//            break;
-//        case MFMailComposeResultFailed:
-//            self.feedbackMsg.text = @"Result: Mail sending failed";
-//            break;
-//        default:
-//            self.feedbackMsg.text = @"Result: Mail not sent";
-//            break;
-//    }
-
-//    [self dismissViewControllerAnimated:YES completion:NULL];
-//}
 
 - (void)mailComposeController:(MFMailComposeViewController*)controller didFinishWithResult:(MFMailComposeResult)result error:(NSError*)error{
-    NSLog(@"Email Sent");
+    [self dismissViewControllerAnimated:TRUE completion:NULL];
 };
 
 -(BOOL)shouldAutorotate{
@@ -156,6 +152,7 @@ static const NSTimeInterval accelerationInterval= .1;
 	// Do any additional setup after loading the view, typically from a nib.
     
     on = TRUE;
+    hasBeenPressed = FALSE;
     logArray = [[NSMutableArray alloc] init];
     motionManager= [[CMMotionManager alloc]init];
     
