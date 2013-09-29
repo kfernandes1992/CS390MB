@@ -10,6 +10,7 @@
 #import <CoreMotion/CoreMotion.h>
 #import <MessageUI/MessageUI.h>
 #import "KMESmoothingFilter.h"
+#import "StepDetector.h"
 
 @interface ViewController : UIViewController <UIAccelerometerDelegate, UIActionSheetDelegate, MFMailComposeViewControllerDelegate>
 
@@ -25,6 +26,7 @@
 @property(nonatomic, strong) IBOutlet UIButton *toggleButton;
 @property (weak, nonatomic) IBOutlet UILabel *stepCounterLabel;
 @property (strong, nonatomic) KMESmoothingFilter *smoothingFilter;
+@property (strong, nonatomic) StepDetector *stepDetector;
 
 @property(strong, nonatomic) CMMotionManager *motionManager;
 @property BOOL hasBeenPressed;
