@@ -26,6 +26,7 @@
 @synthesize hasBeenPressed;
 @synthesize stepCounterLabel;
 @synthesize smoothingFilter;
+@synthesize stepDetector;
 
 static const NSTimeInterval accelerationInterval= .1;
 
@@ -54,6 +55,21 @@ static const NSTimeInterval accelerationInterval= .1;
             [zLabel setText: zVal];
 
         
+            //filter out noise
+            smoothingFilter=[[KMESmoothingFilter alloc]init];
+            NSNumber *numX= [[NSNumber alloc] initWithInt:[xVal intValue]];
+            NSNumber *numY= [[NSNumber alloc]initWithInt:[yVal intValue]];
+            NSNumber *numZ=[[NSNumber alloc] initWithInt:[zVal intValue]];
+            NSArray *filteredData= [smoothingFilter getFilteredValuesOfXValue:numX ofYValue:numY ofZValue:numZ];
+            
+            //detect steps
+            
+            stepDetector=[[StepDetector alloc] init];
+            [stepDetector detectStepsOnValues:filteredData];
+            
+            
+            //update UI
+            
             /*//log values
             [logArray addObject:[[NSString alloc] initWithFormat:@"%f,%@,%@,%@\n",
                                  secondsSince1970,

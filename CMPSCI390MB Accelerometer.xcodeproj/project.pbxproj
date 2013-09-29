@@ -29,6 +29,7 @@
 		93B38BE917E5E785002F12B0 /* InfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 93B38BE817E5E785002F12B0 /* InfoViewController.m */; };
 		93C9D1B917E371A600B6C374 /* CoreMotion.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 93C9D1B817E371A600B6C374 /* CoreMotion.framework */; };
 		93C9D1BA17E371A600B6C374 /* CoreMotion.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 93C9D1B817E371A600B6C374 /* CoreMotion.framework */; };
+		CE8B867C17F8CAB0006DDA51 /* StepDetector.m in Sources */ = {isa = PBXBuildFile; fileRef = CE8B867B17F8CAB0006DDA51 /* StepDetector.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -71,6 +72,8 @@
 		93B38BE717E5E785002F12B0 /* InfoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InfoViewController.h; sourceTree = "<group>"; };
 		93B38BE817E5E785002F12B0 /* InfoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InfoViewController.m; sourceTree = "<group>"; };
 		93C9D1B817E371A600B6C374 /* CoreMotion.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMotion.framework; path = System/Library/Frameworks/CoreMotion.framework; sourceTree = SDKROOT; };
+		CE8B867A17F8CAB0006DDA51 /* StepDetector.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StepDetector.h; sourceTree = "<group>"; };
+		CE8B867B17F8CAB0006DDA51 /* StepDetector.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StepDetector.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -145,6 +148,8 @@
 				936CD64817E36D3900B69E9B /* MainStoryboard_iPad.storyboard */,
 				936CD64B17E36D3900B69E9B /* ViewController.h */,
 				936CD64C17E36D3900B69E9B /* ViewController.m */,
+				CE8B867A17F8CAB0006DDA51 /* StepDetector.h */,
+				CE8B867B17F8CAB0006DDA51 /* StepDetector.m */,
 				936CD63417E36D3900B69E9B /* Supporting Files */,
 			);
 			path = "CMPSCI390MB Accelerometer";
@@ -153,9 +158,9 @@
 		936CD63417E36D3900B69E9B /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				936CD63917E36D3900B69E9B /* main.m */,
 				936CD63517E36D3900B69E9B /* CMPSCI390MB Accelerometer-Info.plist */,
 				936CD63617E36D3900B69E9B /* InfoPlist.strings */,
-				936CD63917E36D3900B69E9B /* main.m */,
 				936CD63B17E36D3900B69E9B /* CMPSCI390MB Accelerometer-Prefix.pch */,
 				936CD63F17E36D3900B69E9B /* Default.png */,
 				936CD64117E36D3900B69E9B /* Default@2x.png */,
@@ -297,6 +302,7 @@
 				936CD63A17E36D3900B69E9B /* main.m in Sources */,
 				933412B117F8A65C006215F3 /* KMESmoothingFilter.m in Sources */,
 				936CD63E17E36D3900B69E9B /* AppDelegate.m in Sources */,
+				CE8B867C17F8CAB0006DDA51 /* StepDetector.m in Sources */,
 				936CD64D17E36D3900B69E9B /* ViewController.m in Sources */,
 				93B38BE917E5E785002F12B0 /* InfoViewController.m in Sources */,
 			);
