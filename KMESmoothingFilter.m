@@ -10,4 +10,42 @@
 
 @implementation KMESmoothingFilter
 
+@synthesize SMOOTH_FACTOR, NUM_ACCEL_FIELDS,INVALID,X_INDEX,Y_INDEX,Z_INDEX,expectedValue;
+
+
+-(KMESmoothingFilter*) init
+
+{
+    self = [super init];
+    if (self) {
+        SMOOTH_FACTOR= [[NSNumber alloc] initWithInt:2];
+        INVALID= [[NSNumber alloc]initWithInt:-1];
+        NUM_ACCEL_FIELDS=[[NSNumber alloc]initWithInt:3];
+        X_INDEX=[[NSNumber alloc] initWithInt:0];
+        Y_INDEX=[[NSNumber alloc] initWithInt:1];
+        Z_INDEX=[[NSNumber alloc] initWithInt:2];
+        expectedValue=NULL;
+    }
+    return self;
+}
+
+-(NSNumber*) getSmoothedValueOfNumber:(NSNumber *)sample withFilterIndex:(NSNumber *)filterIndex{
+    int index=[filterIndex intValue];
+    
+    if((index> [expectedValue count]) || index<0){
+        return NULL;
+    }
+    
+    else{
+        double numInArray=[[expectedValue objectAtIndex:index] doubleValue];
+        double sampleDoubleValue=sample.doubleValue;
+        int smoothFactor= [SMOOTH_FACTOR intValue];
+        
+        
+        double newNum= numInArray+ ((sampleDoubleValue-numInArray)/smoothFactor);
+        
+        [expectedValue setObject:[[NSNumber alloc] initWithDouble:newNum] atIndexedSubscript:index];
+        return [expectedValue objectAtIndex:index];
+    }
+}
 @end
