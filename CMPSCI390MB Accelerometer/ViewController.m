@@ -23,8 +23,14 @@
 @synthesize zLabel;
 @synthesize toggleButton;
 @synthesize motionManager;
+@synthesize hasBeenPressed;
 
 static const NSTimeInterval accelerationInterval= .1;
+
+-(IBAction)buttonPress{
+    hasBeenPressed = TRUE;
+    [self toggle];
+}
 
 -(void)toggle{
     on = !on;
@@ -148,6 +154,7 @@ static const NSTimeInterval accelerationInterval= .1;
 	// Do any additional setup after loading the view, typically from a nib.
     
     on = TRUE;
+    hasBeenPressed = FALSE;
     logArray = [[NSMutableArray alloc] init];
     motionManager= [[CMMotionManager alloc]init];
     
