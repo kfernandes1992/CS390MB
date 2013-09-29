@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 #import <CoreMotion/CoreMotion.h>
 #import <MessageUI/MessageUI.h>
+#import "KMESmoothingFilter.h"
 
 @interface ViewController : UIViewController <UIAccelerometerDelegate, UIActionSheetDelegate, MFMailComposeViewControllerDelegate>
 
@@ -22,7 +23,8 @@
 @property(nonatomic, strong) IBOutlet UILabel *yLabel;
 @property(nonatomic, strong) IBOutlet UILabel *zLabel;
 @property(nonatomic, strong) IBOutlet UIButton *toggleButton;
-@property (weak, nonatomic) IBOutlet UIButton *emailButton;
+@property (weak, nonatomic) IBOutlet UILabel *stepCounterLabel;
+@property (strong, nonatomic) KMESmoothingFilter *smoothingFilter;
 
 @property(strong, nonatomic) CMMotionManager *motionManager;
 @property BOOL hasBeenPressed;
