@@ -10,15 +10,15 @@
 
 @interface KMESmoothingFilter : NSObject
 
-@property (nonatomic, weak) NSNumber *SMOOTH_FACTOR;
-@property (nonatomic, weak) NSArray *expectedValue;
-@property (nonatomic, weak) NSNumber *INVALID;
-@property (nonatomic, weak) NSNumber *NUM_ACCEL_FIELDS;
-@property (nonatomic, weak) NSNumber *X_INDEX;
-@property (nonatomic, weak) NSNumber *Y_INDEX;
-@property (nonatomic, weak) NSNumber *Z_INDEX;
+@property (nonatomic, strong) NSNumber *SMOOTH_FACTOR;
+@property (nonatomic, strong) NSMutableArray *expectedValue;
+@property (nonatomic, strong) NSNumber *INVALID;
+@property (nonatomic, strong) NSNumber *NUM_ACCEL_FIELDS;
+@property (nonatomic, strong) NSNumber *X_INDEX;
+@property (nonatomic, strong) NSNumber *Y_INDEX;
+@property (nonatomic, strong) NSNumber *Z_INDEX;
 
--(NSArray*) getFilteredValuesOfXValue: (NSNumber*) accX ofYValue:(NSNumber *) accY ofZValue:(NSNumber *) accZ;
+-(NSMutableArray*) getFilteredValuesOfXValue: (NSNumber *) accX ofYValue:(NSNumber *) accY ofZValue:(NSNumber *) accZ;
 
 -(NSNumber*) getSmoothedValueOfNumber: (NSNumber*) sample withFilterIndex: (NSNumber*) index;
 
