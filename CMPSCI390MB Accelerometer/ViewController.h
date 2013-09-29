@@ -22,7 +22,6 @@
 @property(nonatomic, strong) IBOutlet UILabel *yLabel;
 @property(nonatomic, strong) IBOutlet UILabel *zLabel;
 @property(nonatomic, strong) IBOutlet UIButton *toggleButton;
-@property (weak, nonatomic) IBOutlet UIButton *emailButton;
 @property (weak, nonatomic) IBOutlet UILabel *stepCounterLabel;
 
 @property(strong, nonatomic) CMMotionManager *motionManager;

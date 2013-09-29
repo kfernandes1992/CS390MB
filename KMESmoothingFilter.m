@@ -18,7 +18,7 @@
 {
     self = [super init];
     if (self) {
-        SMOOTH_FACTOR= [[NSNumber alloc] initWithInt:2];
+        SMOOTH_FACTOR= [[NSNumber alloc] initWithInt:9];
         INVALID= [[NSNumber alloc]initWithInt:-1];
         NUM_ACCEL_FIELDS=[[NSNumber alloc]initWithInt:3];
         X_INDEX=[[NSNumber alloc] initWithInt:0];

@@ -26,14 +26,14 @@
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" misplaced="YES" text="Y" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="roQ-bJ-zJe">
-                                <rect key="frame" x="0.0" y="63" width="320" height="110"/>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Y" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="roQ-bJ-zJe">
+                                <rect key="frame" x="0.0" y="118" width="320" height="110"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="48"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" misplaced="YES" text="Z" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lE3-RE-tN9">
-                                <rect key="frame" x="0.0" y="118" width="320" height="110"/>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Z" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lE3-RE-tN9">
+                                <rect key="frame" x="0.0" y="236" width="320" height="110"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="110" id="c5P-SG-AjJ"/>
                                 </constraints>
@@ -74,19 +74,19 @@
                                     <segue destination="dFz-K3-yVS" kind="modal" modalTransitionStyle="flipHorizontal" id="dgM-DC-Jqx"/>
                                 </connections>
                             </button>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" ambiguous="YES" misplaced="YES" text="Steps:" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="omC-sf-HIg">
-                                <rect key="frame" x="20" y="219" width="155" height="110"/>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" ambiguous="YES" misplaced="YES" text="Steps:" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="huD-Kn-d3E">
+                                <rect key="frame" x="0.0" y="354" width="155" height="109"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="110" id="OpP-IS-N5h"/>
+                                    <constraint firstAttribute="height" constant="110" id="u68-GP-dB3"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="48"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" ambiguous="YES" misplaced="YES" text="0" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="stz-jn-5f5">
-                                <rect key="frame" x="182" y="219" width="118" height="110"/>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" ambiguous="YES" misplaced="YES" text="0" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hBd-sF-R0z">
+                                <rect key="frame" x="163" y="354" width="157" height="109"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="110" id="Qmz-7r-9eN"/>
+                                    <constraint firstAttribute="height" constant="110" id="9wM-s6-xWM"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="48"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -112,7 +112,7 @@
                         </constraints>
                     </view>
                     <connections>
-                        <outlet property="stepCounterLabel" destination="stz-jn-5f5" id="2dL-Us-A5E"/>
+                        <outlet property="stepCounterLabel" destination="hBd-sF-R0z" id="qqi-lg-TrA"/>
                         <outlet property="toggleButton" destination="xfA-rU-PSl" id="RYW-4d-ABh"/>
                         <outlet property="xLabel" destination="ond-xN-Gne" id="av4-vL-L8v"/>
                         <outlet property="yLabel" destination="roQ-bJ-zJe" id="tuu-lE-sQU"/>
