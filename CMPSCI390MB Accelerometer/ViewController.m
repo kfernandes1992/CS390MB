@@ -112,13 +112,11 @@ static const NSTimeInterval accelerationInterval= .1;
 -(IBAction)emailFile{
     
     //find the accelerometer file
-    
-    //TODO: ENSURE that the file doesn't have to be present
-    NSBundle *fileBundle= [NSBundle mainBundle];
-    NSString *fp=[fileBundle pathForResource:@"accelerometerlog" ofType:@"csv"];
-    NSLog(@"fp: %@", fp);
-    NSURL *filePath = [[NSURL alloc] initFileURLWithPath:fp];
-    NSLog(@"Filepath: %@", filePath);
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    NSString *documentsDirectory = [paths objectAtIndex:0];
+    NSString *fp = [documentsDirectory stringByAppendingPathComponent:@"accelerometerlog.csv"];
+    NSURL *filePath= [[NSURL alloc] initWithString:fp];
+
     
     //get the data from the file
     

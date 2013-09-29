@@ -10,8 +10,8 @@
             <objects>
                 <viewController id="2" customClass="ViewController" sceneMemberID="viewController">
                     <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="e9i-SS-DRp"/>
-                        <viewControllerLayoutGuide type="bottom" id="HCT-OO-7lo"/>
+                        <viewControllerLayoutGuide type="top" id="SrO-fO-VtC"/>
+                        <viewControllerLayoutGuide type="bottom" id="APg-77-D0f"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="3">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
@@ -109,8 +109,8 @@
             <objects>
                 <viewController id="dFz-K3-yVS" customClass="InfoViewController" sceneMemberID="viewController">
                     <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="SRD-u8-Djo"/>
-                        <viewControllerLayoutGuide type="bottom" id="L6H-rX-7jv"/>
+                        <viewControllerLayoutGuide type="top" id="ixN-u0-yrw"/>
+                        <viewControllerLayoutGuide type="bottom" id="3q9-a2-NCa"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="2Uc-ID-0Ab">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
