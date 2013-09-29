@@ -31,7 +31,6 @@
 
 -(NSNumber*) getSmoothedValueOfNumber:(NSNumber *)sample withFilterIndex:(NSNumber *)filterIndex{
     int index=[filterIndex intValue];
-    
     if((index> [expectedValue count]) || index<0){
         return NULL;
     }
@@ -48,4 +47,17 @@
         return [expectedValue objectAtIndex:index];
     }
 }
+
+-(NSMutableArray*) getFilteredValuesOfXValue:(NSNumber*) accX ofYValue:(NSNumber *) accY ofZValue:(NSNumber *) accZ{
+    
+    NSNumber *xVal = [self getSmoothedValueOfNumber:accX withFilterIndex:X_INDEX];
+    NSNumber *yVal = [self getSmoothedValueOfNumber:accY withFilterIndex:Y_INDEX];
+    NSNumber *zVal = [self getSmoothedValueOfNumber:accZ withFilterIndex:Z_INDEX];
+    
+    NSMutableArray *result = [[NSMutableArray alloc] initWithObjects:xVal, yVal, zVal, nil];
+    
+    return result;
+}
+
+
 @end

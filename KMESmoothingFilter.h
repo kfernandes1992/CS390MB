@@ -18,7 +18,7 @@
 @property (nonatomic, strong) NSNumber *Y_INDEX;
 @property (nonatomic, strong) NSNumber *Z_INDEX;
 
--(NSMutableArray*) getFilteredValuesOfXValue: (NSNumber*) accX ofYValue:(NSNumber *) accY ofZValue:(NSNumber *) accZ;
+-(NSMutableArray*) getFilteredValuesOfXValue: (NSNumber *) accX ofYValue:(NSNumber *) accY ofZValue:(NSNumber *) accZ;
 
 -(NSNumber*) getSmoothedValueOfNumber: (NSNumber*) sample withFilterIndex: (NSNumber*) index;
 
