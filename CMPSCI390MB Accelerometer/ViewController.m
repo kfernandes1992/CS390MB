@@ -24,6 +24,7 @@
 @synthesize toggleButton;
 @synthesize motionManager;
 @synthesize hasBeenPressed;
+@synthesize stepCounterLabel;
 
 static const NSTimeInterval accelerationInterval= .1;
 
