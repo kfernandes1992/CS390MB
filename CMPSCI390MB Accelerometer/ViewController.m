@@ -25,6 +25,7 @@
 @synthesize motionManager;
 @synthesize hasBeenPressed;
 @synthesize stepCounterLabel;
+@synthesize smoothingFilter;
 
 static const NSTimeInterval accelerationInterval= .1;
 
@@ -42,6 +43,7 @@ static const NSTimeInterval accelerationInterval= .1;
             //store values
             NSDate *dateStamp = [NSDate date];
             NSTimeInterval secondsSince1970 = [dateStamp timeIntervalSince1970];
+            secondsSince1970=secondsSince1970*1000;
             NSString *xVal = [[NSString alloc] initWithFormat:@"%f",[accelerometerData acceleration].x];
             NSString *yVal = [[NSString alloc] initWithFormat:@"%f",[accelerometerData acceleration].y];
             NSString *zVal = [[NSString alloc] initWithFormat:@"%f",[accelerometerData acceleration].z];
@@ -51,8 +53,8 @@ static const NSTimeInterval accelerationInterval= .1;
             [yLabel setText: yVal];
             [zLabel setText: zVal];
 
-            
-            //log values
+        
+            /*//log values
             [logArray addObject:[[NSString alloc] initWithFormat:@"%f,%@,%@,%@\n",
                                  secondsSince1970,
                                  xVal,
@@ -60,10 +62,11 @@ static const NSTimeInterval accelerationInterval= .1;
                                  zVal]];
             
             
+            
             //periodically log and refresh array. May need a new thread
             if([logArray count] >=1000){
-               [self arrayToFile:logArray]; 
-            }
+               [self arrayToFile:logArray];
+            }*/
             
         }];
     }
@@ -84,7 +87,7 @@ static const NSTimeInterval accelerationInterval= .1;
             [self arrayToFile:logArray];
         }
         
-        [self emailFile];
+       // [self emailFile];
     }
 }
 
@@ -94,7 +97,7 @@ static const NSTimeInterval accelerationInterval= .1;
     // create a filePath with the name accelerometerlog.csv
     NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
     NSString *documentsDirectory = [paths objectAtIndex:0];
-    NSString *fp = [documentsDirectory stringByAppendingPathComponent:@"accelerometerlog.csv"];
+    NSString *fp = [documentsDirectory stringByAppendingPathComponent:@"filteredaccelerometerlog.csv"];
     NSURL *filePath= [[NSURL alloc] initWithString:fp];
     
     
@@ -115,7 +118,7 @@ static const NSTimeInterval accelerationInterval= .1;
     //find the accelerometer file
     NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
     NSString *documentsDirectory = [paths objectAtIndex:0];
-    NSString *fp = [documentsDirectory stringByAppendingPathComponent:@"accelerometerlog.csv"];
+    NSString *fp = [documentsDirectory stringByAppendingPathComponent:@"filteredaccelerometerlog.csv"];
     NSURL *filePath= [[NSURL alloc] initWithString:fp];
 
     
@@ -124,7 +127,7 @@ static const NSTimeInterval accelerationInterval= .1;
     NSData *fileData = [NSData dataWithContentsOfURL:filePath];
     
     //set email parameters
-    NSString *emailTitle = @"Accelerometer Data .csv File";
+    NSString *emailTitle = @"Filtered Accelerometer Data .csv File";
     NSArray *toRecipents = [NSArray arrayWithObject:@"kevinf@umass.edu"];
     
     
@@ -133,7 +136,7 @@ static const NSTimeInterval accelerationInterval= .1;
     mc.mailComposeDelegate = self;
     [mc setSubject:emailTitle];
     [mc setToRecipients:toRecipents];
-    [mc addAttachmentData:fileData mimeType:@"text/html" fileName:@"Accelerometer Data .csv File"];
+    [mc addAttachmentData:fileData mimeType:@"text/html" fileName:@"Filtered Accelerometer Data .csv File"];
     
     //present VC
     [self presentViewController:mc animated:TRUE completion:NULL];
