@@ -42,8 +42,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		933412AF17F8A65C006215F3 /* KMESmoothingFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KMESmoothingFilter.h; sourceTree = "<group>"; };
-		933412B017F8A65C006215F3 /* KMESmoothingFilter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KMESmoothingFilter.m; sourceTree = "<group>"; };
+		933412AF17F8A65C006215F3 /* KMESmoothingFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = KMESmoothingFilter.h; path = ../KMESmoothingFilter.h; sourceTree = "<group>"; };
+		933412B017F8A65C006215F3 /* KMESmoothingFilter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = KMESmoothingFilter.m; path = ../KMESmoothingFilter.m; sourceTree = "<group>"; };
 		936CD62A17E36D3900B69E9B /* CMPSCI390MB Accelerometer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "CMPSCI390MB Accelerometer.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		936CD62D17E36D3900B69E9B /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		936CD62F17E36D3900B69E9B /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -103,8 +103,6 @@
 		936CD62117E36D3900B69E9B = {
 			isa = PBXGroup;
 			children = (
-				933412AF17F8A65C006215F3 /* KMESmoothingFilter.h */,
-				933412B017F8A65C006215F3 /* KMESmoothingFilter.m */,
 				936CD63317E36D3900B69E9B /* CMPSCI390MB Accelerometer */,
 				936CD65A17E36D3900B69E9B /* CMPSCI390MB AccelerometerTests */,
 				936CD62C17E36D3900B69E9B /* Frameworks */,
@@ -137,6 +135,8 @@
 		936CD63317E36D3900B69E9B /* CMPSCI390MB Accelerometer */ = {
 			isa = PBXGroup;
 			children = (
+				933412AF17F8A65C006215F3 /* KMESmoothingFilter.h */,
+				933412B017F8A65C006215F3 /* KMESmoothingFilter.m */,
 				936CD63C17E36D3900B69E9B /* AppDelegate.h */,
 				936CD63D17E36D3900B69E9B /* AppDelegate.m */,
 				936CD64517E36D3900B69E9B /* MainStoryboard_iPhone.storyboard */,
