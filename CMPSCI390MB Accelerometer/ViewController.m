@@ -39,6 +39,7 @@ static const NSTimeInterval accelerationInterval= .1;
 -(void)toggle{
     on = !on;
     if(on){
+        stepDetector=[[StepDetector alloc] init];
         steps = 0;
         [toggleButton setTitle:@"Stop" forState:UIControlStateNormal];
         [motionManager startAccelerometerUpdatesToQueue:[NSOperationQueue mainQueue] withHandler:^(CMAccelerometerData *accelerometerData, NSError *error) {
@@ -177,7 +178,6 @@ static const NSTimeInterval accelerationInterval= .1;
     hasBeenPressed = FALSE;
     logArray = [[NSMutableArray alloc] init];
     motionManager= [[CMMotionManager alloc]init];
-    stepDetector=[[StepDetector alloc] init];
     steps = 0;
     
     if ([motionManager isAccelerometerAvailable] == YES) {

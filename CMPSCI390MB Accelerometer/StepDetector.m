@@ -13,6 +13,7 @@
 @synthesize buffer;
 @synthesize threshold;
 @synthesize lastStep;
+@synthesize minTimeSinceLastStep;
 
 -(BOOL) detectStepsOnValues:(NSArray *)accelValues{
     NSTimeInterval timeSinceLastThresholdCrossing;
@@ -26,12 +27,10 @@
 
     for(int j = 0; j <= 2; j++){
         if([[ampedValues objectAtIndex:j] doubleValue] > [[self thresholdForAxis: j] doubleValue]){
-            timeSinceLastThresholdCrossing = [lastStep timeIntervalSinceNow];
-            if (timeSinceLastThresholdCrossing > 0.4) {
+            timeSinceLastThresholdCrossing = [lastStep timeIntervalSinceNow] * -1;
+            lastStep = [[NSDate alloc] init];
+            if (timeSinceLastThresholdCrossing > minTimeSinceLastStep) {
                 return TRUE;
-            }
-            else{
-                lastStep = [[NSDate alloc] init];
             }
         }
     }
@@ -64,8 +63,8 @@
 }
 
 
-//x: 0,
-//y: 1,
+//x: 0
+//y: 1
 //z: 2
 -(NSDecimalNumber *)travelingMeanForAxis:(NSUInteger)axis{
     double sum = 0.0;
@@ -85,7 +84,11 @@
 -(id) init{
     self = [super init];
     if(self){
-        threshold = 200;
+        threshold = 150;
+        //take a time stamp when step detection starts
+        lastStep = [[NSDate alloc] init];
+        buffer = [[NSMutableArray alloc] init];
+        minTimeSinceLastStep = 0.35;
     }
     
     return self;
