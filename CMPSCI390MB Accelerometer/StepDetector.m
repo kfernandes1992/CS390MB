@@ -12,22 +12,29 @@
 
 @synthesize buffer;
 @synthesize threshold;
+@synthesize lastStep;
 
 -(BOOL) detectStepsOnValues:(NSArray *)accelValues{
+    NSTimeInterval timeSinceLastThresholdCrossing;
     NSArray *ampedValues = [self amplifyValues:accelValues];
     [self addToBuffer:ampedValues];
-    for(NSDecimalNumber *d in ampedValues){
-        if ([d doubleValue] > 500) {
-            return TRUE;
-        }
-    }
-/*
+//    for(NSDecimalNumber *d in ampedValues){
+//        if ([d doubleValue] > 500) {
+//            return TRUE;
+//        }
+//    }
+
     for(int j = 0; j <= 2; j++){
-        if([d doubleValue] > [self thresholdForAxis: j]{
-            return TRUE;
+        if([[ampedValues objectAtIndex:j] doubleValue] > [[self thresholdForAxis: j] doubleValue]){
+            timeSinceLastThresholdCrossing = [lastStep timeIntervalSinceNow];
+            if (timeSinceLastThresholdCrossing > 0.4) {
+                return TRUE;
+            }
+            else{
+                lastStep = [[NSDate alloc] init];
+            }
         }
     }
- */
 
     return FALSE;
 }

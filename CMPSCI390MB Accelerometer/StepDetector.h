@@ -12,6 +12,7 @@
 
 @property(nonatomic, strong) NSMutableArray *buffer;
 @property(nonatomic, assign) double threshold;
+@property(nonatomic, strong) NSDate *lastStep;
 
 -(BOOL) detectStepsOnValues: (NSArray*) accelValues;
 -(NSArray *)amplifyValues: (NSArray *) rawValues;
