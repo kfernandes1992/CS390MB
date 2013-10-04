@@ -27,6 +27,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *stepCounterLabel;
 @property (strong, nonatomic) KMESmoothingFilter *smoothingFilter;
 @property (strong, nonatomic) StepDetector *stepDetector;
+@property (nonatomic, assign) int steps;
 
 @property(strong, nonatomic) CMMotionManager *motionManager;
 @property BOOL hasBeenPressed;

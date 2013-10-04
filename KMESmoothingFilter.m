@@ -18,18 +18,18 @@
 {
     self = [super init];
     if (self) {
-        SMOOTH_FACTOR= [[NSNumber alloc] initWithInt:9];
-        INVALID= [[NSNumber alloc]initWithInt:-1];
-        NUM_ACCEL_FIELDS=[[NSNumber alloc]initWithInt:3];
-        X_INDEX=[[NSNumber alloc] initWithInt:0];
-        Y_INDEX=[[NSNumber alloc] initWithInt:1];
-        Z_INDEX=[[NSNumber alloc] initWithInt:2];
+        SMOOTH_FACTOR= [[NSDecimalNumber alloc] initWithInt:9];
+        INVALID= [[NSDecimalNumber alloc]initWithInt:-1];
+        NUM_ACCEL_FIELDS=[[NSDecimalNumber alloc]initWithInt:3];
+        X_INDEX=[[NSDecimalNumber alloc] initWithInt:0];
+        Y_INDEX=[[NSDecimalNumber alloc] initWithInt:1];
+        Z_INDEX=[[NSDecimalNumber alloc] initWithInt:2];
         expectedValue=NULL;
     }
     return self;
 }
 
--(NSNumber*) getSmoothedValueOfNumber:(NSNumber *)sample withFilterIndex:(NSNumber *)filterIndex{
+-(NSDecimalNumber*) getSmoothedValueOfNumber:(NSDecimalNumber *)sample withFilterIndex:(NSDecimalNumber *)filterIndex{
     int index=[filterIndex intValue];
     if((index> [expectedValue count]) || index<0){
         return NULL;
@@ -43,16 +43,16 @@
         
         double newNum= numInArray+ ((sampleDoubleValue-numInArray)/smoothFactor);
         
-        [expectedValue setObject:[[NSNumber alloc] initWithDouble:newNum] atIndexedSubscript:index];
+        [expectedValue setObject:[[NSDecimalNumber alloc] initWithDouble:newNum] atIndexedSubscript:index];
         return [expectedValue objectAtIndex:index];
     }
 }
 
--(NSArray*) getFilteredValuesOfXValue:(NSNumber*) accX ofYValue:(NSNumber *) accY ofZValue:(NSNumber *) accZ{
+-(NSArray*) getFilteredValuesOfXValue:(NSDecimalNumber*) accX ofYValue:(NSDecimalNumber *) accY ofZValue:(NSDecimalNumber *) accZ{
     
-    NSNumber *xVal = [self getSmoothedValueOfNumber:accX withFilterIndex:X_INDEX];
-    NSNumber *yVal = [self getSmoothedValueOfNumber:accY withFilterIndex:Y_INDEX];
-    NSNumber *zVal = [self getSmoothedValueOfNumber:accZ withFilterIndex:Z_INDEX];
+    NSDecimalNumber *xVal = [self getSmoothedValueOfNumber:accX withFilterIndex:X_INDEX];
+    NSDecimalNumber *yVal = [self getSmoothedValueOfNumber:accY withFilterIndex:Y_INDEX];
+    NSDecimalNumber *zVal = [self getSmoothedValueOfNumber:accZ withFilterIndex:Z_INDEX];
     
     NSArray *result = [[NSMutableArray alloc] initWithObjects:xVal, yVal, zVal, nil];
     

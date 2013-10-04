@@ -27,6 +27,7 @@
 @synthesize stepCounterLabel;
 @synthesize smoothingFilter;
 @synthesize stepDetector;
+@synthesize steps;
 
 static const NSTimeInterval accelerationInterval= .1;
 
@@ -38,13 +39,14 @@ static const NSTimeInterval accelerationInterval= .1;
 -(void)toggle{
     on = !on;
     if(on){
-        
+        stepDetector=[[StepDetector alloc] init];
+        steps = 0;
         [toggleButton setTitle:@"Stop" forState:UIControlStateNormal];
         [motionManager startAccelerometerUpdatesToQueue:[NSOperationQueue mainQueue] withHandler:^(CMAccelerometerData *accelerometerData, NSError *error) {
             //store values
-            NSDate *dateStamp = [NSDate date];
-            NSTimeInterval secondsSince1970 = [dateStamp timeIntervalSince1970];
-            secondsSince1970=secondsSince1970*1000;
+//            NSDate *dateStamp = [NSDate date];
+//            NSTimeInterval millisecondsSince1970 = [dateStamp timeIntervalSince1970] * 1000;
+            
             NSString *xVal = [[NSString alloc] initWithFormat:@"%f",[accelerometerData acceleration].x];
             NSString *yVal = [[NSString alloc] initWithFormat:@"%f",[accelerometerData acceleration].y];
             NSString *zVal = [[NSString alloc] initWithFormat:@"%f",[accelerometerData acceleration].z];
@@ -53,26 +55,29 @@ static const NSTimeInterval accelerationInterval= .1;
             [xLabel setText: xVal];
             [yLabel setText: yVal];
             [zLabel setText: zVal];
+//            [stepCounterLabel setText:[[NSString alloc] initWithFormat:@"%d", steps]];
 
         
             //filter out noise
             smoothingFilter=[[KMESmoothingFilter alloc]init];
-            NSNumber *numX= [[NSNumber alloc] initWithInt:[xVal intValue]];
-            NSNumber *numY= [[NSNumber alloc]initWithInt:[yVal intValue]];
-            NSNumber *numZ=[[NSNumber alloc] initWithInt:[zVal intValue]];
-            NSArray *filteredData= [smoothingFilter getFilteredValuesOfXValue:numX ofYValue:numY ofZValue:numZ];
+            NSDecimalNumber *numX= [[NSDecimalNumber alloc] initWithDouble:[xVal doubleValue]];
+            NSDecimalNumber *numY= [[NSDecimalNumber alloc]initWithDouble:[yVal doubleValue]];
+            NSDecimalNumber *numZ=[[NSDecimalNumber alloc] initWithDouble:[zVal doubleValue]];
+//            NSLog(@"%@, %@, %@", numX, numY, numZ);
+            NSArray *sendArray = [[NSArray alloc] initWithObjects:numX, numY, numZ, nil];
+//            NSArray *filteredData= [smoothingFilter getFilteredValuesOfXValue:numX ofYValue:numY ofZValue:numZ];
             
             //detect steps
-            
-            stepDetector=[[StepDetector alloc] init];
-            [stepDetector detectStepsOnValues:filteredData];
-            
+            if([stepDetector detectStepsOnValues:sendArray]){
+                steps++;
+            }
             
             //update UI
+            [stepCounterLabel setText:[[NSString alloc] initWithFormat:@"%d", steps]];
             
             /*//log values
             [logArray addObject:[[NSString alloc] initWithFormat:@"%f,%@,%@,%@\n",
-                                 secondsSince1970,
+                                 millisecondsSince1970,
                                  xVal,
                                  yVal,
                                  zVal]];
@@ -94,14 +99,13 @@ static const NSTimeInterval accelerationInterval= .1;
         xLabel.text = @"X";
         yLabel.text = @"Y";
         zLabel.text = @"Z";
-        
 
         
         //write array to file
         
-        if ([logArray count] > 0) {
-            [self arrayToFile:logArray];
-        }
+//        if ([logArray count] > 0) {
+//            [self arrayToFile:logArray];
+//        }
         
        // [self emailFile];
     }
@@ -175,6 +179,7 @@ static const NSTimeInterval accelerationInterval= .1;
     hasBeenPressed = FALSE;
     logArray = [[NSMutableArray alloc] init];
     motionManager= [[CMMotionManager alloc]init];
+    steps = 0;
     
     if ([motionManager isAccelerometerAvailable] == YES) {
         [motionManager setAccelerometerUpdateInterval:accelerationInterval];

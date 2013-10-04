@@ -10,6 +10,15 @@
 
 @interface StepDetector : NSObject
 
+@property(nonatomic, strong) NSMutableArray *buffer;
+@property(nonatomic, assign) double threshold;
+@property(nonatomic, strong) NSDate *lastStep;
+@property(nonatomic, assign) double minTimeSinceLastStep;
+
 -(BOOL) detectStepsOnValues: (NSArray*) accelValues;
+-(NSArray *)amplifyValues: (NSArray *) rawValues;
+-(BOOL)addToBuffer: (NSArray *) newVals;
+-(NSDecimalNumber *)travelingMeanForAxis:(NSUInteger)axis;
+-(NSDecimalNumber *)thresholdForAxis:(NSUInteger) axis;
 
 @end
