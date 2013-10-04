@@ -18,19 +18,21 @@
 -(BOOL) detectStepsOnValues:(NSArray *)accelValues{
     NSTimeInterval timeSinceLastThresholdCrossing;
     NSArray *ampedValues = [self amplifyValues:accelValues];
-    [self addToBuffer:ampedValues];
+    
+    if ([self addToBuffer:ampedValues]){
 //    for(NSDecimalNumber *d in ampedValues){
 //        if ([d doubleValue] > 500) {
 //            return TRUE;
 //        }
 //    }
 
-    for(int j = 0; j <= 2; j++){
-        if([[ampedValues objectAtIndex:j] doubleValue] > [[self thresholdForAxis: j] doubleValue]){
-            timeSinceLastThresholdCrossing = [lastStep timeIntervalSinceNow] * -1;
-            lastStep = [[NSDate alloc] init];
-            if (timeSinceLastThresholdCrossing > minTimeSinceLastStep) {
-                return TRUE;
+        for(int j = 0; j <= 2; j++){
+            if([[ampedValues objectAtIndex:j] doubleValue] > [[self thresholdForAxis: j] doubleValue]){
+                timeSinceLastThresholdCrossing = [lastStep timeIntervalSinceNow] * -1;
+                lastStep = [[NSDate alloc] init];
+                if (timeSinceLastThresholdCrossing > minTimeSinceLastStep) {
+                    return TRUE;
+                }
             }
         }
     }
@@ -46,20 +48,24 @@
     for (NSDecimalNumber *n in rawValues) {
         newDecimal = [n decimalNumberByMultiplyingBy:ten];
         newDecimal = [newDecimal decimalNumberByRaisingToPower:3];
+        NSLog(@"%f", [newDecimal doubleValue]);
         [tempArray addObject:newDecimal];
     }
     
     return tempArray;
 }
 
--(void)addToBuffer: (NSArray *) newVals{
+//returns true if buffer is ready for step detection
+-(BOOL)addToBuffer: (NSArray *) newVals{
     if([buffer count] < 5){
         [buffer addObject:newVals];
     }
     else{
         [buffer removeObjectAtIndex:0];
         [buffer addObject:newVals];
+        return TRUE;
     }
+    return FALSE;
 }
 
 
@@ -84,7 +90,7 @@
 -(id) init{
     self = [super init];
     if(self){
-        threshold = 150;
+        threshold = 600;
         //take a time stamp when step detection starts
         lastStep = [[NSDate alloc] init];
         buffer = [[NSMutableArray alloc] init];

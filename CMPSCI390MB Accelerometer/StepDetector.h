@@ -17,7 +17,7 @@
 
 -(BOOL) detectStepsOnValues: (NSArray*) accelValues;
 -(NSArray *)amplifyValues: (NSArray *) rawValues;
--(void)addToBuffer: (NSArray *) newVals;
+-(BOOL)addToBuffer: (NSArray *) newVals;
 -(NSDecimalNumber *)travelingMeanForAxis:(NSUInteger)axis;
 -(NSDecimalNumber *)thresholdForAxis:(NSUInteger) axis;
 

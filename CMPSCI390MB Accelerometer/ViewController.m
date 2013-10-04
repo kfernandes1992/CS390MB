@@ -46,6 +46,7 @@ static const NSTimeInterval accelerationInterval= .1;
             //store values
 //            NSDate *dateStamp = [NSDate date];
 //            NSTimeInterval millisecondsSince1970 = [dateStamp timeIntervalSince1970] * 1000;
+            
             NSString *xVal = [[NSString alloc] initWithFormat:@"%f",[accelerometerData acceleration].x];
             NSString *yVal = [[NSString alloc] initWithFormat:@"%f",[accelerometerData acceleration].y];
             NSString *zVal = [[NSString alloc] initWithFormat:@"%f",[accelerometerData acceleration].z];
@@ -59,10 +60,10 @@ static const NSTimeInterval accelerationInterval= .1;
         
             //filter out noise
             smoothingFilter=[[KMESmoothingFilter alloc]init];
-            NSDecimalNumber *numX= [[NSDecimalNumber alloc] initWithInt:[xVal intValue]];
-            NSDecimalNumber *numY= [[NSDecimalNumber alloc]initWithInt:[yVal intValue]];
-            NSDecimalNumber *numZ=[[NSDecimalNumber alloc] initWithInt:[zVal intValue]];
-            NSLog(@"%@, %@, %@", numX, numY, numZ);
+            NSDecimalNumber *numX= [[NSDecimalNumber alloc] initWithDouble:[xVal doubleValue]];
+            NSDecimalNumber *numY= [[NSDecimalNumber alloc]initWithDouble:[yVal doubleValue]];
+            NSDecimalNumber *numZ=[[NSDecimalNumber alloc] initWithDouble:[zVal doubleValue]];
+//            NSLog(@"%@, %@, %@", numX, numY, numZ);
             NSArray *sendArray = [[NSArray alloc] initWithObjects:numX, numY, numZ, nil];
 //            NSArray *filteredData= [smoothingFilter getFilteredValuesOfXValue:numX ofYValue:numY ofZValue:numZ];
             
