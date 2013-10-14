@@ -18,7 +18,6 @@
 -(IBAction)togglewithLabel:(NSString*)label;
 
 
-@property(nonatomic, assign) BOOL on;
 @property(nonatomic, strong) NSMutableArray *logArray;
 @property(nonatomic, strong) IBOutlet UILabel *xLabel;
 @property(nonatomic, strong) IBOutlet UILabel *yLabel;
