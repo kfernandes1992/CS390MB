@@ -81,7 +81,7 @@ static const NSTimeInterval accelerationInterval= .1;
 
 -(void)togglewithLabel:(NSString*)label{
     
-    if(motionManager.accelerometerActive){
+    if(![label isEqualToString:@"STOP"]){
         stepDetector=[[StepDetector alloc] init];
         steps = 0;
         [motionManager startAccelerometerUpdatesToQueue:[NSOperationQueue mainQueue] withHandler:^(CMAccelerometerData *accelerometerData, NSError *error) {
