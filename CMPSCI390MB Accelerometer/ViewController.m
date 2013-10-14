@@ -21,7 +21,9 @@
 @synthesize xLabel;
 @synthesize yLabel;
 @synthesize zLabel;
-@synthesize toggleButton;
+@synthesize walkButton;
+@synthesize runButton;
+@synthesize sitButton;
 @synthesize motionManager;
 @synthesize hasBeenPressed;
 @synthesize stepCounterLabel;
@@ -31,17 +33,58 @@
 
 static const NSTimeInterval accelerationInterval= .1;
 
--(IBAction)buttonPress{
+-(IBAction)buttonPress:(UIButton*) button{
     hasBeenPressed = TRUE;
-    [self toggle];
+    [self changeLayout:button];
+    [self togglewithLabel:[button currentTitle]];
 }
 
--(void)toggle{
+-(void) changeLayout: (UIButton*) button{
+    if ([[button currentTitle] isEqualToString:@"STOP"]) {
+        //change layout
+        [runButton setEnabled:TRUE];
+        [sitButton setEnabled:TRUE];
+        [walkButton setEnabled:TRUE];
+        
+        if (button==walkButton) {
+            [button setTitle:@"Walking" forState:UIControlStateNormal];
+            return;
+        }
+        if(button==runButton){
+            [button setTitle:@"Running" forState:UIControlStateNormal];
+            return;
+        }
+        if(button==sitButton){
+            [button setTitle:@"Sitting" forState:UIControlStateNormal];
+            return;
+        }
+    }
+    else{
+        if ([[button currentTitle] isEqualToString:@"Walking"]) {
+            [button setTitle:@"STOP" forState:UIControlStateNormal];
+            [runButton setEnabled:FALSE];
+            [sitButton setEnabled:FALSE];
+            return;
+        }
+        if ([[button currentTitle] isEqualToString:@"Running"]) {
+            [button setTitle:@"STOP" forState:UIControlStateNormal];
+            [walkButton setEnabled:FALSE];
+            [sitButton setEnabled:FALSE];
+            return;
+        } if ([[button currentTitle] isEqualToString:@"Sitting"]) {
+            [button setTitle:@"STOP" forState:UIControlStateNormal];
+            [walkButton setEnabled:FALSE];
+            [runButton setEnabled:FALSE];
+            return;
+        }
+    }
+}
+
+-(void)togglewithLabel:(NSString*)label{
     on = !on;
     if(on){
         stepDetector=[[StepDetector alloc] init];
         steps = 0;
-        [toggleButton setTitle:@"Stop" forState:UIControlStateNormal];
         [motionManager startAccelerometerUpdatesToQueue:[NSOperationQueue mainQueue] withHandler:^(CMAccelerometerData *accelerometerData, NSError *error) {
             //store values
 //            NSDate *dateStamp = [NSDate date];
@@ -64,7 +107,7 @@ static const NSTimeInterval accelerationInterval= .1;
             NSDecimalNumber *numY= [[NSDecimalNumber alloc]initWithDouble:[yVal doubleValue]];
             NSDecimalNumber *numZ=[[NSDecimalNumber alloc] initWithDouble:[zVal doubleValue]];
 //            NSLog(@"%@, %@, %@", numX, numY, numZ);
-            NSArray *sendArray = [[NSArray alloc] initWithObjects:numX, numY, numZ, nil];
+            NSArray *sendArray = [[NSArray alloc] initWithObjects:numX, numY, numZ, label, nil];
 //            NSArray *filteredData= [smoothingFilter getFilteredValuesOfXValue:numX ofYValue:numY ofZValue:numZ];
             
             //detect steps
@@ -95,7 +138,6 @@ static const NSTimeInterval accelerationInterval= .1;
     else{
         //reset labels, kill updates
         [motionManager stopAccelerometerUpdates];
-        [toggleButton setTitle:@"Start" forState:UIControlStateNormal];
         xLabel.text = @"X";
         yLabel.text = @"Y";
         zLabel.text = @"Z";
@@ -186,7 +228,7 @@ static const NSTimeInterval accelerationInterval= .1;
         
     }
     
-    [self toggle];
+//    [self togglewithLabel:NULL];
     
 }
 
