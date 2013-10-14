@@ -16,7 +16,6 @@
 
 @implementation ViewController
 
-@synthesize on;
 @synthesize logArray;
 @synthesize xLabel;
 @synthesize yLabel;
@@ -34,9 +33,9 @@
 static const NSTimeInterval accelerationInterval= .1;
 
 -(IBAction)buttonPress:(UIButton*) button{
-    hasBeenPressed = TRUE;
-    [self changeLayout:button];
     [self togglewithLabel:[button currentTitle]];
+    [self changeLayout:button];
+    
 }
 
 -(void) changeLayout: (UIButton*) button{
@@ -81,8 +80,8 @@ static const NSTimeInterval accelerationInterval= .1;
 }
 
 -(void)togglewithLabel:(NSString*)label{
-    on = !on;
-    if(on){
+    
+    if(motionManager.accelerometerActive){
         stepDetector=[[StepDetector alloc] init];
         steps = 0;
         [motionManager startAccelerometerUpdatesToQueue:[NSOperationQueue mainQueue] withHandler:^(CMAccelerometerData *accelerometerData, NSError *error) {
@@ -138,11 +137,6 @@ static const NSTimeInterval accelerationInterval= .1;
     else{
         //reset labels, kill updates
         [motionManager stopAccelerometerUpdates];
-        xLabel.text = @"X";
-        yLabel.text = @"Y";
-        zLabel.text = @"Z";
-
-        
         //write array to file
         
 //        if ([logArray count] > 0) {
@@ -217,8 +211,6 @@ static const NSTimeInterval accelerationInterval= .1;
     [super viewDidLoad];
 	// Do any additional setup after loading the view, typically from a nib.
     
-    on = TRUE;
-    hasBeenPressed = FALSE;
     logArray = [[NSMutableArray alloc] init];
     motionManager= [[CMMotionManager alloc]init];
     steps = 0;
