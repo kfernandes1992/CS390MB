@@ -14,16 +14,17 @@
 
 @interface ViewController : UIViewController <UIAccelerometerDelegate, UIActionSheetDelegate, MFMailComposeViewControllerDelegate>
 
--(IBAction)buttonPress;
--(IBAction)toggle;
+-(IBAction)buttonPress:(UIButton*) button;
+-(IBAction)togglewithLabel:(NSString*)label;
 
 
-@property(nonatomic, assign) BOOL on;
 @property(nonatomic, strong) NSMutableArray *logArray;
 @property(nonatomic, strong) IBOutlet UILabel *xLabel;
 @property(nonatomic, strong) IBOutlet UILabel *yLabel;
 @property(nonatomic, strong) IBOutlet UILabel *zLabel;
-@property(nonatomic, strong) IBOutlet UIButton *toggleButton;
+@property(nonatomic, strong) IBOutlet UIButton *walkButton;
+@property(nonatomic, strong) IBOutlet UIButton  *runButton;
+@property (nonatomic, strong) IBOutlet UIButton *sitButton;
 @property (weak, nonatomic) IBOutlet UILabel *stepCounterLabel;
 @property (strong, nonatomic) KMESmoothingFilter *smoothingFilter;
 @property (strong, nonatomic) StepDetector *stepDetector;
