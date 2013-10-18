@@ -26,6 +26,7 @@
 		936CD65F17E36D3900B69E9B /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 936CD65D17E36D3900B69E9B /* InfoPlist.strings */; };
 		936CD66217E36D3900B69E9B /* CMPSCI390MB_AccelerometerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 936CD66117E36D3900B69E9B /* CMPSCI390MB_AccelerometerTests.m */; };
 		93A1FEF517E919330085B15B /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 93A1FEF417E919330085B15B /* MessageUI.framework */; };
+		93B1AAAE1811E2250046F6B6 /* ReorientAxis.m in Sources */ = {isa = PBXBuildFile; fileRef = 93B1AAAD1811E2250046F6B6 /* ReorientAxis.m */; };
 		93B38BE917E5E785002F12B0 /* InfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 93B38BE817E5E785002F12B0 /* InfoViewController.m */; };
 		93C9D1B917E371A600B6C374 /* CoreMotion.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 93C9D1B817E371A600B6C374 /* CoreMotion.framework */; };
 		93C9D1BA17E371A600B6C374 /* CoreMotion.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 93C9D1B817E371A600B6C374 /* CoreMotion.framework */; };
@@ -70,6 +71,8 @@
 		936CD66017E36D3900B69E9B /* CMPSCI390MB_AccelerometerTests.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CMPSCI390MB_AccelerometerTests.h; sourceTree = "<group>"; };
 		936CD66117E36D3900B69E9B /* CMPSCI390MB_AccelerometerTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CMPSCI390MB_AccelerometerTests.m; sourceTree = "<group>"; };
 		93A1FEF417E919330085B15B /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
+		93B1AAAC1811E2250046F6B6 /* ReorientAxis.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ReorientAxis.h; sourceTree = "<group>"; };
+		93B1AAAD1811E2250046F6B6 /* ReorientAxis.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ReorientAxis.m; sourceTree = "<group>"; };
 		93B38BE717E5E785002F12B0 /* InfoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InfoViewController.h; sourceTree = "<group>"; };
 		93B38BE817E5E785002F12B0 /* InfoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InfoViewController.m; sourceTree = "<group>"; };
 		93C9D1B817E371A600B6C374 /* CoreMotion.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMotion.framework; path = System/Library/Frameworks/CoreMotion.framework; sourceTree = SDKROOT; };
@@ -151,6 +154,8 @@
 				936CD64B17E36D3900B69E9B /* ViewController.h */,
 				936CD64C17E36D3900B69E9B /* ViewController.m */,
 				CE2040B81811CFA4006213C3 /* computeMean */,
+				93B1AAAC1811E2250046F6B6 /* ReorientAxis.h */,
+				93B1AAAD1811E2250046F6B6 /* ReorientAxis.m */,
 				CE8B867A17F8CAB0006DDA51 /* StepDetector.h */,
 				CE8B867B17F8CAB0006DDA51 /* StepDetector.m */,
 				936CD63417E36D3900B69E9B /* Supporting Files */,
@@ -308,6 +313,7 @@
 				936CD63E17E36D3900B69E9B /* AppDelegate.m in Sources */,
 				CE8B867C17F8CAB0006DDA51 /* StepDetector.m in Sources */,
 				936CD64D17E36D3900B69E9B /* ViewController.m in Sources */,
+				93B1AAAE1811E2250046F6B6 /* ReorientAxis.m in Sources */,
 				93B38BE917E5E785002F12B0 /* InfoViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
