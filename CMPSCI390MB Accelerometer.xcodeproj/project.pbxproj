@@ -27,6 +27,7 @@
 		936CD66217E36D3900B69E9B /* CMPSCI390MB_AccelerometerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 936CD66117E36D3900B69E9B /* CMPSCI390MB_AccelerometerTests.m */; };
 		93A1FEF517E919330085B15B /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 93A1FEF417E919330085B15B /* MessageUI.framework */; };
 		93B1AAAE1811E2250046F6B6 /* ReorientAxis.m in Sources */ = {isa = PBXBuildFile; fileRef = 93B1AAAD1811E2250046F6B6 /* ReorientAxis.m */; };
+		93B1AAB11811E8F70046F6B6 /* ActivityFeatureExtractor.m in Sources */ = {isa = PBXBuildFile; fileRef = 93B1AAB01811E8F70046F6B6 /* ActivityFeatureExtractor.m */; };
 		93B38BE917E5E785002F12B0 /* InfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 93B38BE817E5E785002F12B0 /* InfoViewController.m */; };
 		93C9D1B917E371A600B6C374 /* CoreMotion.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 93C9D1B817E371A600B6C374 /* CoreMotion.framework */; };
 		93C9D1BA17E371A600B6C374 /* CoreMotion.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 93C9D1B817E371A600B6C374 /* CoreMotion.framework */; };
@@ -73,6 +74,8 @@
 		93A1FEF417E919330085B15B /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
 		93B1AAAC1811E2250046F6B6 /* ReorientAxis.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ReorientAxis.h; sourceTree = "<group>"; };
 		93B1AAAD1811E2250046F6B6 /* ReorientAxis.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ReorientAxis.m; sourceTree = "<group>"; };
+		93B1AAAF1811E8F70046F6B6 /* ActivityFeatureExtractor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ActivityFeatureExtractor.h; sourceTree = "<group>"; };
+		93B1AAB01811E8F70046F6B6 /* ActivityFeatureExtractor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ActivityFeatureExtractor.m; sourceTree = "<group>"; };
 		93B38BE717E5E785002F12B0 /* InfoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InfoViewController.h; sourceTree = "<group>"; };
 		93B38BE817E5E785002F12B0 /* InfoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InfoViewController.m; sourceTree = "<group>"; };
 		93C9D1B817E371A600B6C374 /* CoreMotion.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMotion.framework; path = System/Library/Frameworks/CoreMotion.framework; sourceTree = SDKROOT; };
@@ -158,6 +161,8 @@
 				93B1AAAD1811E2250046F6B6 /* ReorientAxis.m */,
 				CE8B867A17F8CAB0006DDA51 /* StepDetector.h */,
 				CE8B867B17F8CAB0006DDA51 /* StepDetector.m */,
+				93B1AAAF1811E8F70046F6B6 /* ActivityFeatureExtractor.h */,
+				93B1AAB01811E8F70046F6B6 /* ActivityFeatureExtractor.m */,
 				936CD63417E36D3900B69E9B /* Supporting Files */,
 			);
 			path = "CMPSCI390MB Accelerometer";
@@ -310,6 +315,7 @@
 			files = (
 				936CD63A17E36D3900B69E9B /* main.m in Sources */,
 				933412B117F8A65C006215F3 /* KMESmoothingFilter.m in Sources */,
+				93B1AAB11811E8F70046F6B6 /* ActivityFeatureExtractor.m in Sources */,
 				936CD63E17E36D3900B69E9B /* AppDelegate.m in Sources */,
 				CE8B867C17F8CAB0006DDA51 /* StepDetector.m in Sources */,
 				936CD64D17E36D3900B69E9B /* ViewController.m in Sources */,
