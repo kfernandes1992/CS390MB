@@ -157,34 +157,37 @@
     [timeVector removeAllObjects];
 }
 
-- (double)computeCrossingRateWithJavaLangDoubleArray:(IOSObjectArray *)values
-                                          withDouble:(double)mean {
-    if ((int) [((IOSObjectArray *) nil_chk(values)) count] <= 1) return 0.0;
+- (double)computeCrossingRate:(NSMutableArray *)values withDouble:(double)mean {
+    if ((int) [((NSMutableArray *) values) count] <= 1) return 0.0;
     double rate = 0.0;
     for (int i = 0; i < (int) [values count]; i++) {
-        if (i > 0 && (([((JavaLangDouble *) nil_chk(IOSObjectArray_Get(values, i))) doubleValue] > mean && [((JavaLangDouble *) nil_chk(IOSObjectArray_Get(values, i - 1))) doubleValue] < mean) || ([((JavaLangDouble *) nil_chk(IOSObjectArray_Get(values, i))) doubleValue] < mean && [((JavaLangDouble *) nil_chk(IOSObjectArray_Get(values, i))) doubleValue] > mean))) rate = rate + 1;
+        if (i > 0 && (([values objectAtIndex:i]>mean && [values objectAtIndex:(i-1)]<mean) || ([values objectAtIndex:i]<mean && [values objectAtIndex:i]>mean)))
+            rate = rate + 1;
     }
     rate = rate / ((int) [values count] - 1);
     return rate;
 }
 
-- (IOSDoubleArray *)computeFFTFeaturesWithJavaLangDoubleArray:(IOSObjectArray *)values {
+- (NSMutableArray *)computeFFTFeatures:(NSMutableArray *)values {
     int i, j, k, n1, n2, a;
     double c, s, t1, t2;
     int n = 1, m = 0;
     for (m = 0; ; m++) {
-        if (n >= (int) [((IOSObjectArray *) nil_chk(values)) count]) break;
+        if (n >= (int) [((NSMutableArray *) values) count]) break;
         n = n * 2;
     }
-    IOSDoubleArray *x = [IOSDoubleArray arrayWithLength:n];
-    IOSDoubleArray *y = [IOSDoubleArray arrayWithLength:n];
-    for (i = 0; i < (int) [((IOSObjectArray *) nil_chk(values)) count]; i++) (*IOSDoubleArray_GetRef(x, i)) = [((JavaLangDouble *) nil_chk(IOSObjectArray_Get(values, i))) doubleValue];
-    IOSDoubleArray *cos = [IOSDoubleArray arrayWithLength:n / 2];
-    IOSDoubleArray *sin = [IOSDoubleArray arrayWithLength:n / 2];
+    NSMutableArray *x = [NSMutableArray arrayWithLength:n];
+    NSMutableArray *y = [NSMutableArray arrayWithLength:n];
+    for (i = 0; i < (int) [((NSMutableArray *) values) count]; i++)
+        [x objectAtIndex:i] = [values objectAtIndex:i];
+    
+    NSMutableArray *cos = [NSMutableArray arrayWithLength:(n/2)];
+    NSMutableArray *sin = [NSMutableArray arrayWithLength:(n/2)];
     for (i = 0; i < n / 2; i++) {
-        (*IOSDoubleArray_GetRef(cos, i)) = [JavaLangMath cosWithDouble:-2 * JavaLangMath_PI * i / n];
-        (*IOSDoubleArray_GetRef(sin, i)) = [JavaLangMath sinWithDouble:-2 * JavaLangMath_PI * i / n];
+        [cos objectAtIndex:i] = cos(-2*M_PI*i/n);
+        [sin objectAtIndex:i] = sin(-2*M_PI*i/n);
     }
+    // Bit-reverse
     j = 0;
     n2 = n / 2;
     for (i = 1; i < n - 1; i++) {
@@ -195,14 +198,15 @@
         }
         j = j + n1;
         if (i < j) {
-            t1 = IOSDoubleArray_Get(x, i);
-            (*IOSDoubleArray_GetRef(x, i)) = IOSDoubleArray_Get(x, j);
-            (*IOSDoubleArray_GetRef(x, j)) = t1;
-            t1 = IOSDoubleArray_Get(y, i);
-            (*IOSDoubleArray_GetRef(y, i)) = IOSDoubleArray_Get(y, j);
-            (*IOSDoubleArray_GetRef(y, j)) = t1;
+            t1 = [x objectAtIndex:i];
+            [x objectAtIndex:i] = [x objectAtIndex:j];
+            [x objectAtIndex:j] = t1;
+            t1 = [y objectAtIndex:i];
+            [y objectAtIndex:i] = [y objectAtIndex:j];
+            [y objectAtIndex:j] = t1;
         }
     }
+    // FFT
     n1 = 0;
     n2 = 1;
     for (i = 0; i < m; i++) {
@@ -210,25 +214,27 @@
         n2 = n2 + n2;
         a = 0;
         for (j = 0; j < n1; j++) {
-            c = IOSDoubleArray_Get(cos, a);
-            s = IOSDoubleArray_Get(sin, a);
+            c = [cos objectAtIndex:a];
+            s = [sin objectAtIndex:a];
             a += 1 << (m - i - 1);
             for (k = j; k < n; k = k + n2) {
-                t1 = c * IOSDoubleArray_Get(x, k + n1) - s * IOSDoubleArray_Get(y, k + n1);
-                t2 = s * IOSDoubleArray_Get(x, k + n1) + c * IOSDoubleArray_Get(y, k + n1);
-                (*IOSDoubleArray_GetRef(x, k + n1)) = IOSDoubleArray_Get(x, k) - t1;
-                (*IOSDoubleArray_GetRef(y, k + n1)) = IOSDoubleArray_Get(y, k) - t2;
-                (*IOSDoubleArray_GetRef(x, k)) = IOSDoubleArray_Get(x, k) + t1;
-                (*IOSDoubleArray_GetRef(y, k)) = IOSDoubleArray_Get(y, k) + t2;
+                t1 = c * [x objectAtIndex:(k+n1)] - s*[y objectAtIndex:(k+n1)];
+                t2 = s*[x objectAtIndex:(k+n1)] + c* [y objectAtIndex:(k+n1)];
+                [x objectAtIndex:(k+n1)] = [x objectAtIndex:k] - t1;
+                [y objectAtIndex:(k+n1)] = [y objectAtIndex:k] - t2;
+                [x objectAtIndex:k] = [x objectAtIndex:k] + t1;
+                [y objectAtIndex:k] = [y objectAtIndex:k] + t2;
             }
         }
     }
+    
+    //Need to convert this
     IOSObjectArray *coeffs = [IOSObjectArray arrayWithLength:(int) [x count] type:[IOSClass classWithClass:[OrgMstreamStreamEdaActivityFeatureExtractor_Coefficient class]]];
-    for (i = 0; i < (int) [coeffs count]; i++) IOSObjectArray_Set(coeffs, i, [[[OrgMstreamStreamEdaActivityFeatureExtractor_Coefficient alloc] initWithOrgMstreamStreamEdaActivityFeatureExtractor:self withDouble:IOSDoubleArray_Get(x, i) withDouble:IOSDoubleArray_Get(y, i) withDouble:(360.0 * i) / (int) [coeffs count]] autorelease]);
+    for (i = 0; i < (int) [coeffs count]; i++) IOSObjectArray_Set(coeffs, i, [[[OrgMstreamStreamEdaActivityFeatureExtractor_Coefficient alloc] initWithOrgMstreamStreamEdaActivityFeatureExtractor:self withDouble:NSMutableArray_Get(x, i) withDouble:NSMutableArray_Get(y, i) withDouble:(360.0 * i) / (int) [coeffs count]] autorelease]);
     [JavaUtilArrays sortWithNSObjectArray:coeffs];
     IOSObjectArray *coeffs2 = [IOSObjectArray arrayWithLength:(int) [x count] type:[IOSClass classWithClass:[OrgMstreamStreamEdaActivityFeatureExtractor_Coefficient class]]];
     for (i = 0; i < (int) [x count]; i++) IOSObjectArray_Set(coeffs2, i, IOSObjectArray_Get(coeffs, (int) [x count] - 1 - i));
-    IOSDoubleArray *result = [IOSDoubleArray arrayWithLength:10];
+    NSMutableArray *result = [NSMutableArray arrayWithLength:10];
     int len = ((int) [coeffs2 count] > 5 ? 5 : (int) [coeffs2 count]);
     BOOL NEW = NO;
     for (i = 0, j = 0; i < len; i++, j++) {
@@ -237,27 +243,28 @@
             continue;
         }
         if (NEW && j >= (int) [coeffs2 count]) break;
-        (*IOSDoubleArray_GetRef(result, 2 * i)) = ((OrgMstreamStreamEdaActivityFeatureExtractor_Coefficient *) nil_chk(IOSObjectArray_Get(coeffs2, j)))->abs_;
-        (*IOSDoubleArray_GetRef(result, 2 * i + 1)) = ((OrgMstreamStreamEdaActivityFeatureExtractor_Coefficient *) nil_chk(IOSObjectArray_Get(coeffs2, j)))->freq_;
+        (*NSMutableArray_GetRef(result, 2 * i)) = ((OrgMstreamStreamEdaActivityFeatureExtractor_Coefficient *) nil_chk(IOSObjectArray_Get(coeffs2, j)))->abs_;
+        (*NSMutableArray_GetRef(result, 2 * i + 1)) = ((OrgMstreamStreamEdaActivityFeatureExtractor_Coefficient *) nil_chk(IOSObjectArray_Get(coeffs2, j)))->freq_;
     }
     return result;
 }
 
-- (double)computeMeanWithJavaLangDoubleArray:(IOSObjectArray *)values {
+- (double)computeMean:(NSMutableArray *)values {
     double mean = 0.0;
-    for (int i = 0; i < (int) [((IOSObjectArray *) nil_chk(values)) count]; i++) mean += [((JavaLangDouble *) nil_chk(IOSObjectArray_Get(values, i))) doubleValue];
+    for (int i = 0; i < (int) [((NSMutableArray *) values) count]; i++)
+        mean += [values objectAtIndex:i];
     return mean / (int) [values count];
 }
 
-- (double)computeStdDevWithJavaLangDoubleArray:(IOSObjectArray *)values
+- (double)computeStdDev:(NSMutableArray *)values
                                     withDouble:(double)mean {
     double dev = 0.0;
     double diff = 0.0;
-    for (int i = 0; i < (int) [((IOSObjectArray *) nil_chk(values)) count]; i++) {
-        diff = [((JavaLangDouble *) nil_chk(IOSObjectArray_Get(values, i))) doubleValue] - mean;
+    for (int i = 0; i < (int) [((NSMutableArray *) values) count]; i++) {
+        diff = [values objectAtIndex:i] - mean;
         dev += diff * diff;
     }
-    return [JavaLangMath sqrtWithDouble:dev / (int) [values count]];
+    return [sqrt:(dev/(int)[values count])];
 }
 
 - (void)addValuesWithDouble:(double)acc_x
