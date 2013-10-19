@@ -1,0 +1,59 @@
+//computing speed from accelerometer values
+
+double speed = sqrt(pow(accX-lastAccX,2)+pow(accY-lastAccY,2)+pow(accZ-lastAccZ,2));
+  
+    
+//computing means
+-(double) computeMeanWithValues: (NSArray*) values{
+    double mean=0.0;
+    for(int i=0;i<values.length;i++){
+        mean+= values[i];
+    }
+    return mean/values.length;
+}
+
+
+
+
+if(accState){
+			//Once, sufficient samples have been collected, we can orient 
+			//Now get the oriented axis and corresponding readings
+			double g = 9.81;
+			double acc_z_o = aggAZ/(READ_LIMIT*g);
+			double acc_y_o = aggAY/(READ_LIMIT*g);
+			double acc_x_o = aggAX/(READ_LIMIT*g);
+			
+			acc_z_o = (acc_z_o>1.0?1.0:acc_z_o);
+			acc_z_o = (acc_z_o<(-1.0)?-1.0:acc_z_o);
+			acc_x = acc_x/g;
+			acc_y = acc_y/g;
+			acc_z = acc_z/g;
+			double theta_tilt = acos(acc_z_o);
+			double phi_pre = atan2(acc_y_o, acc_x_o);
+			double tan_psi = ( (-1)*acc_x_o*sin(phi_pre) + acc_y_o*cos(phi_pre))/
+			((acc_x_o*cos(phi_pre)+acc_y_o*sin(phi_pre))*cos(theta_tilt)+(-1)*acc_z_o*sin(theta_tilt));
+			double psi_post = atan(tan_psi);
+			double acc_x_pre = acc_x*cos(phi_pre)+ acc_y*sin(phi_pre);
+			double acc_y_pre = (-1)*acc_x*sin(phi_pre)+ acc_y*cos(phi_pre);
+			double acc_x_pre_tilt = acc_x_pre*cos(theta_tilt)+ (-1)*acc_z*sin(theta_tilt);
+			double acc_y_pre_tilt = acc_y_pre;
+			double orient_acc_x = (acc_x_pre_tilt*cos(psi_post)+ acc_y_pre_tilt*sin(psi_post))*g;
+			double orient_acc_y =( (-1)*acc_x_pre_tilt*sin(psi_post)+ acc_y_pre_tilt*cos(psi_post))*g;
+			double orient_acc_z = acc_z*g/(cos(theta_tilt));
+			//System.out.println("ORT:"+orient_acc_x+","+orient_acc_y+","+orient_acc_z);
+			orient_acc_z = (orient_acc_z>3*g?3*g:orient_acc_z);
+			orient_acc_z = (orient_acc_z<(-1)*3*g?(-1)*3*g:orient_acc_z);
+			orient_acc_z = sqrt((pow(acc_x, 2)+pow(acc_y, 2)+pow(acc_z, 2))*pow(g, 2)
+					-(pow(orient_acc_x, 2)+pow(orient_acc_y, 2)));
+
+			output[0] = orient_acc_x;
+			output[1] = orient_acc_y;
+			output[2] = orient_acc_z;
+				
+		}
+		readCounter++;
+		return output;
+	}
+	
+	
+}
