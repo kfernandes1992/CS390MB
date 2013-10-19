@@ -42,7 +42,7 @@
     
     aggAX = aggAX + acc_x - [[[accReadings objectAtIndex:readCounter] objectAtIndex:0] doubleValue];
     aggAY = aggAY + acc_y - [[[accReadings objectAtIndex:readCounter] objectAtIndex:1] doubleValue];
-    aggAZ = aggAZ + acc_z - [[[accReadings objectAtIndex:readCounter] objectAtIndex:3] doubleValue];
+    aggAZ = aggAZ + acc_z - [[[accReadings objectAtIndex:readCounter] objectAtIndex:2] doubleValue];
     
     [[accReadings objectAtIndex:readCounter] setObject:[[NSNumber alloc] initWithDouble: acc_x] atIndex:0];
     [[accReadings objectAtIndex:readCounter] setObject:[[NSNumber alloc] initWithDouble: acc_y] atIndex:1];

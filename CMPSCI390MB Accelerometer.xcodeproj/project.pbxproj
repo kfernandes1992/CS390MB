@@ -73,7 +73,7 @@
 		936CD66117E36D3900B69E9B /* CMPSCI390MB_AccelerometerTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CMPSCI390MB_AccelerometerTests.m; sourceTree = "<group>"; };
 		93A1FEF417E919330085B15B /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
 		93B1AAAC1811E2250046F6B6 /* ReorientAxis.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ReorientAxis.h; sourceTree = "<group>"; };
-		93B1AAAD1811E2250046F6B6 /* ReorientAxis.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ReorientAxis.m; sourceTree = "<group>"; };
+		93B1AAAD1811E2250046F6B6 /* ReorientAxis.m */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 5; lastKnownFileType = sourcecode.c.objc; path = ReorientAxis.m; sourceTree = "<group>"; };
 		93B1AAAF1811E8F70046F6B6 /* ActivityFeatureExtractor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ActivityFeatureExtractor.h; sourceTree = "<group>"; };
 		93B1AAB01811E8F70046F6B6 /* ActivityFeatureExtractor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ActivityFeatureExtractor.m; sourceTree = "<group>"; };
 		93B38BE717E5E785002F12B0 /* InfoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InfoViewController.h; sourceTree = "<group>"; };
