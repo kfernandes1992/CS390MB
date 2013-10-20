@@ -290,7 +290,7 @@
         [sin objectAtIndex:i] = sin(-2*M_PI*i/n);
     }
     // Bit-reverse
-    j = 0;
+    /*j = 0;
     n2 = n / 2;
     for (i = 1; i < n - 1; i++) {
         n1 = n2;
@@ -328,12 +328,17 @@
                 [y objectAtIndex:k] = [y objectAtIndex:k] + t2;
             }
         }
-    }
+    }*/
     
     //still java need to convert
-    Coefficient coeffs[] = new Coefficient[x.length];
-    for(i=0;i<coeffs.length;i++)
-        coeffs[i] = new Coefficient(x[i],y[i],(360.0*i)/coeffs.length);
+//Coefficient coeffs[] = new Coefficient[x.length];
+    NSMutableArray *coeffs = [[NSMutableArray alloc] init];
+    for(i=0;i<x.count;i++){
+        
+        coeffs[i] = [[Coefficient alloc] initWithX:x[i]  Y:y[i].doubleValue frequency:((360.0*i)/x.count)];
+    }
+    
+        (x[i],y[i],(360.0*i)/coeffs.length);
     Arrays.sort(coeffs);
     
     Coefficient coeffs2[] = new Coefficient[x.length];

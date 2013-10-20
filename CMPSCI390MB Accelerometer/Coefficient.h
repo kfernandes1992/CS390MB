@@ -17,4 +17,6 @@
 @property(nonatomic, assign) double freq;
 @property(nonatomic, assign) double abs;
 
+- (id)initWithX:(double) x Y:(double) y frequency:(double) frequency;
+
 @end

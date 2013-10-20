@@ -7,6 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "Coefficient.h"
 
 @interface ActivityFeatureExtractor : NSObject
 
