@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		933412B117F8A65C006215F3 /* KMESmoothingFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = 933412B017F8A65C006215F3 /* KMESmoothingFilter.m */; };
+		9367F07D181476860097B5F3 /* Coefficient.m in Sources */ = {isa = PBXBuildFile; fileRef = 9367F07C181476860097B5F3 /* Coefficient.m */; };
 		936CD62E17E36D3900B69E9B /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 936CD62D17E36D3900B69E9B /* UIKit.framework */; };
 		936CD63017E36D3900B69E9B /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 936CD62F17E36D3900B69E9B /* Foundation.framework */; };
 		936CD63217E36D3900B69E9B /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 936CD63117E36D3900B69E9B /* CoreGraphics.framework */; };
@@ -48,6 +49,8 @@
 /* Begin PBXFileReference section */
 		933412AF17F8A65C006215F3 /* KMESmoothingFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = KMESmoothingFilter.h; path = ../KMESmoothingFilter.h; sourceTree = "<group>"; };
 		933412B017F8A65C006215F3 /* KMESmoothingFilter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = KMESmoothingFilter.m; path = ../KMESmoothingFilter.m; sourceTree = "<group>"; };
+		9367F07B181476860097B5F3 /* Coefficient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Coefficient.h; sourceTree = "<group>"; };
+		9367F07C181476860097B5F3 /* Coefficient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Coefficient.m; sourceTree = "<group>"; };
 		936CD62A17E36D3900B69E9B /* CMPSCI390MB Accelerometer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "CMPSCI390MB Accelerometer.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		936CD62D17E36D3900B69E9B /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		936CD62F17E36D3900B69E9B /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -163,6 +166,8 @@
 				CE8B867B17F8CAB0006DDA51 /* StepDetector.m */,
 				93B1AAAF1811E8F70046F6B6 /* ActivityFeatureExtractor.h */,
 				93B1AAB01811E8F70046F6B6 /* ActivityFeatureExtractor.m */,
+				9367F07B181476860097B5F3 /* Coefficient.h */,
+				9367F07C181476860097B5F3 /* Coefficient.m */,
 				936CD63417E36D3900B69E9B /* Supporting Files */,
 			);
 			path = "CMPSCI390MB Accelerometer";
@@ -316,6 +321,7 @@
 				936CD63A17E36D3900B69E9B /* main.m in Sources */,
 				933412B117F8A65C006215F3 /* KMESmoothingFilter.m in Sources */,
 				93B1AAB11811E8F70046F6B6 /* ActivityFeatureExtractor.m in Sources */,
+				9367F07D181476860097B5F3 /* Coefficient.m in Sources */,
 				936CD63E17E36D3900B69E9B /* AppDelegate.m in Sources */,
 				CE8B867C17F8CAB0006DDA51 /* StepDetector.m in Sources */,
 				936CD64D17E36D3900B69E9B /* ViewController.m in Sources */,
