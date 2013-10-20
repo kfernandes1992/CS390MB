@@ -48,7 +48,7 @@
 }
 
 -(NSMutableArray *) extractFeatures {
-    NSNumber* zero = [(NSNumber *)numberWithLong:(long)0.0];
+    NSNumber* zero = [NSNumber numberWithLong:(long)0.0];
     //accepts objects only so could use NSNumber *tempNumber = [[NSNumber alloc] initWithDouble:?I don't know what to put here?] Why does initWithObjects accept two doubles?
     NSMutableArray* features = [[NSMutableArray alloc]initWithObjects:zero, zero, nil];
     for(int i=0;i< (int)[features count];i++)
@@ -62,7 +62,7 @@
     NSMutableArray* values = xVector;
     
     double mean = [self computeMean:values];
-    double dev = [self computeStdDev:values :mean];
+    double dev= [self computeStdDev:values withDouble:mean];
     NSMutableArray* result = [self computeFFTFeatures:values];
     
     [features objectAtIndex:0] = mean;
