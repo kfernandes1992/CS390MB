@@ -82,18 +82,19 @@
     //features of the y acceleration
     values = yVector;
     
-    mean = [computeMean:values];
-    dev = [computeStdDev:values :mean];
-    result = [computeFFTFeatures:values];
-    [features objectAtIndex:9] = mean;
-    [features objectAtIndex:10] = dev;
-    [features objectAtIndex:11] = [computeCrossingRate:values :mean];
+    mean = [self computeMean:values];
+    dev = [self computeStdDev:values withDouble:mean];
+    result = [self computeFFTFeatures:values];
+    [features setObject: [[NSNumber alloc] initWithDouble:mean] atIndexedSubscript:9];
+    [features setObject: [[NSNumber alloc] initWithDouble:dev] atIndexedSubscript:10];
+    [features setObject: [[NSNumber alloc] initWithDouble:[self computeCrossingRate:values withDouble:mean]] atIndexedSubscript:11];
     for(int i=12;i<16;i++)
-        [features objectAtIndex:i] = [result objectAtIndex:(i-12)];
+        [features setObject:[result objectAtIndex:(i-12)] atIndexedSubscript:i];
     //might change where these values go in the array
     for(int i=1;i<(sizeof values);i++){
         //change in y velocity from time i-1 to time i
-        [features objectAtIndex:16] += [values objectAtIndex:(i-1)]*([times objectAtIndex:i]- [times objectAtIndex:(i-1)]);
+//        [features objectAtIndex:16] += [values objectAtIndex:(i-1)]*([times objectAtIndex:i]- [times objectAtIndex:(i-1)]);
+        [features setObject:[[NSNumber alloc] initWithDouble:[[values objectAtIndex:16] doubleValue] + [[values objectAtIndex:i - 1] doubleValue] * ([[times objectAtIndex:i] doubleValue] - [[times objectAtIndex:i - 1] doubleValue])] atIndexedSubscript:16];
         //two times the y distance from time i-1 to time i
         [features objectAtIndex:17] += abs([values objectAtIndex:(i-1)]*pow([times objectAtIndex:i]-[times objectAtIndex:(i-1)],2));
     }
