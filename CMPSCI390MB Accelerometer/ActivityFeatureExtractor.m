@@ -66,10 +66,10 @@
     double mean = [self computeMean:values];
     double dev= [self computeStdDev:values withDouble:mean];
     NSMutableArray* result = [self computeFFTFeatures:values];
-    /*
-    [features objectAtIndex:0] = mean;
-    [features objectAtIndex:1] = dev;
-    [features objectAtIndex:2] = [self computeCrossingRate:values :mean];
+    
+    [features setObject: [[NSNumber alloc] initWithDouble:mean] atIndexedSubscript:0];
+    [features setObject: [[NSNumber alloc] initWithDouble:dev] atIndexedSubscript:1];
+    [features setObject: [[NSNumber alloc] initWithDouble:[self computeCrossingRate:values withDouble:mean]] atIndexedSubscript:2];
     //FFT
     for(int i=3;i<7;i++)
         [features insertObject:[result objectAtIndex:(i-3)] atIndex:i];//0-3
@@ -106,48 +106,55 @@
     mean = [self computeMean:values];
     dev= [self computeStdDev:values withDouble:mean];
     result = [self computeFFTFeatures:values];
-    [features objectAtIndex:18] = mean;
-    [features objectAtIndex:19] = dev;
-    [features objectAtIndex:20] = [computeCrossingRate:values :mean];
+    
+    [features setObject: [[NSNumber alloc] initWithDouble:mean] atIndexedSubscript:18];
+    [features setObject: [[NSNumber alloc] initWithDouble:dev] atIndexedSubscript:19];
+    [features setObject: [[NSNumber alloc] initWithDouble:[self computeCrossingRate:values withDouble:mean]] atIndexedSubscript:20];
     for(int i=21;i<25;i++)
-        [features objectAtIndex:i] = [result objectAtIndex:(i-21)];
+        [features setObject:[result objectAtIndex:(i-21)] atIndexedSubscript:i];
     //may change where these values go in the array
-    for(int i=1;i<values.length;i++){
+    for(int i=1;i< [values count]; i++){
         //change in z velocity from time i-1 to time i
         [features objectAtIndex:25] += [values objectAtIndex:(i-1)]*([times objectAtIndex:i]- [times objectAtIndex:(i-1)]);
         //two times the z distance from time i-1 to time i
         [features objectAtIndex:26] += abs([values objectAtIndex:(i-1)]*pow([times objectAtIndex:i]-[times objectAtIndex:(i-1)],2));
     }
-    */
+
     //features of the speed
     values = speedVector;
     mean = [self computeMean:values];
     dev = [self computeStdDev:values withDouble:mean];
     result = [self computeFFTFeatures:values];
-    [features objectAtIndex:27] = mean;
-    [features objectAtIndex:28] = dev;
-    [features objectAtIndex:29] = [computeCrossingRate:values :mean];
-    for(int i=30;i<33;i++)
-        [features objectAtIndex:i] = [result objectAtIndex:(i-30)];
+    
+    [features setObject: [[NSNumber alloc] initWithDouble:mean] atIndexedSubscript:27];
+    [features setObject: [[NSNumber alloc] initWithDouble:dev] atIndexedSubscript:28];
+    [features setObject: [[NSNumber alloc] initWithDouble:[self computeCrossingRate:values withDouble:mean]] atIndexedSubscript:29];
+    for(int i=30;i<33;i++){
+        [features setObject:[result objectAtIndex:(i-30)] atIndexedSubscript:i];
+    }
     
     //features of the energy
     values = energyVector;
     mean = [self computeMean:values];
-    dev = [self computeStdDev:values :mean];
+    dev = [self computeStdDev:values withDouble:mean];
     result = [self computeFFTFeatures:values];
-    [features objectAtIndex:33] = mean;
-    [features objectAtIndex:34] = dev;
-    [features objectAtIndex:35] = [computeCrossingRate:values :mean];
-    for(int i=36;i<40;i++)
-        [features objectAtIndex:i] = [result objectAtIndex:(i-36)];
+
+    [features setObject: [[NSNumber alloc] initWithDouble:mean] atIndexedSubscript:33];
+    [features setObject: [[NSNumber alloc] initWithDouble:dev] atIndexedSubscript:34];
+    [features setObject: [[NSNumber alloc] initWithDouble:[self computeCrossingRate:values withDouble:mean]] atIndexedSubscript:35];
+    for(int i=36;i<40;i++){
+        [features setObject:[result objectAtIndex:(i-36)] atIndexedSubscript:i];
+    }
     
     //features of energyXY
     values = energyXYVector;
     mean = [self computeMean:values];
-    dev = [self computeStdDev:values :mean];
-    [features objectAtIndex:40] = mean;
-    [features objectAtIndex:41] = dev;
-    [features objectAtIndex:42] = [computeCrossingRate:values :mean];
+    dev = [self computeStdDev:values withDouble:mean];
+    
+    [features setObject: [[NSNumber alloc] initWithDouble:mean] atIndexedSubscript:40];
+    [features setObject: [[NSNumber alloc] initWithDouble:dev] atIndexedSubscript:41];
+    [features setObject: [[NSNumber alloc] initWithDouble:[self computeCrossingRate:values withDouble:mean]] atIndexedSubscript:42];
+
     
     [self clearValues];
     return features;
@@ -167,7 +174,7 @@
     if ((int) [((NSMutableArray *) values) count] <= 1) return 0.0;
     double rate = 0.0;
     for (int i = 0; i < (int) [values count]; i++) {
-        if (i > 0 && (([values objectAtIndex:i]>mean && [values objectAtIndex:(i-1)]<mean) || ([values objectAtIndex:i]<mean && [values objectAtIndex:i]>mean)))
+        if (i > 0 && (([[values objectAtIndex:i] doubleValue] > mean && [[values objectAtIndex:(i-1)] doubleValue] < mean) || ([[values objectAtIndex:i] doubleValue] < mean && [[values objectAtIndex:i] doubleValue] > mean)))
             rate = rate + 1;
     }
     rate = rate / ((int) [values count] - 1);
