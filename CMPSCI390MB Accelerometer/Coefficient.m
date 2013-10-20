@@ -26,5 +26,22 @@
     return self;
 }
 
+-(int) compareTo:(Coefficient *) c
+{
+    if((self.abs - c.abs) > 0){
+        return 1;
+    }
+    
+    else if((self.abs - c.abs) < 0){
+        return -1;
+    }
+    
+    else{
+        return 0;
+    }
+    
+}
+
+
 
 @end
