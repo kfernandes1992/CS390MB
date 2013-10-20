@@ -48,12 +48,14 @@
 }
 
 -(NSMutableArray *) extractFeatures {
-    NSNumber* zero = [(NSNumber *)numberWithLong:(long)0.0];
+    NSNumber* zero = [NSNumber numberWithLong:(long)0.0];
     //accepts objects only so could use NSNumber *tempNumber = [[NSNumber alloc] initWithDouble:?I don't know what to put here?] Why does initWithObjects accept two doubles?
     NSMutableArray* features = [[NSMutableArray alloc]initWithObjects:zero, zero, nil];
     for(int i=0;i< (int)[features count];i++)
         features[i] = zero;
     
+    
+    //TODO:What are you doing to time vector?
     NSMutableArray* times = timeVector;
     [times objectAtIndex:[times count]-1] = [times objectAtIndex:0]+5000;
     
@@ -62,9 +64,9 @@
     NSMutableArray* values = xVector;
     
     double mean = [self computeMean:values];
-    double dev = [self computeStdDev:values :mean];
+    double dev= [self computeStdDev:values withDouble:mean];
     NSMutableArray* result = [self computeFFTFeatures:values];
-    
+    /*
     [features objectAtIndex:0] = mean;
     [features objectAtIndex:1] = dev;
     [features objectAtIndex:2] = [self computeCrossingRate:values :mean];
@@ -101,10 +103,9 @@
     
     //features of the z acceleration
     values = zVector;
-    
-    mean = [computeMean:values];
-    dev = [computeStdDev:values :mean];
-    result = [computeFFTFeatures:values];
+    mean = [self computeMean:values];
+    dev= [self computeStdDev:values withDouble:mean];
+    result = [self computeFFTFeatures:values];
     [features objectAtIndex:18] = mean;
     [features objectAtIndex:19] = dev;
     [features objectAtIndex:20] = [computeCrossingRate:values :mean];
@@ -117,12 +118,12 @@
         //two times the z distance from time i-1 to time i
         [features objectAtIndex:26] += abs([values objectAtIndex:(i-1)]*pow([times objectAtIndex:i]-[times objectAtIndex:(i-1)],2));
     }
-    
+    */
     //features of the speed
     values = speedVector;
-    mean = [computeMean:values];
-    dev = [computeStdDev:values :mean];
-    result = [computeFFTFeatures:values];
+    mean = [self computeMean:values];
+    dev = [self computeStdDev:values withDouble:mean];
+    result = [self computeFFTFeatures:values];
     [features objectAtIndex:27] = mean;
     [features objectAtIndex:28] = dev;
     [features objectAtIndex:29] = [computeCrossingRate:values :mean];
@@ -131,9 +132,9 @@
     
     //features of the energy
     values = energyVector;
-    mean = [computeMean:values];
-    dev = [computeStdDev:values :mean];
-    result = [computeFFTFeatures:values];
+    mean = [self computeMean:values];
+    dev = [self computeStdDev:values :mean];
+    result = [self computeFFTFeatures:values];
     [features objectAtIndex:33] = mean;
     [features objectAtIndex:34] = dev;
     [features objectAtIndex:35] = [computeCrossingRate:values :mean];
@@ -142,13 +143,13 @@
     
     //features of energyXY
     values = energyXYVector;
-    mean = [computeMean:values];
-    dev = [computeStdDev:values :mean];
+    mean = [self computeMean:values];
+    dev = [self computeStdDev:values :mean];
     [features objectAtIndex:40] = mean;
     [features objectAtIndex:41] = dev;
     [features objectAtIndex:42] = [computeCrossingRate:values :mean];
     
-    clearValues();
+    [self clearValues];
     return features;
 }
 
