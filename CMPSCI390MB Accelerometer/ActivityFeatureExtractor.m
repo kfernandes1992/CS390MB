@@ -8,13 +8,46 @@
 
 #import "ActivityFeatureExtractor.h"
 
+@interface Coefficient : NSObject{
+    double re;
+    double im;
+    double freq;
+    double abs;
+}
+@end
+
+@implementation Coefficient
+
+@synthesize re, im, freq, abs;
+
+- (id)init
+{
+    self = [super init];
+    if(self)
+    {
+        re = x;
+        im = y;
+        freq = frequency;
+        abs = hypot(x,y);
+    }
+}
+
+-(int) compareTo: c
+{
+    if((this.abs - c.abs)>0.0)
+        return 1;
+}
+
+@end
+
 @implementation ActivityFeatureExtractor
 @synthesize xVector, yVector, zVector,speedVector, timeVector, energyVector,energyXYVector,WINDOW_IN_MILLISEC, lastAccX, lastAccY, lastAccZ;
 
 - (id)init
 {
     self = [super init];
-    if (self) {
+    if (self)
+    {
         WINDOW_IN_MILLISEC=5000;
         lastAccZ=0;
         lastAccZ=0;
@@ -28,27 +61,28 @@
 -(NSMutableArray *) extractFeaturesWithFeatures: (long) timestamp ortAcX :(double) ortAccX ortAcY: (double) ortAccY ortAcZ: (double) ortAccZ acX:
 (double) accX acY: (double) accY acZ: (double) accZ {
     
-    //TODO: addTime(timestamp);
+    [self addTime:timestamp];
     double speed = sqrt(pow(accX-lastAccX,2)+pow(accY-lastAccY,2)+pow(accZ-lastAccZ,2));
-    //TODO: addValues(ortAccX,ortAccY,ortAccZ, speed);
-    //TODO: addEnergyValues(ortAccX,ortAccY,ortAccZ);
+    [self addValues:ortAccX :ortAccY :ortAccZ :speed];
+    [self addEnergyValues:ortAccX :ortAccY :ortAccZ];
     lastAccX = accX; lastAccY = accY; lastAccZ = accZ;
-    /*Return null if features not extracted
-     if((timestamp-timeVector.get(0))< WINDOW_IN_MILLISEC)
-     return null;
+    //Return null if features not extracted
+     if((timestamp-[timeVector objectAtIndex:0])< WINDOW_IN_MILLISEC)
+     return nil;
      
-     if(xVector.isEmpty()||xVector.size()<2)
-     return null;
-     */
+     if([xVector count] == 0 || [sizeof xVector]<2)
+     return nil;
+     
     
     return [self extractFeatures];
 }
 
 -(NSMutableArray *) extractFeatures {
+    NSNumber* zero = [(NSNumber *)numberWithLong:(long)0.0];
     //accepts objects only so could use NSNumber *tempNumber = [[NSNumber alloc] initWithDouble:?I don't know what to put here?] Why does initWithObjects accept two doubles?
-    NSMutableArray* features = [[NSMutableArray alloc]initWithObjects:0.0, 0.0, nil];
+    NSMutableArray* features = [[NSMutableArray alloc]initWithObjects:zero, zero, nil];
     for(int i=0;i< (int)[features count];i++)
-        features[i] = 0.0;
+        features[i] = zero;
     
     NSMutableArray* times = timeVector;
     [times objectAtIndex:[times count]-1] = [times objectAtIndex:0]+5000;
@@ -66,7 +100,7 @@
     [features objectAtIndex:2] = [self computeCrossingRate:values :mean];
     //FFT
     for(int i=3;i<7;i++)
-        [features objectAtIndex:i] = [result objectAtIndex:(i-3)];//0-3
+        [features insertObject:[result objectAtIndex:(i-3)] atIndex:i];//0-3
     //might change where these values go in the array
     for(int i=1;i<(sizeof values);i++){
         //change in x velocity from time i-1 to time i
@@ -228,26 +262,31 @@
         }
     }
     
-    //Need to convert this
-    IOSObjectArray *coeffs = [IOSObjectArray arrayWithLength:(int) [x count] type:[IOSClass classWithClass:[OrgMstreamStreamEdaActivityFeatureExtractor_Coefficient class]]];
-    for (i = 0; i < (int) [coeffs count]; i++) IOSObjectArray_Set(coeffs, i, [[[OrgMstreamStreamEdaActivityFeatureExtractor_Coefficient alloc] initWithOrgMstreamStreamEdaActivityFeatureExtractor:self withDouble:NSMutableArray_Get(x, i) withDouble:NSMutableArray_Get(y, i) withDouble:(360.0 * i) / (int) [coeffs count]] autorelease]);
-    [JavaUtilArrays sortWithNSObjectArray:coeffs];
-    IOSObjectArray *coeffs2 = [IOSObjectArray arrayWithLength:(int) [x count] type:[IOSClass classWithClass:[OrgMstreamStreamEdaActivityFeatureExtractor_Coefficient class]]];
-    for (i = 0; i < (int) [x count]; i++) IOSObjectArray_Set(coeffs2, i, IOSObjectArray_Get(coeffs, (int) [x count] - 1 - i));
-    NSMutableArray *result = [NSMutableArray arrayWithLength:10];
-    int len = ((int) [coeffs2 count] > 5 ? 5 : (int) [coeffs2 count]);
-    BOOL NEW = NO;
-    for (i = 0, j = 0; i < len; i++, j++) {
-        if (NEW && i > 0 && j < (int) [coeffs2 count] && [JavaLangMath absWithDouble:((OrgMstreamStreamEdaActivityFeatureExtractor_Coefficient *) nil_chk(IOSObjectArray_Get(coeffs2, j)))->abs_ - ((OrgMstreamStreamEdaActivityFeatureExtractor_Coefficient *) nil_chk(IOSObjectArray_Get(coeffs2, j - 1)))->abs_] <= 0.00001) {
+    //still java need to convert
+    Coefficient coeffs[] = new Coefficient[x.length];
+    for(i=0;i<coeffs.length;i++)
+        coeffs[i] = new Coefficient(x[i],y[i],(360.0*i)/coeffs.length);
+    Arrays.sort(coeffs);
+    
+    Coefficient coeffs2[] = new Coefficient[x.length];
+    for(i=0;i<x.length;i++)
+        coeffs2[i] = coeffs[x.length-1-i];
+    double result[] = new double[10];
+    int len = (coeffs2.length>5?5:coeffs2.length);
+    boolean NEW = false;
+    for(i=0,j=0;i<len;i++,j++){
+        if(NEW && i>0 && j<coeffs2.length && Math.abs(coeffs2[j].abs-coeffs2[j-1].abs)<=0.00001){
             i--;
             continue;
         }
-        if (NEW && j >= (int) [coeffs2 count]) break;
-        (*NSMutableArray_GetRef(result, 2 * i)) = ((OrgMstreamStreamEdaActivityFeatureExtractor_Coefficient *) nil_chk(IOSObjectArray_Get(coeffs2, j)))->abs_;
-        (*NSMutableArray_GetRef(result, 2 * i + 1)) = ((OrgMstreamStreamEdaActivityFeatureExtractor_Coefficient *) nil_chk(IOSObjectArray_Get(coeffs2, j)))->freq_;
+        if(NEW && j>=coeffs2.length)
+            break;
+        result[2*i] = coeffs2[j].abs;
+        result[2*i+1] = coeffs2[j].freq;
     }
     return result;
 }
+
 
 - (double)computeMean:(NSMutableArray *)values {
     double mean = 0.0;
@@ -267,25 +306,26 @@
     return [sqrt:(dev/(int)[values count])];
 }
 
-- (void)addValuesWithDouble:(double)acc_x
+- (void)addValues:(double)acc_x
                  withDouble:(double)acc_y
                  withDouble:(double)acc_z
                  withDouble:(double)vectorial_speed {
-    [((NSMutableArray *) nil_chk(xVector_)) addWithId:[JavaLangDouble valueOfWithDouble:acc_x]];
-    [((NSMutableArray *) nil_chk(yVector_)) addWithId:[JavaLangDouble valueOfWithDouble:acc_y]];
-    [((NSMutableArray *) nil_chk(zVector_)) addWithId:[JavaLangDouble valueOfWithDouble:acc_z]];
-    [((NSMutableArray *) nil_chk(speedVector_)) addWithId:[JavaLangDouble valueOfWithDouble:vectorial_speed]];
-    [((NSMutableArray *) nil_chk(energyXYVector_)) addWithId:[JavaLangDouble valueOfWithDouble:[JavaLangMath sqrtWithDouble:acc_x * acc_x + acc_y * acc_y]]];
+    [xVector addObject:acc_x];
+    [yVector addObject:acc_y];
+    [zVector addObject:acc_z];
+    [speedVector addObject:vectorial_speed];
+    [energyXYVector addObject:(sqrt(acc_x*acc_x*acc_y*acc_y))];
+    
 }
 
-- (void)addEnergyValuesWithDouble:(double)acc_x
+- (void)addEnergyValues:(double)acc_x
                        withDouble:(double)acc_y
                        withDouble:(double)acc_z {
-    [((NSMutableArray *) nil_chk(energyVector_)) addWithId:[JavaLangDouble valueOfWithDouble:[JavaLangMath sqrtWithDouble:acc_x * acc_x + acc_y * acc_y + acc_z * acc_z]]];
+        [energyVector addObject:(sqrt(acc_x*acc_y*acc_z))];
 }
 
-- (void)addTimeWithLong:(long long int)time {
-    [((NSMutableArray *) nil_chk(timeVector_)) addWithId:[JavaLangLong valueOfWithLong:time]];
+- (void)addTime:(long)time {
+    [timeVector addObject:time];
 }
 
 @end
