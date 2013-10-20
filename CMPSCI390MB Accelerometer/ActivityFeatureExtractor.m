@@ -8,39 +8,8 @@
 
 #import "ActivityFeatureExtractor.h"
 
-@interface Coefficient : NSObject{
-    double re;
-    double im;
-    double freq;
-    double abs;
-}
-@end
-
-@implementation Coefficient
-
-@synthesize re, im, freq, abs;
-
-- (id)initWithValuesX: (double)x fValue: (double) y frequency:(double) frq absoluteValue: (double) abs
-{
-    self = [super init];
-    if(self)
-    {
-        re = x;
-        im = y;
-        freq = frq;
-        abs = hypot(x,y);
-    }
-}
-
--(int) compareTo: c
-{
-    if((this.abs - c.abs)>0.0)
-        return 1;
-}
-
-@end
-
 @implementation ActivityFeatureExtractor
+
 @synthesize xVector, yVector, zVector,speedVector, timeVector, energyVector,energyXYVector,WINDOW_IN_MILLISEC, lastAccX, lastAccY, lastAccZ;
 
 - (id)init
@@ -63,17 +32,18 @@
     
     [self addTime:timestamp];
     double speed = sqrt(pow(accX-lastAccX,2)+pow(accY-lastAccY,2)+pow(accZ-lastAccZ,2));
-    [self addValues:ortAccX withDouble:<#(double)#> withDouble:<#(double)#> withDouble:<#(double)#>:ortAccX :ortAccY :ortAccZ :speed];
-    [self addEnergyValues:ortAccX :ortAccY :ortAccZ];
+    [self addValuesWithAccX:ortAccX withAccY:ortAccY withAccZ:ortAccZ withVectSpeed:speed];
+    [self addEnergyValuesWithAccX:ortAccX withAccY:ortAccY withAccZ:ortAccZ];
     lastAccX = accX; lastAccY = accY; lastAccZ = accZ;
     //Return null if features not extracted
-     if((timestamp-[timeVector objectAtIndex:0])< WINDOW_IN_MILLISEC)
+    if((timestamp-[timeVector objectAtIndex:0])< WINDOW_IN_MILLISEC){
      return nil;
-     
-     if([xVector count] == 0 || [sizeof xVector]<2)
-     return nil;
-     
+    }
     
+    if([xVector count] == 0 || [sizeof xVector]<2){
+     return nil;
+    }
+
     return [self extractFeatures];
 }
 
