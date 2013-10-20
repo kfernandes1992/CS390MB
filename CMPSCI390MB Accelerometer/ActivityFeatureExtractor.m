@@ -36,11 +36,11 @@
     [self addEnergyValuesWithAccX:ortAccX withAccY:ortAccY withAccZ:ortAccZ];
     lastAccX = accX; lastAccY = accY; lastAccZ = accZ;
     //Return null if features not extracted
-    if((timestamp-[timeVector objectAtIndex:0])< WINDOW_IN_MILLISEC){
+    if((timestamp-(long)[timeVector objectAtIndex:0])< WINDOW_IN_MILLISEC){
      return nil;
     }
     
-    if([xVector count] == 0 || [sizeof xVector]<2){
+    if([xVector count] == 0 || [xVector count]<2){
      return nil;
     }
 
