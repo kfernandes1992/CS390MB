@@ -20,7 +20,7 @@
 
 @synthesize re, im, freq, abs;
 
-- (id)init
+- (id)initWithX:(double) x Y:(double) y Z:(double) z
 {
     self = [super init];
     if(self)
