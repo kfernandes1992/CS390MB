@@ -9,8 +9,12 @@
 #import <Foundation/Foundation.h>
 
 @interface Coefficient : NSObject
-    @property(nonatomic, assign) double re;
-    @property(nonatomic, assign) double im;
-    @property(nonatomic, assign) double freq;
-    @property(nonatomic, assign) double abs;
+
+-(int) compareTo:(Coefficient *) c;
+
+@property(nonatomic, assign) double re;
+@property(nonatomic, assign) double im;
+@property(nonatomic, assign) double freq;
+@property(nonatomic, assign) double abs;
+
 @end
