@@ -266,10 +266,10 @@
 - (NSMutableArray *)computeFFTFeatures:(NSMutableArray *)values {
     int i, j, k, n1, n2, a, n = 1, m = 0;
     double c, s, t1, t2;
-    NSMutableArray  *x = [[NSMutableArray alloc] init];
-    NSMutableArray  *y = [[NSMutableArray alloc] init];
-    NSMutableArray  *cos = [[NSMutableArray alloc] init];
-    NSMutableArray  *sin = [[NSMutableArray alloc] init];
+    NSMutableArray  *xValues = [[NSMutableArray alloc] init];
+    NSMutableArray  *yValues = [[NSMutableArray alloc] init];
+    NSMutableArray  *cosValues = [[NSMutableArray alloc] init];
+    NSMutableArray  *sinValues = [[NSMutableArray alloc] init];
     
     for (m = 0; ; m++) {
         if (n >= [values count]){
@@ -278,17 +278,16 @@
         
         n = n * 2;
     }
-//    NSMutableArray *x = [NSMutableArray arrayWithLength:n];
-//    NSMutableArray *y = [NSMutableArray arrayWithLength:n];
-    for (i = 0; i < (int) [((NSMutableArray *) values) count]; i++)
-        [x objectAtIndex:i] = [values objectAtIndex:i];
     
-//    NSMutableArray *cos = [NSMutableArray arrayWithLength:(n/2)];
-//    NSMutableArray *sin = [NSMutableArray arrayWithLength:(n/2)];
-    for (i = 0; i < n / 2; i++) {
-        [cos objectAtIndex:i] = cos(-2*M_PI*i/n);
-        [sin objectAtIndex:i] = sin(-2*M_PI*i/n);
+    for (i = 0; i < [values count]; i++){
+        [xValues setObject:[values objectAtIndex:i] atIndexedSubscript:i];
     }
+    
+    for (i = 0; i < n / 2; i++) {
+        [cosValues setObject: [[NSNumber alloc] initWithDouble: cos(-2 * M_PI * i / n)] atIndexedSubscript:i];
+        [sinValues setObject: [[NSNumber alloc] initWithDouble: sin(-2 * M_PI * i / n)] atIndexedSubscript:i];
+    }
+    
     // Bit-reverse
     j = 0;
     n2 = n / 2;
@@ -300,12 +299,15 @@
         }
         j = j + n1;
         if (i < j) {
-            t1 = [x objectAtIndex:i];
-            [x objectAtIndex:i] = [x objectAtIndex:j];
-            [x objectAtIndex:j] = t1;
-            t1 = [y objectAtIndex:i];
-            [y objectAtIndex:i] = [y objectAtIndex:j];
-            [y objectAtIndex:j] = t1;
+            t1 = [[xValues objectAtIndex:i] doubleValue];
+            //[xValues objectAtIndex:i] = [xValues objectAtIndex:j];
+            //[xValues objectAtIndex:j] = t1;
+            [xValues setObject:[xValues objectAtIndex:j] atIndexedSubscript:i];
+            [xValues setObject:t1 atIndexedSubscript:j]
+            
+            t1 = [[yValues objectAtIndex:i] doubleValue];
+            [yValues objectAtIndex:i] = [y objectAtIndex:j];
+            [yValues objectAtIndex:j] = t1;
         }
     }
     // FFT
