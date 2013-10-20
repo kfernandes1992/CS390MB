@@ -20,14 +20,14 @@
 
 @synthesize re, im, freq, abs;
 
-- (id)init
+- (id)initWithValuesX: (double)x fValue: (double) y frequency:(double) frq absoluteValue: (double) abs
 {
     self = [super init];
     if(self)
     {
         re = x;
         im = y;
-        freq = frequency;
+        freq = frq;
         abs = hypot(x,y);
     }
 }
@@ -63,7 +63,7 @@
     
     [self addTime:timestamp];
     double speed = sqrt(pow(accX-lastAccX,2)+pow(accY-lastAccY,2)+pow(accZ-lastAccZ,2));
-    [self addValues:ortAccX :ortAccY :ortAccZ :speed];
+    [self addValues:ortAccX withDouble:<#(double)#> withDouble:<#(double)#> withDouble:<#(double)#>:ortAccX :ortAccY :ortAccZ :speed];
     [self addEnergyValues:ortAccX :ortAccY :ortAccZ];
     lastAccX = accX; lastAccY = accY; lastAccZ = accZ;
     //Return null if features not extracted
@@ -306,10 +306,10 @@
     return [sqrt:(dev/(int)[values count])];
 }
 
-- (void)addValues:(double)acc_x
-                 withDouble:(double)acc_y
-                 withDouble:(double)acc_z
-                 withDouble:(double)vectorial_speed {
+- (void)addValuesWithAccX:(double)acc_x
+                 withAccY:(double)acc_y
+                 withAccZ:(double)acc_z
+            withVectSpeed:(double)vectorial_speed {
     [xVector addObject:acc_x];
     [yVector addObject:acc_y];
     [zVector addObject:acc_z];
@@ -318,9 +318,9 @@
     
 }
 
-- (void)addEnergyValues:(double)acc_x
-                       withDouble:(double)acc_y
-                       withDouble:(double)acc_z {
+- (void)addEnergyValuesWithAccX:(double)acc_x
+                       withAccY:(double)acc_y
+                       withAccZ:(double)acc_z{
         [energyVector addObject:(sqrt(acc_x*acc_y*acc_z))];
 }
 

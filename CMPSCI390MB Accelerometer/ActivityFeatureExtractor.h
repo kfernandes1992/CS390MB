@@ -30,13 +30,13 @@
 - (NSMutableArray *)computeFFTFeatures:(NSMutableArray *)values;
 - (double)computeMean:(NSMutableArray *)values;
 - (double)computeStdDev:(NSMutableArray *)values withDouble:(double)mean;
-- (void)addValues:(double)acc_x
-       withDouble:(double)acc_y
-       withDouble:(double)acc_z
-       withDouble:(double)vectorial_speed;
-- (void)addEnergyValues:(double)acc_x
-             withDouble:(double)acc_y
-             withDouble:(double)acc_z;
+- (void)addValuesWithAccX:(double)acc_x
+       withAccY:(double)acc_y
+       withAccZ:(double)acc_z
+       withVectSpeed:(double)vectorial_speed;
+- (void)addEnergyValuesWithAccX:(double)acc_x
+             withAccY:(double)acc_y
+             withAccZ:(double)acc_z;
 - (void)addTime:(long)time;
 
 @end
