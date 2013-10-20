@@ -10,7 +10,7 @@
 
 @interface Coefficient : NSObject
 
--(int) compareTo: c;
+-(int) compareTo:(Coefficient *) c;
 
 @property(nonatomic, assign) double re;
 @property(nonatomic, assign) double im;
