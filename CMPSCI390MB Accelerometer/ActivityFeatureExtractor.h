@@ -22,7 +22,7 @@
 @property double lastAccY;
 @property double lastAccZ;
 
--(NSMutableArray *) extractFeaturesWithFeatures: (long) timestamp ortAcX :(double) ortAccX ortAcY: (double) ortAccY ortAcZ: (double) ortAccZ acX:
+-(NSMutableArray *) extractFeaturesWithFeatures: (double) timestamp ortAcX :(double) ortAccX ortAcY: (double) ortAccY ortAcZ: (double) ortAccZ acX:
 (double) accX acY: (double) accY acZ: (double) accZ;
 -(NSMutableArray *) extractFeatures;
 - (void)clearValues;
@@ -37,6 +37,6 @@
 - (void)addEnergyValuesWithAccX:(double)acc_x
              withAccY:(double)acc_y
              withAccZ:(double)acc_z;
-- (void)addTime:(long)time;
+- (void)addTime:(double)time;
 
 @end

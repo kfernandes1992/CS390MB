@@ -27,7 +27,7 @@
 }
 
 
--(NSMutableArray *) extractFeaturesWithFeatures: (long) timestamp ortAcX :(double) ortAccX ortAcY: (double) ortAccY ortAcZ: (double) ortAccZ acX:
+-(NSMutableArray *) extractFeaturesWithFeatures: (double) timestamp ortAcX :(double) ortAccX ortAcY: (double) ortAccY ortAcZ: (double) ortAccZ acX:
 (double) accX acY: (double) accY acZ: (double) accZ {
     
     [self addTime:timestamp];
@@ -48,37 +48,70 @@
 }
 
 -(NSMutableArray *) extractFeatures {
-    NSNumber* zero = [NSNumber numberWithLong:(long)0.0];
-    //accepts objects only so could use NSNumber *tempNumber = [[NSNumber alloc] initWithDouble:?I don't know what to put here?] Why does initWithObjects accept two doubles?
-    NSMutableArray* features = [[NSMutableArray alloc]initWithObjects:zero, zero, nil];
-    for(int i=0;i< (int)[features count];i++)
-        features[i] = zero;
+    //features array
+    NSMutableArray* features = [[NSMutableArray alloc]init];
     
+    //used repeatedly for the various feature calculations
+    NSMutableArray *values;
+    NSMutableArray *result;
+    double mean;
+    double dev;
     
-    //TODO:What are you doing to time vector?
+    int featureIndex;
+    double currentFeature;
+    double valueAtIMinusOne;
+    double timeAtI;
+    double timeAtIMinusOne;
+    double featureToStore;
+    
     NSMutableArray* times = timeVector;
-    [times objectAtIndex:[times count]-1] = [times objectAtIndex:0]+5000;
+    double timeAtIndexZero = [[times objectAtIndex:0] doubleValue];
+    double timeToStore = timeAtIndexZero + 5000;
+    [times setObject:[[NSNumber alloc] initWithDouble:timeToStore] atIndexedSubscript:[times count] - 1];
     
     
     //features of the x acceleration
-    NSMutableArray* values = xVector;
-    
-    double mean = [self computeMean:values];
-    double dev= [self computeStdDev:values withDouble:mean];
-    NSMutableArray* result = [self computeFFTFeatures:values];
+    values = xVector;
+    mean = [self computeMean:values];
+    dev = [self computeStdDev:values withDouble:mean];
+    result = [self computeFFTFeatures:values];
     
     [features setObject: [[NSNumber alloc] initWithDouble:mean] atIndexedSubscript:0];
     [features setObject: [[NSNumber alloc] initWithDouble:dev] atIndexedSubscript:1];
     [features setObject: [[NSNumber alloc] initWithDouble:[self computeCrossingRate:values withDouble:mean]] atIndexedSubscript:2];
+    
     //FFT
-    for(int i=3;i<7;i++)
+    for(int i = 3; i < 7; i++){
         [features insertObject:[result objectAtIndex:(i-3)] atIndex:i];//0-3
+    }
+    
     //might change where these values go in the array
-    for(int i=1;i<(sizeof values);i++){
+    for(int i = 1; i < [values count]; i++){
+
         //change in x velocity from time i-1 to time i
-        [features objectAtIndex:7] += ([values objectAtIndex:(i-1)]*([times objectAtIndex:i]-[times objectAtIndex:(i-1)]));
+        //[features objectAtIndex:7] += ([values objectAtIndex:(i-1)]*([times objectAtIndex:i]-[times objectAtIndex:(i-1)]));
+        
+        //refactored version of above ER
+        featureIndex = 7;
+        currentFeature = [[features objectAtIndex:featureIndex] doubleValue];
+        valueAtIMinusOne = [[values objectAtIndex:i - 1] doubleValue];
+        timeAtI = [[times objectAtIndex:i] doubleValue];
+        timeAtIMinusOne = [[times objectAtIndex:i - 1] doubleValue];
+        featureToStore = currentFeature + valueAtIMinusOne * (timeAtI - timeAtIMinusOne);
+        [features setObject: [[NSNumber alloc] initWithDouble:featureToStore] atIndexedSubscript:featureIndex];
+
+
         //two times the x distance from time i-1 to time i
-        [features objectAtIndex:8] += abs([values objectAtIndex:(i-1)]*pow([times objectAtIndex:i]-[times objectAtIndex:(i-1)],2));
+        //[features objectAtIndex:8] += abs([values objectAtIndex:(i-1)]*pow([times objectAtIndex:i]-[times objectAtIndex:(i-1)],2));
+        
+        //refactored version of above ER
+        featureIndex = 8;
+        currentFeature = [[features objectAtIndex:featureIndex] doubleValue];
+        valueAtIMinusOne = [[values objectAtIndex:i - 1] doubleValue];
+        timeAtI = [[times objectAtIndex:i] doubleValue];
+        timeAtIMinusOne = [[times objectAtIndex:i - 1] doubleValue];
+        featureToStore = currentFeature + abs(valueAtIMinusOne * pow(timeAtI - timeAtIMinusOne, 2.0));
+        [features setObject: [[NSNumber alloc] initWithDouble:featureToStore] atIndexedSubscript:featureIndex];
     }
     
     //features of the y acceleration
@@ -90,15 +123,39 @@
     [features setObject: [[NSNumber alloc] initWithDouble:mean] atIndexedSubscript:9];
     [features setObject: [[NSNumber alloc] initWithDouble:dev] atIndexedSubscript:10];
     [features setObject: [[NSNumber alloc] initWithDouble:[self computeCrossingRate:values withDouble:mean]] atIndexedSubscript:11];
-    for(int i=12;i<16;i++)
+    
+    for(int i = 12; i < 16; i++){
         [features setObject:[result objectAtIndex:(i-12)] atIndexedSubscript:i];
+    }
+    
     //might change where these values go in the array
     for(int i=1;i<(sizeof values);i++){
+        
         //change in y velocity from time i-1 to time i
-//        [features objectAtIndex:16] += [values objectAtIndex:(i-1)]*([times objectAtIndex:i]- [times objectAtIndex:(i-1)]);
-        [features setObject:[[NSNumber alloc] initWithDouble:[[values objectAtIndex:16] doubleValue] + [[values objectAtIndex:i - 1] doubleValue] * ([[times objectAtIndex:i] doubleValue] - [[times objectAtIndex:i - 1] doubleValue])] atIndexedSubscript:16];
+        //[features objectAtIndex:16] += [values objectAtIndex:(i-1)]*([times objectAtIndex:i]- [times objectAtIndex:(i-1)]);
+        
+        //refactored version of above ER
+        featureIndex = 16;
+        currentFeature = [[features objectAtIndex:featureIndex] doubleValue];
+        valueAtIMinusOne = [[values objectAtIndex:i - 1] doubleValue];
+        timeAtI = [[times objectAtIndex:i] doubleValue];
+        timeAtIMinusOne = [[times objectAtIndex:i - 1] doubleValue];
+        featureToStore = currentFeature + valueAtIMinusOne * (timeAtI - timeAtIMinusOne);
+        [features setObject: [[NSNumber alloc] initWithDouble:featureToStore] atIndexedSubscript:featureIndex];
+        
+        
         //two times the y distance from time i-1 to time i
-        [features objectAtIndex:17] += abs([values objectAtIndex:(i-1)]*pow([times objectAtIndex:i]-[times objectAtIndex:(i-1)],2));
+        //[features objectAtIndex:17] += abs([values objectAtIndex:(i-1)]*pow([times objectAtIndex:i]-[times objectAtIndex:(i-1)],2));
+        
+        //refactored version of above ER
+        featureIndex = 17;
+        currentFeature = [[features objectAtIndex:featureIndex] doubleValue];
+        valueAtIMinusOne = [[values objectAtIndex:i - 1] doubleValue];
+        timeAtI = [[times objectAtIndex:i] doubleValue];
+        timeAtIMinusOne = [[times objectAtIndex:i - 1] doubleValue];
+        featureToStore = currentFeature + abs(valueAtIMinusOne * pow(timeAtI - timeAtIMinusOne, 2.0));
+        [features setObject: [[NSNumber alloc] initWithDouble:featureToStore] atIndexedSubscript:featureIndex];
+
     }
     
     //features of the z acceleration
@@ -110,14 +167,39 @@
     [features setObject: [[NSNumber alloc] initWithDouble:mean] atIndexedSubscript:18];
     [features setObject: [[NSNumber alloc] initWithDouble:dev] atIndexedSubscript:19];
     [features setObject: [[NSNumber alloc] initWithDouble:[self computeCrossingRate:values withDouble:mean]] atIndexedSubscript:20];
-    for(int i=21;i<25;i++)
+    
+    for(int i = 21; i < 25; i++){
         [features setObject:[result objectAtIndex:(i-21)] atIndexedSubscript:i];
+    }
+    
     //may change where these values go in the array
     for(int i=1;i< [values count]; i++){
+        
         //change in z velocity from time i-1 to time i
-        [features objectAtIndex:25] += [values objectAtIndex:(i-1)]*([times objectAtIndex:i]- [times objectAtIndex:(i-1)]);
+        //[features objectAtIndex:25] += [values objectAtIndex:(i-1)]*([times objectAtIndex:i]- [times objectAtIndex:(i-1)]);
+        
+        //refactored version of above ER
+        featureIndex = 25;
+        currentFeature = [[features objectAtIndex:featureIndex] doubleValue];
+        valueAtIMinusOne = [[values objectAtIndex:i - 1] doubleValue];
+        timeAtI = [[times objectAtIndex:i] doubleValue];
+        timeAtIMinusOne = [[times objectAtIndex:i - 1] doubleValue];
+        featureToStore = currentFeature + valueAtIMinusOne * (timeAtI - timeAtIMinusOne);
+        [features setObject: [[NSNumber alloc] initWithDouble:featureToStore] atIndexedSubscript:featureIndex];
+        
+        
         //two times the z distance from time i-1 to time i
-        [features objectAtIndex:26] += abs([values objectAtIndex:(i-1)]*pow([times objectAtIndex:i]-[times objectAtIndex:(i-1)],2));
+        //[features objectAtIndex:26] += abs([values objectAtIndex:(i-1)]*pow([times objectAtIndex:i]-[times objectAtIndex:(i-1)],2));
+        
+        //refactored version of above ER
+        featureIndex = 26;
+        currentFeature = [[features objectAtIndex:featureIndex] doubleValue];
+        valueAtIMinusOne = [[values objectAtIndex:i - 1] doubleValue];
+        timeAtI = [[times objectAtIndex:i] doubleValue];
+        timeAtIMinusOne = [[times objectAtIndex:i - 1] doubleValue];
+        featureToStore = currentFeature + abs(valueAtIMinusOne * pow(timeAtI - timeAtIMinusOne, 2.0));
+        [features setObject: [[NSNumber alloc] initWithDouble:featureToStore] atIndexedSubscript:featureIndex];
+
     }
 
     //features of the speed
@@ -142,8 +224,8 @@
     [features setObject: [[NSNumber alloc] initWithDouble:mean] atIndexedSubscript:33];
     [features setObject: [[NSNumber alloc] initWithDouble:dev] atIndexedSubscript:34];
     [features setObject: [[NSNumber alloc] initWithDouble:[self computeCrossingRate:values withDouble:mean]] atIndexedSubscript:35];
-    for(int i=36;i<40;i++){
-        [features setObject:[result objectAtIndex:(i-36)] atIndexedSubscript:i];
+    for(int i = 36; i < 40; i++){
+        [features setObject:[result objectAtIndex:(i - 36)] atIndexedSubscript: i];
     }
     
     //features of energyXY
@@ -171,7 +253,7 @@
 }
 
 - (double)computeCrossingRate:(NSMutableArray *)values withDouble:(double)mean {
-    if ((int) [((NSMutableArray *) values) count] <= 1) return 0.0;
+    if ([values count] <= 1) return 0.0;
     double rate = 0.0;
     for (int i = 0; i < (int) [values count]; i++) {
         if (i > 0 && (([[values objectAtIndex:i] doubleValue] > mean && [[values objectAtIndex:(i-1)] doubleValue] < mean) || ([[values objectAtIndex:i] doubleValue] < mean && [[values objectAtIndex:i] doubleValue] > mean)))
@@ -182,20 +264,27 @@
 }
 
 - (NSMutableArray *)computeFFTFeatures:(NSMutableArray *)values {
-    int i, j, k, n1, n2, a;
+    int i, j, k, n1, n2, a, n = 1, m = 0;
     double c, s, t1, t2;
-    int n = 1, m = 0;
+    NSMutableArray  *x = [[NSMutableArray alloc] init];
+    NSMutableArray  *y = [[NSMutableArray alloc] init];
+    NSMutableArray  *cos = [[NSMutableArray alloc] init];
+    NSMutableArray  *sin = [[NSMutableArray alloc] init];
+    
     for (m = 0; ; m++) {
-        if (n >= (int) [((NSMutableArray *) values) count]) break;
+        if (n >= [values count]){
+            break;
+        }
+        
         n = n * 2;
     }
-    NSMutableArray *x = [NSMutableArray arrayWithLength:n];
-    NSMutableArray *y = [NSMutableArray arrayWithLength:n];
+//    NSMutableArray *x = [NSMutableArray arrayWithLength:n];
+//    NSMutableArray *y = [NSMutableArray arrayWithLength:n];
     for (i = 0; i < (int) [((NSMutableArray *) values) count]; i++)
         [x objectAtIndex:i] = [values objectAtIndex:i];
     
-    NSMutableArray *cos = [NSMutableArray arrayWithLength:(n/2)];
-    NSMutableArray *sin = [NSMutableArray arrayWithLength:(n/2)];
+//    NSMutableArray *cos = [NSMutableArray arrayWithLength:(n/2)];
+//    NSMutableArray *sin = [NSMutableArray arrayWithLength:(n/2)];
     for (i = 0; i < n / 2; i++) {
         [cos objectAtIndex:i] = cos(-2*M_PI*i/n);
         [sin objectAtIndex:i] = sin(-2*M_PI*i/n);
@@ -303,7 +392,7 @@
         [energyVector addObject:(sqrt(acc_x*acc_y*acc_z))];
 }
 
-- (void)addTime:(long)time {
+- (void)addTime:(double)time {
     [timeVector addObject:time];
 }
 
