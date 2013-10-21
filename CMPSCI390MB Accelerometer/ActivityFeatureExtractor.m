@@ -429,7 +429,7 @@
 }
 
 - (void)addTime:(double)time {
-    [timeVector addObject:time];
+    [timeVector addObject:[[NSNumber alloc] initWithDouble:time]];
 }
 
 @end
