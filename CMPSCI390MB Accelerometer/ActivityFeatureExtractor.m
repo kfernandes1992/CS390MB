@@ -299,15 +299,18 @@
         }
         j = j + n1;
         if (i < j) {
+            //rewriting (ER)
             t1 = [[xValues objectAtIndex:i] doubleValue];
             //[xValues objectAtIndex:i] = [xValues objectAtIndex:j];
             //[xValues objectAtIndex:j] = t1;
             [xValues setObject:[xValues objectAtIndex:j] atIndexedSubscript:i];
-            [xValues setObject:t1 atIndexedSubscript:j]
+            [xValues setObject:[[NSNumber alloc] initWithDouble:t1] atIndexedSubscript:j];
             
             t1 = [[yValues objectAtIndex:i] doubleValue];
-            [yValues objectAtIndex:i] = [y objectAtIndex:j];
-            [yValues objectAtIndex:j] = t1;
+            //[yValues objectAtIndex:i] = [y objectAtIndex:j];
+            //[yValues objectAtIndex:j] = t1;
+            [yValues setObject:[yValues objectAtIndex:j] atIndexedSubscript:i];
+            [yValues setObject:[[NSNumber alloc] initWithDouble:t1] atIndexedSubscript:j];
         }
     }
     // FFT
@@ -318,16 +321,24 @@
         n2 = n2 + n2;
         a = 0;
         for (j = 0; j < n1; j++) {
-            c = [cos objectAtIndex:a];
-            s = [sin objectAtIndex:a];
-            a += 1 << (m - i - 1);
+            c = [[cosValues objectAtIndex:a] doubleValue];
+            s = [[sinValues objectAtIndex:a] doubleValue];
+            
+            a += 1 << (m - i - 1); //http://stackoverflow.com/questions/8658495/operator-in-objective-c-enum
             for (k = j; k < n; k = k + n2) {
-                t1 = c * [x objectAtIndex:(k+n1)] - s*[y objectAtIndex:(k+n1)];
-                t2 = s*[x objectAtIndex:(k+n1)] + c* [y objectAtIndex:(k+n1)];
-                [x objectAtIndex:(k+n1)] = [x objectAtIndex:k] - t1;
-                [y objectAtIndex:(k+n1)] = [y objectAtIndex:k] - t2;
-                [x objectAtIndex:k] = [x objectAtIndex:k] + t1;
-                [y objectAtIndex:k] = [y objectAtIndex:k] + t2;
+                t1 = c * [[xValues objectAtIndex:k + n1] doubleValue] - s * [[yValues objectAtIndex:k + n1] doubleValue];
+                t2 = s * [[xValues objectAtIndex: k + n1] doubleValue] + c * [[yValues objectAtIndex:k + n1] doubleValue];
+                
+                //[xValues objectAtIndex:(k+n1)] = [x objectAtIndex:k] - t1;
+                //[yValues objectAtIndex:(k+n1)] = [y objectAtIndex:k] - t2;
+                //[xValues objectAtIndex:k] = [x objectAtIndex:k] + t1;
+                //[yValues objectAtIndex:k] = [y objectAtIndex:k] + t2;
+                
+                [xValues setObject:[[NSNumber alloc] initWithDouble:[[xValues objectAtIndex:k] doubleValue] - t1] atIndexedSubscript:k + n1];
+                [yValues setObject:[[NSNumber alloc] initWithDouble:[[yValues objectAtIndex:k] doubleValue] - t2] atIndexedSubscript:k + n1];
+                [xValues setObject:[[NSNumber alloc] initWithDouble:[[xValues objectAtIndex:k] doubleValue] + t1] atIndexedSubscript:k];
+                [yValues setObject:[[NSNumber alloc] initWithDouble:[[yValues objectAtIndex:k] doubleValue] + t2] atIndexedSubscript:k];
+                
             }
         }
     }
