@@ -407,25 +407,25 @@
         diff = [[values objectAtIndex:i] doubleValue] - mean;
         dev += diff * diff;
     }
-    return sqrt((dev/(int)[values count]));
+    return sqrt(dev/[values count]);
 }
 
 - (void)addValuesWithAccX:(double)acc_x
                  withAccY:(double)acc_y
                  withAccZ:(double)acc_z
             withVectSpeed:(double)vectorial_speed {
-    [xVector addObject:acc_x];
-    [yVector addObject:acc_y];
-    [zVector addObject:acc_z];
-    [speedVector addObject:vectorial_speed];
-    [energyXYVector addObject:(sqrt(acc_x*acc_x*acc_y*acc_y))];
+    [xVector addObject:[[NSNumber alloc] initWithDouble:acc_x]];
+    [yVector addObject:[[NSNumber alloc] initWithDouble:acc_y]];
+    [zVector addObject:[[NSNumber alloc] initWithDouble:acc_z]];
+    [speedVector addObject:[[NSNumber alloc] initWithDouble:vectorial_speed]];
+    [energyXYVector addObject:[[NSNumber alloc] initWithDouble:sqrt(acc_x * acc_x * acc_y * acc_y)]];
     
 }
 
 - (void)addEnergyValuesWithAccX:(double)acc_x
                        withAccY:(double)acc_y
                        withAccZ:(double)acc_z{
-        [energyVector addObject:(sqrt(acc_x*acc_y*acc_z))];
+        [energyVector addObject:[[NSNumber alloc] initWithDouble:(sqrt(acc_x*acc_y*acc_z))]];
 }
 
 - (void)addTime:(double)time {
