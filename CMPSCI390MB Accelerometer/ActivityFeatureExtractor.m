@@ -403,8 +403,8 @@
                                     withDouble:(double)mean {
     double dev = 0.0;
     double diff = 0.0;
-    for (int i = 0; i < (int) [((NSMutableArray *) values) count]; i++) {
-        diff = [values objectAtIndex:i] - mean;
+    for (int i = 0; i <  [values count]; i++) {
+        diff = [[values objectAtIndex:i] doubleValue] - mean;
         dev += diff * diff;
     }
     return [sqrt:(dev/(int)[values count])];
