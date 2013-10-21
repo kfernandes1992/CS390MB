@@ -368,25 +368,32 @@
         
 } ];
     coeffs= [[NSMutableArray alloc] initWithArray:sortedCoeffs];
-    
-    NSMutableArray* coeffs2= [[NSMutableArray alloc] init];
-    //Coefficient coeffs2[] = new Coefficient[x.length];
-    
-    for(i=0;i<xValues.count;i++)
-        coeffs2[i] = coeffs[xValues.count-1-i];
-    NSMutableArray *result= [[NSMutableArray alloc] init];
-    //double result[] = new double[10];
-    int len = (coeffs2.count>5?5:coeffs2.count);
     Boolean NEW = false;
-    for(i=0,j=0;i<len;i++,j++){
-        if(NEW && i>0 && j<coeffs2.count && abs( ( (Coefficient*) coeffs2[j]).absoluteValue - ( (Coefficient* ) coeffs2[j-1]).absoluteValue <=0.00001)){
+    NSMutableArray* coeffs2 = [[NSMutableArray alloc] init];
+    NSMutableArray *result= [[NSMutableArray alloc] init];
+    
+    for(i = 0; i < xValues.count; i++){
+        //coeffs2[i] = coeffs[xValues.count-1-i];
+        [coeffs2 setObject:coeffs[xValues.count-1-i] atIndexedSubscript:i];
+    }
+    
+    int len = (coeffs2.count > 5 ? 5 : coeffs2.count);
+    Coefficient *coefficientAtJ;
+    Coefficient *coefficientAtJMinusOne;
+    for(i = 0, j = 0; i < len; i++, j++){
+        coefficientAtJ = [coeffs2 objectAtIndex:j];
+        coefficientAtJMinusOne = [coeffs2 objectAtIndex:j - 1];
+        
+        if(NEW && i > 0 && j < coeffs2.count && abs(coefficientAtJ.absoluteValue - coefficientAtJMinusOne.absoluteValue) <=0.00001){
             i--;
             continue;
         }
         if(NEW && j>=coeffs2.count)
             break;
-        result[2*i] =[[NSNumber alloc]initWithDouble: ((Coefficient*) coeffs2[j]).absoluteValue];
-        result[2*i+1] = [[NSNumber alloc]initWithDouble: ((Coefficient*) coeffs2[j]).freq];
+//        result[2*i] =[[NSNumber alloc]initWithDouble: ((Coefficient*) coeffs2[j]).absoluteValue];
+//        result[2*i+1] = [[NSNumber alloc]initWithDouble: ((Coefficient*) coeffs2[j]).freq];
+        [result setObject:[[NSNumber alloc] initWithDouble: coefficientAtJ.absoluteValue] atIndexedSubscript:2 * i];
+        [result setObject:[[NSNumber alloc] initWithDouble: coefficientAtJMinusOne.absoluteValue] atIndexedSubscript:2 * 1 + 1];
     }
     return result;
 }
