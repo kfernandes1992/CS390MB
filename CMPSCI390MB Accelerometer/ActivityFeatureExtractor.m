@@ -394,7 +394,7 @@
 
 - (double)computeMean:(NSMutableArray *)values {
     double mean = 0.0;
-    for (int i = 0; i < (int) [((NSMutableArray *) values) count]; i++)
+    for (int i = 0; i < values.count; i++)
         mean += ((NSNumber*)[values objectAtIndex:i]).doubleValue;
     return mean / (int) [values count];
 }
@@ -407,7 +407,7 @@
         diff = [[values objectAtIndex:i] doubleValue] - mean;
         dev += diff * diff;
     }
-    return [sqrt:(dev/(int)[values count])];
+    return sqrt((dev/(int)[values count]));
 }
 
 - (void)addValuesWithAccX:(double)acc_x
