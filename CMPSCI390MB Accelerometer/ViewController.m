@@ -86,33 +86,48 @@ static const NSTimeInterval accelerationInterval= .1;
         steps = 0;
         [motionManager startAccelerometerUpdatesToQueue:[NSOperationQueue mainQueue] withHandler:^(CMAccelerometerData *accelerometerData, NSError *error) {
             //store values
-//            NSDate *dateStamp = [NSDate date];
-//            NSTimeInterval millisecondsSince1970 = [dateStamp timeIntervalSince1970] * 1000;
+            NSDate *dateStamp = [NSDate date];
+            NSTimeInterval millisecondsSince1970 = [dateStamp timeIntervalSince1970] * 1000;
             
-            NSString *xVal = [[NSString alloc] initWithFormat:@"%f",[accelerometerData acceleration].x];
-            NSString *yVal = [[NSString alloc] initWithFormat:@"%f",[accelerometerData acceleration].y];
-            NSString *zVal = [[NSString alloc] initWithFormat:@"%f",[accelerometerData acceleration].z];
+//            NSString *xVal = [[NSString alloc] initWithFormat:@"%f",[accelerometerData acceleration].x];
+//            NSString *yVal = [[NSString alloc] initWithFormat:@"%f",[accelerometerData acceleration].y];
+//            NSString *zVal = [[NSString alloc] initWithFormat:@"%f",[accelerometerData acceleration].z];
+
+            NSNumber *xVal= [[NSNumber alloc] initWithDouble:[accelerometerData acceleration].x];
+            NSNumber *yVal= [[NSNumber alloc] initWithDouble:[accelerometerData acceleration].x];
+            NSNumber *zVal= [[NSNumber alloc] initWithDouble:[accelerometerData acceleration].x];
             
-            //display values
-            [xLabel setText: xVal];
-            [yLabel setText: yVal];
-            [zLabel setText: zVal];
-//            [stepCounterLabel setText:[[NSString alloc] initWithFormat:@"%d", steps]];
+           //[stepCounterLabel setText:[[NSString alloc] initWithFormat:@"%d", steps]];
 
         
             //filter out noise
             smoothingFilter=[[KMESmoothingFilter alloc]init];
-            NSDecimalNumber *numX= [[NSDecimalNumber alloc] initWithDouble:[xVal doubleValue]];
-            NSDecimalNumber *numY= [[NSDecimalNumber alloc]initWithDouble:[yVal doubleValue]];
-            NSDecimalNumber *numZ=[[NSDecimalNumber alloc] initWithDouble:[zVal doubleValue]];
-//            NSLog(@"%@, %@, %@", numX, numY, numZ);
-            NSArray *sendArray = [[NSArray alloc] initWithObjects:numX, numY, numZ, label, nil];
-//            NSArray *filteredData= [smoothingFilter getFilteredValuesOfXValue:numX ofYValue:numY ofZValue:numZ];
+            // NSArray *filteredData= [smoothingFilter getFilteredValuesOfXValue:numX ofYValue:numY ofZValue:numZ];
+
+            NSArray *rawArray = [[NSArray alloc] initWithObjects:xVal, yVal, zVal, nil];
+            NSArray* amplifiedValues= [stepDetector amplifyValues:rawArray];
             
-            //detect steps
-            if([stepDetector detectStepsOnValues:sendArray]){
-                steps++;
-            }
+            ReorientAxis* reorienter=[[ReorientAxis alloc] init];
+            NSArray* reorientedValues= [reorienter getReorientedX: ((NSNumber*)amplifiedValues[0]).doubleValue Y:((NSNumber*)amplifiedValues[1]).doubleValue Z:((NSNumber*)amplifiedValues[2]).doubleValue];
+            
+            //Get Extracted Features
+            
+            ActivityFeatureExtractor *activityFeatureExtractor= [[ActivityFeatureExtractor alloc] init];
+            
+            //TODO:Get timestamp as a double.
+            NSMutableArray* extractedFeatures= [activityFeatureExtractor extractFeaturesWithFeatures:millisecondsSince1970 ortAcX:((NSNumber*)reorientedValues[0]).doubleValue ortAcY:((NSNumber*)reorientedValues[1]).doubleValue ortAcZ:((NSNumber*)reorientedValues[2]).doubleValue acX:((NSNumber*)amplifiedValues[0]).doubleValue acY:((NSNumber*)amplifiedValues[1]).doubleValue acZ:((NSNumber*)amplifiedValues[2]).doubleValue];
+            
+            DecisionTree *dTree= [[DecisionTree alloc] init];
+            
+            NSString* classifiedActivity= [dTree decideBasedOnValues:extractedFeatures];
+            NSLog(@"%@", classifiedActivity);
+            
+//            
+//            //detect steps
+//            if([stepDetector detectStepsOnValues:sendArray]){
+//                steps++;
+//            }
+//
             
             //update UI
             [stepCounterLabel setText:[[NSString alloc] initWithFormat:@"%d", steps]];

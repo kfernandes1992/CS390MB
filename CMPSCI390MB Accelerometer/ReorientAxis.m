@@ -22,13 +22,13 @@
     return self;
 }
 
--(NSMutableArray *)getReorientedX: (double)accX Y: (double)accY Z: (double)accZ{
+-(NSArray *)getReorientedX: (double)accX Y: (double)accY Z: (double)accZ{
     
     
     double acc_x = accX;
     double acc_y = accZ;
     double acc_z = (-1)*accY;
-    NSMutableArray *output;
+    NSArray *output;
     
     if(readCounter == READ_LIMIT){
         //Now, we are ready to orient axis
@@ -79,7 +79,7 @@
         orient_acc_z = sqrt((pow(acc_x, 2)+pow(acc_y, 2)+pow(acc_z, 2))*pow(g, 2)
                             -(pow(orient_acc_x, 2)+pow(orient_acc_y, 2)));
         
-        output = [[NSMutableArray alloc] initWithObjects:[[NSNumber alloc] initWithDouble:orient_acc_x], [[NSNumber alloc] initWithDouble:orient_acc_y], [[NSNumber alloc] initWithDouble:orient_acc_z], nil];
+        output = [[NSArray alloc] initWithObjects:[[NSNumber alloc] initWithDouble:orient_acc_x], [[NSNumber alloc] initWithDouble:orient_acc_y], [[NSNumber alloc] initWithDouble:orient_acc_z], nil];
         
     }
     readCounter++;

@@ -24,5 +24,5 @@
 @property(nonatomic, assign) double aggAY;
 @property(nonatomic, assign) double aggAZ;
 
-
+-(NSArray *)getReorientedX: (double)accX Y: (double)accY Z: (double)accZ;
 @end

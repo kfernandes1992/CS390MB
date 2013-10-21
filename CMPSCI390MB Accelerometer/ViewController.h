@@ -11,6 +11,9 @@
 #import <MessageUI/MessageUI.h>
 #import "KMESmoothingFilter.h"
 #import "StepDetector.h"
+#import "ActivityFeatureExtractor.h"
+#import "ReorientAxis.h"
+#import "DecisionTree.h"
 
 @interface ViewController : UIViewController <UIAccelerometerDelegate, UIActionSheetDelegate, MFMailComposeViewControllerDelegate>
 
