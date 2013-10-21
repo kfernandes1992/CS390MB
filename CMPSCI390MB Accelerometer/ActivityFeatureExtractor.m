@@ -35,6 +35,7 @@
     [self addValuesWithAccX:ortAccX withAccY:ortAccY withAccZ:ortAccZ withVectSpeed:speed];
     [self addEnergyValuesWithAccX:ortAccX withAccY:ortAccY withAccZ:ortAccZ];
     lastAccX = accX; lastAccY = accY; lastAccZ = accZ;
+    
     //Return null if features not extracted
     if((timestamp-(long)[timeVector objectAtIndex:0])< WINDOW_IN_MILLISEC){
      return nil;
@@ -349,7 +350,7 @@
     
     for(i=0;i<xValues.count;i++){
         //(x[i],y[i],(360.0*i)/coeffs.length);
-        coeffs[i] = [[Coefficient alloc] initWithX: ((NSNumber *)xValues[i]).doubleValue  Y:((NSNumber *)yValues[i]).doubleValue frequency:((360.0*i)/xValues.count)];
+        coeffs[i] = [[Coefficient alloc] initWithX: [[xValues objectAtIndex:i] doubleValue]  Y:[[yValues objectAtIndex:i] doubleValue] frequency:((360.0 * i) / xValues.count)];
     }
     
     //Arrays.sort(coeffs);
