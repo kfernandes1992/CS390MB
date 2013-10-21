@@ -121,6 +121,8 @@ static const NSTimeInterval accelerationInterval= .1;
             
             
             NSString* classifiedActivity= [decisionTree decideBasedOnValues:extractedFeatures];
+            
+            
             NSLog(@"%@", classifiedActivity);
             
 //            

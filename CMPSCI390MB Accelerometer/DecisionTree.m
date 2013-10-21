@@ -16,7 +16,7 @@
     double xFFT3= [[values objectAtIndex:5]doubleValue];
     double speedMean= [[values objectAtIndex:27] doubleValue];
     
-    NSLog(@"xFFT3: %f, speedMean: %f", xFFT3, speedMean);
+//    NSLog(@"xFFT3: %f, speedMean: %f", xFFT3, speedMean);
     
     if(xFFT3 <= 1465.976795){
       return (speedMean<=66.388517)?  @"Stationary":@"Walking";

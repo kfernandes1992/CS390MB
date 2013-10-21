@@ -252,8 +252,9 @@
     [features setObject: [[NSNumber alloc] initWithDouble:dev] atIndexedSubscript:41];
     [features setObject: [[NSNumber alloc] initWithDouble:[self computeCrossingRate:values withDouble:mean]] atIndexedSubscript:42];
 
-    
+    NSLog(@"%@\n%f\n", @"Before: ", [[features objectAtIndex:5] doubleValue]);
     [self clearValues];
+    NSLog(@"%@\n%f\n", @"After: ", [[features objectAtIndex:5] doubleValue]);
     return features;
 }
 
