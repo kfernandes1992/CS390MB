@@ -17,10 +17,10 @@
     self = [super init];
     if (self)
     {
-        WINDOW_IN_MILLISEC=5000;
-        lastAccZ=0;
-        lastAccZ=0;
-        lastAccZ=0;
+        WINDOW_IN_MILLISEC=5000.0;
+        lastAccZ=0.0;
+        lastAccZ=0.0;
+        lastAccZ=0.0;
         
     }
     return self;
