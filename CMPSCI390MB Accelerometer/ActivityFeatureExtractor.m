@@ -59,6 +59,9 @@
 -(NSMutableArray *) extractFeatures {
     //features array
     NSMutableArray* features = [[NSMutableArray alloc]init];
+    for (int i = 0; i < 43; i++) {
+        [features addObject:[[NSNumber alloc] initWithDouble:0.0]];
+    }
     
     //used repeatedly for the various feature calculations
     NSMutableArray *values;
@@ -448,8 +451,10 @@
 //        }
 //        result[2*i] =[[NSNumber alloc]initWithDouble: ((Coefficient*) coeffs2[j]).absoluteValue];
 //        result[2*i+1] = [[NSNumber alloc]initWithDouble: ((Coefficient*) coeffs2[j]).freq];
-        [result setObject:[[NSNumber alloc] initWithDouble: coefficientAtJ.absoluteValue] atIndexedSubscript:2 * i];
-        [result setObject:[[NSNumber alloc] initWithDouble: coefficientAtJ.freq] atIndexedSubscript:2 * 1 + 1];
+//        [result setObject:[[NSNumber alloc] initWithDouble: coefficientAtJ.absoluteValue] atIndexedSubscript:2 * i];
+//        [result setObject:[[NSNumber alloc] initWithDouble: coefficientAtJ.freq] atIndexedSubscript:2 * 1 + 1];
+        [result addObject:[[NSNumber alloc] initWithDouble: coefficientAtJ.absoluteValue]];
+        [result addObject:[[NSNumber alloc] initWithDouble: coefficientAtJ.freq]];
     }
     
     return result;
