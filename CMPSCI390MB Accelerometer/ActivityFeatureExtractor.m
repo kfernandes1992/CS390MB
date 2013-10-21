@@ -393,7 +393,7 @@
 //        result[2*i] =[[NSNumber alloc]initWithDouble: ((Coefficient*) coeffs2[j]).absoluteValue];
 //        result[2*i+1] = [[NSNumber alloc]initWithDouble: ((Coefficient*) coeffs2[j]).freq];
         [result setObject:[[NSNumber alloc] initWithDouble: coefficientAtJ.absoluteValue] atIndexedSubscript:2 * i];
-        [result setObject:[[NSNumber alloc] initWithDouble: coefficientAtJMinusOne.absoluteValue] atIndexedSubscript:2 * 1 + 1];
+        [result setObject:[[NSNumber alloc] initWithDouble: coefficientAtJMinusOne.freq] atIndexedSubscript:2 * 1 + 1];
     }
     return result;
 }
