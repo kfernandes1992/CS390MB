@@ -15,9 +15,13 @@
 -(id)init{
     self = [super init];
     if (self) {
-        aggAX = 0.0;
-        aggAY = 0.0;
-        aggAZ = 0.0;
+         
+         accState = false;
+         readCounter = 0;
+         READ_LIMIT = 400;
+         aggAX = 0.0;
+         aggAY = 0.0;
+         aggAZ = 0.0;
     }
     return self;
 }

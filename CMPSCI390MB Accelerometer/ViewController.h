@@ -34,6 +34,9 @@
 @property (nonatomic, assign) int steps;
 
 @property(strong, nonatomic) CMMotionManager *motionManager;
+@property(nonatomic, strong) ActivityFeatureExtractor *activityFeatureExtractor;
+@property(nonatomic, strong) DecisionTree *decisionTree;
+@property(nonatomic, strong) ReorientAxis *reorientAxis;
 @property BOOL hasBeenPressed;
 
 

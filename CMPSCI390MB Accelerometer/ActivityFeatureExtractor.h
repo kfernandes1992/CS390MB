@@ -23,6 +23,7 @@
 @property double lastAccY;
 @property double lastAccZ;
 
+
 -(NSMutableArray *) extractFeaturesWithFeatures: (double) timestamp ortAcX :(double) ortAccX ortAcY: (double) ortAccY ortAcZ: (double) ortAccZ acX:
 (double) accX acY: (double) accY acZ: (double) accZ;
 -(NSMutableArray *) extractFeatures;

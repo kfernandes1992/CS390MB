@@ -17,7 +17,7 @@
 @interface ReorientAxis : NSObject
 @property(nonatomic, assign) BOOL accState;
 @property(nonatomic, assign) int readCounter;
-@property(nonatomic, assign) const int READ_LIMIT;
+@property(nonatomic, assign) int READ_LIMIT;
 @property(nonatomic, strong) NSMutableArray *accReadings;
 @property(nonatomic, strong) NSMutableArray *accValues;
 @property(nonatomic, assign) double aggAX;

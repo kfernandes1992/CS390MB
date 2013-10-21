@@ -21,7 +21,13 @@
         lastAccZ=0.0;
         lastAccZ=0.0;
         lastAccZ=0.0;
-        
+        xVector = [[NSMutableArray alloc] init];
+        yVector = [[NSMutableArray alloc] init];
+        zVector = [[NSMutableArray alloc] init];
+        speedVector = [[NSMutableArray alloc] init];
+        timeVector = [[NSMutableArray alloc] init];
+        energyVector = [[NSMutableArray alloc] init];
+        energyXYVector = [[NSMutableArray alloc] init];
     }
     return self;
 }
@@ -30,6 +36,8 @@
 -(NSMutableArray *) extractFeaturesWithFeatures: (double) timestamp ortAcX :(double) ortAccX ortAcY: (double) ortAccY ortAcZ: (double) ortAccZ acX:
 (double) accX acY: (double) accY acZ: (double) accZ {
     
+    NSLog(@"time stamp: %f \nortX: %f \nX: %f", timestamp, ortAccX, accX);
+    
     [self addTime:timestamp];
     double speed = sqrt(pow(accX-lastAccX,2)+pow(accY-lastAccY,2)+pow(accZ-lastAccZ,2));
     [self addValuesWithAccX:ortAccX withAccY:ortAccY withAccZ:ortAccZ withVectSpeed:speed];
@@ -37,7 +45,7 @@
     lastAccX = accX; lastAccY = accY; lastAccZ = accZ;
     
     //Return null if features not extracted
-    if((timestamp-(long)[timeVector objectAtIndex:0])< WINDOW_IN_MILLISEC){
+    if((timestamp-[[timeVector objectAtIndex:0] doubleValue])< WINDOW_IN_MILLISEC){
      return nil;
     }
     
@@ -82,8 +90,11 @@
     [features setObject: [[NSNumber alloc] initWithDouble:[self computeCrossingRate:values withDouble:mean]] atIndexedSubscript:2];
     
     //FFT
+    double xFFT;
     for(int i = 3; i < 7; i++){
-        [features insertObject:[result objectAtIndex:(i-3)] atIndex:i];//0-3
+        xFFT = [[result objectAtIndex:i - 3] doubleValue];
+        [features insertObject:[[NSNumber alloc] initWithDouble:xFFT] atIndex:i];//0-3
+        NSLog(@"xFFT%d: %f", i, xFFT);
     }
     
     //might change where these values go in the array
@@ -265,6 +276,32 @@
 }
 
 - (NSMutableArray *)computeFFTFeatures:(NSMutableArray *)values {
+    /***************************************************************
+     * fft.c
+     * Douglas L. Jones
+     * University of Illinois at Urbana-Champaign
+     * January 19, 1992
+     * http://cnx.rice.edu/content/m12016/latest/
+     *
+     *   fft: in-place radix-2 DIT DFT of a complex input
+     *
+     *   input:
+     * n: length of FFT: must be a power of two
+     * m: n = 2**m
+     *   input/output
+     * x: double array of length n with real part of data
+     * y: double array of length n with imag part of data
+     *
+     *   Permission to copy and use this program is granted
+     *   as long as this header is included.
+     * 
+     *
+     * Translated to Objective-C by
+     * Erik Risinger, Kevin Fernandes, Marco Chiang
+     * University of Massachusetts Amherst
+     * October 20, 2013
+     ****************************************************************/
+    
     int i, j, k, n1, n2, a, n = 1, m = 0;
     double c, s, t1, t2;
     NSMutableArray  *xValues = [[NSMutableArray alloc] init];
@@ -272,14 +309,20 @@
     NSMutableArray  *cosValues = [[NSMutableArray alloc] init];
     NSMutableArray  *sinValues = [[NSMutableArray alloc] init];
     
-    for (m = 0; ; m++) {
+    for (m = 0; true ; m++) {
         if (n >= [values count]){
             break;
         }
-        
         n = n * 2;
     }
     
+    //populate arrays with placeholder objects
+    NSNumber *zero = [[NSNumber alloc] initWithDouble:0.0];
+    for (i = 0; i < n; i++) {
+        [xValues setObject:zero atIndexedSubscript:i];
+        [yValues setObject:zero atIndexedSubscript:i];
+    }
+
     for (i = 0; i < [values count]; i++){
         [xValues setObject:[values objectAtIndex:i] atIndexedSubscript:i];
     }
@@ -314,6 +357,7 @@
             [yValues setObject:[[NSNumber alloc] initWithDouble:t1] atIndexedSubscript:j];
         }
     }
+    
     // FFT
     n1 = 0;
     n2 = 1;
@@ -348,9 +392,9 @@
 //Coefficient coeffs[] = new Coefficient[x.length];
     NSMutableArray *coeffs = [[NSMutableArray alloc] init];
     
-    for(i=0;i<xValues.count;i++){
+    for(i = 0; i < xValues.count; i++){
         //(x[i],y[i],(360.0*i)/coeffs.length);
-        coeffs[i] = [[Coefficient alloc] initWithX: [[xValues objectAtIndex:i] doubleValue]  Y:[[yValues objectAtIndex:i] doubleValue] frequency:((360.0 * i) / xValues.count)];
+        [coeffs setObject:[[Coefficient alloc] initWithX: [[xValues objectAtIndex:i] doubleValue]  Y:[[yValues objectAtIndex:i] doubleValue] frequency:((360.0 * i) / coeffs.count)] atIndexedSubscript:i];
     }
     
     //Arrays.sort(coeffs);
@@ -368,34 +412,46 @@
     }
         
 } ];
+    
     coeffs= [[NSMutableArray alloc] initWithArray:sortedCoeffs];
-    Boolean NEW = false;
+//    Boolean NEW = false;
     NSMutableArray* coeffs2 = [[NSMutableArray alloc] init];
     NSMutableArray *result= [[NSMutableArray alloc] init];
     
     for(i = 0; i < xValues.count; i++){
         //coeffs2[i] = coeffs[xValues.count-1-i];
-        [coeffs2 setObject:coeffs[xValues.count-1-i] atIndexedSubscript:i];
+        //[coeffs2 setObject:coeffs[xValues.count-1-i] atIndexedSubscript:i];
+        [coeffs2 setObject:[coeffs objectAtIndex:xValues.count - 1 - i] atIndexedSubscript:i];
     }
     
-    int len = (coeffs2.count > 5 ? 5 : coeffs2.count);
+    int len;
+    if (coeffs2.count > 5) {
+        len = 5;
+    }
+    else{
+        len = coeffs2.count;
+    }
+    
     Coefficient *coefficientAtJ;
-    Coefficient *coefficientAtJMinusOne;
+    //Coefficient *coefficientAtJMinusOne;
     for(i = 0, j = 0; i < len; i++, j++){
         coefficientAtJ = [coeffs2 objectAtIndex:j];
-        coefficientAtJMinusOne = [coeffs2 objectAtIndex:j - 1];
+        //coefficientAtJMinusOne = [coeffs2 objectAtIndex:j - 1];
         
-        if(NEW && i > 0 && j < coeffs2.count && abs(coefficientAtJ.absoluteValue - coefficientAtJMinusOne.absoluteValue) <=0.00001){
-            i--;
-            continue;
-        }
-        if(NEW && j>=coeffs2.count)
-            break;
+        //this doesn't make sense -- NEW is never true
+//        if(NEW && i > 0 && j < coeffs2.count && abs(coefficientAtJ.absoluteValue - coefficientAtJMinusOne.absoluteValue) <=0.00001){
+//            i--;
+//            continue;
+//        }
+//        if(NEW && j>=coeffs2.count){
+//            break;
+//        }
 //        result[2*i] =[[NSNumber alloc]initWithDouble: ((Coefficient*) coeffs2[j]).absoluteValue];
 //        result[2*i+1] = [[NSNumber alloc]initWithDouble: ((Coefficient*) coeffs2[j]).freq];
         [result setObject:[[NSNumber alloc] initWithDouble: coefficientAtJ.absoluteValue] atIndexedSubscript:2 * i];
-        [result setObject:[[NSNumber alloc] initWithDouble: coefficientAtJMinusOne.freq] atIndexedSubscript:2 * 1 + 1];
+        [result setObject:[[NSNumber alloc] initWithDouble: coefficientAtJ.freq] atIndexedSubscript:2 * 1 + 1];
     }
+    
     return result;
 }
 

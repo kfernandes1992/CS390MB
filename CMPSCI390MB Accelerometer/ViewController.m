@@ -29,12 +29,15 @@
 @synthesize smoothingFilter;
 @synthesize stepDetector;
 @synthesize steps;
+@synthesize activityFeatureExtractor;
+@synthesize decisionTree;
+@synthesize reorientAxis;
 
 static const NSTimeInterval accelerationInterval= .1;
 
 -(IBAction)buttonPress:(UIButton*) button{
     [self togglewithLabel:[button currentTitle]];
-    [self changeLayout:button];
+//    [self changeLayout:button];
     
 }
 
@@ -108,18 +111,16 @@ static const NSTimeInterval accelerationInterval= .1;
             NSArray* amplifiedValues= [stepDetector amplifyValues:rawArray];
             
             ReorientAxis* reorienter=[[ReorientAxis alloc] init];
-            NSArray* reorientedValues= [reorienter getReorientedX: ((NSNumber*)amplifiedValues[0]).doubleValue Y:((NSNumber*)amplifiedValues[1]).doubleValue Z:((NSNumber*)amplifiedValues[2]).doubleValue];
+            NSArray* reorientedValues= [reorienter getReorientedX: [[amplifiedValues objectAtIndex:0] doubleValue] Y:[[amplifiedValues objectAtIndex:1] doubleValue] Z:[[amplifiedValues objectAtIndex:2] doubleValue]];
             
             //Get Extracted Features
             
-            ActivityFeatureExtractor *activityFeatureExtractor= [[ActivityFeatureExtractor alloc] init];
             
             //TODO:Get timestamp as a double.
-            NSMutableArray* extractedFeatures= [activityFeatureExtractor extractFeaturesWithFeatures:millisecondsSince1970 ortAcX:((NSNumber*)reorientedValues[0]).doubleValue ortAcY:((NSNumber*)reorientedValues[1]).doubleValue ortAcZ:((NSNumber*)reorientedValues[2]).doubleValue acX:((NSNumber*)amplifiedValues[0]).doubleValue acY:((NSNumber*)amplifiedValues[1]).doubleValue acZ:((NSNumber*)amplifiedValues[2]).doubleValue];
+            NSMutableArray* extractedFeatures= [activityFeatureExtractor extractFeaturesWithFeatures:millisecondsSince1970 ortAcX:[[reorientedValues objectAtIndex:0] doubleValue] ortAcY:[[reorientedValues objectAtIndex:1] doubleValue] ortAcZ:[[reorientedValues objectAtIndex:2] doubleValue] acX:[[amplifiedValues objectAtIndex:0] doubleValue] acY:[[amplifiedValues objectAtIndex:1] doubleValue] acZ:[[amplifiedValues objectAtIndex:2] doubleValue]];
             
-            DecisionTree *dTree= [[DecisionTree alloc] init];
             
-            NSString* classifiedActivity= [dTree decideBasedOnValues:extractedFeatures];
+            NSString* classifiedActivity= [decisionTree decideBasedOnValues:extractedFeatures];
             NSLog(@"%@", classifiedActivity);
             
 //            
@@ -229,6 +230,9 @@ static const NSTimeInterval accelerationInterval= .1;
     logArray = [[NSMutableArray alloc] init];
     motionManager= [[CMMotionManager alloc]init];
     steps = 0;
+    activityFeatureExtractor= [[ActivityFeatureExtractor alloc] init];
+    decisionTree = [[DecisionTree alloc] init];
+    reorientAxis = [[ReorientAxis alloc] init];
     
     if ([motionManager isAccelerometerAvailable] == YES) {
         [motionManager setAccelerometerUpdateInterval:accelerationInterval];

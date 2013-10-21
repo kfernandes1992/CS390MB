@@ -41,15 +41,16 @@
 }
 
 -(NSArray *)amplifyValues: (NSArray *) rawValues{
-    NSDecimalNumber *ten = [[NSDecimalNumber alloc] initWithDouble:10];
-    NSDecimalNumber *newDecimal;
+    NSNumber *newNumber;
     NSMutableArray *tempArray = [[NSMutableArray alloc] init];
+    double product;
     
-    for (NSDecimalNumber *n in rawValues) {
-        newDecimal = [n decimalNumberByMultiplyingBy:ten];
-        newDecimal = [newDecimal decimalNumberByRaisingToPower:3];
-        NSLog(@"%f", [newDecimal doubleValue]);
-        [tempArray addObject:newDecimal];
+    for (NSNumber *n in rawValues) {
+        product = [n doubleValue] * 10.0;
+        newNumber = [[NSNumber alloc] initWithDouble:pow(product, 2)]; //square
+//        newDecimal = [newDecimal decimalNumberByRaisingToPower:3]; //cubed!!  crap...
+        NSLog(@"%f", [newNumber doubleValue]);
+        [tempArray addObject:newNumber];
     }
     
     return tempArray;

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="4510" systemVersion="12F45" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="2">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="4510" systemVersion="12F37" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="2">
     <dependencies>
         <deployment defaultVersion="1552" identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3742"/>
@@ -17,25 +17,6 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xfA-rU-PSl">
-                                <rect key="frame" x="118" y="112" width="84" height="54"/>
-                                <color key="backgroundColor" red="0.94650135869565222" green="0.94650135869565222" blue="0.94650135869565222" alpha="1" colorSpace="calibratedRGB"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="54" id="NxU-vk-gaU"/>
-                                    <constraint firstAttribute="width" constant="146" id="sBD-mC-cpo"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
-                                <state key="normal" title="Walking">
-                                    <color key="titleColor" red="0.34916355300000002" green="0.34916355300000002" blue="0.34916355300000002" alpha="1" colorSpace="calibratedRGB"/>
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <state key="highlighted">
-                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <action selector="buttonPress:" destination="2" eventType="touchUpInside" id="v8c-gs-mxJ"/>
-                                </connections>
-                            </button>
                             <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="infoLight" showsTouchWhenHighlighted="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JRN-Tg-83b">
                                 <rect key="frame" x="298" y="546" width="22" height="22"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
@@ -68,34 +49,15 @@
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XVR-9x-wRd">
-                                <rect key="frame" x="118" y="174" width="84" height="54"/>
-                                <color key="backgroundColor" red="0.94650135869999996" green="0.94650135869999996" blue="0.94650135869999996" alpha="1" colorSpace="calibratedRGB"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="146" id="EXn-dd-qOt"/>
-                                    <constraint firstAttribute="height" constant="54" id="QBD-Or-Ohk"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
-                                <state key="normal" title="Running">
-                                    <color key="titleColor" red="0.34916355300000002" green="0.34916355300000002" blue="0.34916355300000002" alpha="1" colorSpace="calibratedRGB"/>
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <state key="highlighted">
-                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <action selector="buttonPress:" destination="2" eventType="touchUpInside" id="h00-6J-3cH"/>
-                                </connections>
-                            </button>
                             <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cUr-rW-Gej">
-                                <rect key="frame" x="118" y="236" width="84" height="54"/>
+                                <rect key="frame" x="118" y="494" width="84" height="54"/>
                                 <color key="backgroundColor" red="0.94650135869999996" green="0.94650135869999996" blue="0.94650135869999996" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="54" id="3Jy-ZT-gq4"/>
                                     <constraint firstAttribute="width" constant="146" id="nN4-aD-ndD"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
-                                <state key="normal" title="Sitting">
+                                <state key="normal" title="Start">
                                     <color key="titleColor" red="0.34916355300000002" green="0.34916355300000002" blue="0.34916355300000002" alpha="1" colorSpace="calibratedRGB"/>
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
@@ -109,16 +71,13 @@
                         </subviews>
                         <color key="backgroundColor" red="0.34916355300000002" green="0.34916355300000002" blue="0.34916355300000002" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
-                            <constraint firstAttribute="bottom" secondItem="xfA-rU-PSl" secondAttribute="bottom" constant="43" id="LdJ-6V-LDp"/>
                             <constraint firstAttribute="bottom" secondItem="JRN-Tg-83b" secondAttribute="bottom" constant="20" symbolic="YES" id="NdR-uM-mT7"/>
                             <constraint firstAttribute="trailing" secondItem="JRN-Tg-83b" secondAttribute="trailing" constant="20" symbolic="YES" id="bp4-EK-T8H"/>
                         </constraints>
                     </view>
                     <connections>
-                        <outlet property="runButton" destination="XVR-9x-wRd" id="T0t-4u-8he"/>
                         <outlet property="sitButton" destination="cUr-rW-Gej" id="KdB-6L-TnW"/>
                         <outlet property="stepCounterLabel" destination="hBd-sF-R0z" id="qqi-lg-TrA"/>
-                        <outlet property="walkButton" destination="xfA-rU-PSl" id="Tqi-1m-M2q"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="4" sceneMemberID="firstResponder"/>
