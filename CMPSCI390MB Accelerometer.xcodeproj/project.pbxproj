@@ -34,6 +34,7 @@
 		93C9D1BA17E371A600B6C374 /* CoreMotion.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 93C9D1B817E371A600B6C374 /* CoreMotion.framework */; };
 		CE2040B91811CFA4006213C3 /* computeMean in Resources */ = {isa = PBXBuildFile; fileRef = CE2040B81811CFA4006213C3 /* computeMean */; };
 		CE8B867C17F8CAB0006DDA51 /* StepDetector.m in Sources */ = {isa = PBXBuildFile; fileRef = CE8B867B17F8CAB0006DDA51 /* StepDetector.m */; };
+		CEA6BAC21814AE73007CC4E4 /* DecisionTree.m in Sources */ = {isa = PBXBuildFile; fileRef = CEA6BAC11814AE73007CC4E4 /* DecisionTree.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -85,6 +86,8 @@
 		CE2040B81811CFA4006213C3 /* computeMean */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = computeMean; sourceTree = "<group>"; };
 		CE8B867A17F8CAB0006DDA51 /* StepDetector.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StepDetector.h; sourceTree = "<group>"; };
 		CE8B867B17F8CAB0006DDA51 /* StepDetector.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StepDetector.m; sourceTree = "<group>"; };
+		CEA6BAC01814AE73007CC4E4 /* DecisionTree.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DecisionTree.h; sourceTree = "<group>"; };
+		CEA6BAC11814AE73007CC4E4 /* DecisionTree.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DecisionTree.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -149,6 +152,8 @@
 		936CD63317E36D3900B69E9B /* CMPSCI390MB Accelerometer */ = {
 			isa = PBXGroup;
 			children = (
+				CEA6BAC01814AE73007CC4E4 /* DecisionTree.h */,
+				CEA6BAC11814AE73007CC4E4 /* DecisionTree.m */,
 				933412AF17F8A65C006215F3 /* KMESmoothingFilter.h */,
 				933412B017F8A65C006215F3 /* KMESmoothingFilter.m */,
 				936CD63C17E36D3900B69E9B /* AppDelegate.h */,
@@ -325,6 +330,7 @@
 				936CD63E17E36D3900B69E9B /* AppDelegate.m in Sources */,
 				CE8B867C17F8CAB0006DDA51 /* StepDetector.m in Sources */,
 				936CD64D17E36D3900B69E9B /* ViewController.m in Sources */,
+				CEA6BAC21814AE73007CC4E4 /* DecisionTree.m in Sources */,
 				93B1AAAE1811E2250046F6B6 /* ReorientAxis.m in Sources */,
 				93B38BE917E5E785002F12B0 /* InfoViewController.m in Sources */,
 			);
