@@ -289,7 +289,7 @@
     }
     
     // Bit-reverse
-    /*j = 0;
+    j = 0;
     n2 = n / 2;
     for (i = 1; i < n - 1; i++) {
         n1 = n2;
@@ -330,34 +330,52 @@
                 [y objectAtIndex:k] = [y objectAtIndex:k] + t2;
             }
         }
-    }*/
+    }
     
     //still java need to convert
 //Coefficient coeffs[] = new Coefficient[x.length];
     NSMutableArray *coeffs = [[NSMutableArray alloc] init];
-    for(i=0;i<x.count;i++){
-        
-        coeffs[i] = [[Coefficient alloc] initWithX:x[i]  Y:y[i].doubleValue frequency:((360.0*i)/x.count)];
+    
+    for(i=0;i<xValues.count;i++){
+        //(x[i],y[i],(360.0*i)/coeffs.length);
+        coeffs[i] = [[Coefficient alloc] initWithX: ((NSNumber *)xValues[i]).doubleValue  Y:((NSNumber *)yValues[i]).doubleValue frequency:((360.0*i)/xValues.count)];
     }
     
-        (x[i],y[i],(360.0*i)/coeffs.length);
-    Arrays.sort(coeffs);
+    //Arrays.sort(coeffs);
+    NSArray *sortedCoeffs= [coeffs sortedArrayUsingComparator:^(Coefficient* obj1, Coefficient* obj2){
+        if((obj1.absoluteValue - obj2.absoluteValue) > 0){
+        return 1;
+    }
+        
+    else if((obj1.absoluteValue - obj2.absoluteValue) < 0){
+        return -1;
+    }
+        
+    else{
+        return 0;
+    }
+        
+} ];
+    coeffs= [[NSMutableArray alloc] initWithArray:sortedCoeffs];
     
-    Coefficient coeffs2[] = new Coefficient[x.length];
-    for(i=0;i<x.length;i++)
-        coeffs2[i] = coeffs[x.length-1-i];
-    double result[] = new double[10];
-    int len = (coeffs2.length>5?5:coeffs2.length);
-    boolean NEW = false;
+    NSMutableArray* coeffs2= [[NSMutableArray alloc] init];
+    //Coefficient coeffs2[] = new Coefficient[x.length];
+    
+    for(i=0;i<xValues.count;i++)
+        coeffs2[i] = coeffs[xValues.count-1-i];
+    NSMutableArray *result= [[NSMutableArray alloc] init];
+    //double result[] = new double[10];
+    int len = (coeffs2.count>5?5:coeffs2.count);
+    Boolean NEW = false;
     for(i=0,j=0;i<len;i++,j++){
-        if(NEW && i>0 && j<coeffs2.length && Math.abs(coeffs2[j].abs-coeffs2[j-1].abs)<=0.00001){
+        if(NEW && i>0 && j<coeffs2.count && abs( ( (Coefficient*) coeffs2[j]).absoluteValue - ( (Coefficient* ) coeffs2[j-1]).absoluteValue <=0.00001)){
             i--;
             continue;
         }
-        if(NEW && j>=coeffs2.length)
+        if(NEW && j>=coeffs2.count)
             break;
-        result[2*i] = coeffs2[j].abs;
-        result[2*i+1] = coeffs2[j].freq;
+        result[2*i] =[[NSNumber alloc]initWithDouble: ((Coefficient*) coeffs2[j]).absoluteValue];
+        result[2*i+1] = [[NSNumber alloc]initWithDouble: ((Coefficient*) coeffs2[j]).freq];
     }
     return result;
 }

@@ -10,7 +10,7 @@
 
 @implementation Coefficient
 
-@synthesize re, im, freq, abs;
+@synthesize re, im, freq, absoluteValue;
 
 - (id)initWithX:(double) x Y:(double) y frequency:(double) frequency
 {
@@ -20,7 +20,7 @@
         re = x;
         im = y;
         freq = frequency;
-        abs = hypot(x,y);
+        absoluteValue = hypot(x,y);
     }
     
     return self;
@@ -28,11 +28,11 @@
 
 -(int) compareTo:(Coefficient *) c
 {
-    if((self.abs - c.abs) > 0){
+    if((self.absoluteValue - c.absoluteValue) > 0){
         return 1;
     }
     
-    else if((self.abs - c.abs) < 0){
+    else if((self.absoluteValue - c.absoluteValue) < 0){
         return -1;
     }
     
