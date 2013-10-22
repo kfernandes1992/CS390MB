@@ -17,7 +17,7 @@
     self = [super init];
     if (self)
     {
-        WINDOW_IN_MILLISEC=5000.0;
+        WINDOW_IN_MILLISEC=1000.0;
         lastAccZ=0.0;
         lastAccZ=0.0;
         lastAccZ=0.0;
@@ -36,7 +36,7 @@
 -(NSMutableArray *) extractFeaturesWithFeatures: (double) timestamp ortAcX :(double) ortAccX ortAcY: (double) ortAccY ortAcZ: (double) ortAccZ acX:
 (double) accX acY: (double) accY acZ: (double) accZ {
     
-    NSLog(@"time stamp: %f \nortX: %f \nX: %f", timestamp, ortAccX, accX);
+//    NSLog(@"time stamp: %f \nortX: %f \nX: %f", timestamp, ortAccX, accX);
     
     [self addTime:timestamp];
     double speed = sqrt(pow(accX-lastAccX,2)+pow(accY-lastAccY,2)+pow(accZ-lastAccZ,2));
@@ -59,7 +59,9 @@
 -(NSMutableArray *) extractFeatures {
     //features array
     NSMutableArray* features = [[NSMutableArray alloc]init];
-    for (int i = 0; i < 43; i++) {
+    
+    //populate array with dummy features, including two new: timeStamp and WINDOW_IN_MILLISEC
+    for (int i = 0; i <= 44; i++) {
         [features addObject:[[NSNumber alloc] initWithDouble:0.0]];
     }
     
@@ -97,7 +99,7 @@
     for(int i = 3; i < 7; i++){
         xFFT = [[result objectAtIndex:i - 3] doubleValue];
         [features insertObject:[[NSNumber alloc] initWithDouble:xFFT] atIndex:i];//0-3
-        NSLog(@"xFFT%d: %f", i, xFFT);
+//        NSLog(@"xFFT%d: %f", i, xFFT);
     }
     
     //might change where these values go in the array
@@ -144,7 +146,7 @@
     }
     
     //might change where these values go in the array
-    for(int i=1;i<(sizeof values);i++){
+    for(int i = 1; i < values.count; i++){
         
         //change in y velocity from time i-1 to time i
         //[features objectAtIndex:16] += [values objectAtIndex:(i-1)]*([times objectAtIndex:i]- [times objectAtIndex:(i-1)]);
@@ -251,10 +253,13 @@
     [features setObject: [[NSNumber alloc] initWithDouble:mean] atIndexedSubscript:40];
     [features setObject: [[NSNumber alloc] initWithDouble:dev] atIndexedSubscript:41];
     [features setObject: [[NSNumber alloc] initWithDouble:[self computeCrossingRate:values withDouble:mean]] atIndexedSubscript:42];
+    
+    //include timeStamp and window size in array passed to the decision tree
+    [features setObject:[timeVector objectAtIndex:timeVector.count - 1] atIndexedSubscript:43];
+    [features setObject:[[NSNumber alloc] initWithDouble:WINDOW_IN_MILLISEC] atIndexedSubscript:44];
 
-    NSLog(@"%@\n%f\n", @"Before: ", [[features objectAtIndex:5] doubleValue]);
+//    NSLog(@"Before clear: %f", [[features objectAtIndex:5] doubleValue]);
     [self clearValues];
-    NSLog(@"%@\n%f\n", @"After: ", [[features objectAtIndex:5] doubleValue]);
     return features;
 }
 

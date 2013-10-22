@@ -49,7 +49,7 @@
         product = [n doubleValue] * 10.0;
         newNumber = [[NSNumber alloc] initWithDouble:pow(product, 2)]; //square
 //        newDecimal = [newDecimal decimalNumberByRaisingToPower:3]; //cubed!!  crap...
-        NSLog(@"%f", [newNumber doubleValue]);
+//        NSLog(@"%f", [newNumber doubleValue]);
         [tempArray addObject:newNumber];
     }
     
