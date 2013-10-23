@@ -20,6 +20,7 @@
 @synthesize xLabel;
 @synthesize yLabel;
 @synthesize zLabel;
+@synthesize activityLabel;
 @synthesize walkButton;
 @synthesize runButton;
 @synthesize sitButton;
@@ -124,7 +125,7 @@ static const NSTimeInterval accelerationInterval= .1;
             
             
             NSLog(@"ViewController: %@", classifiedActivity);
-            
+            [activityLabel setText:classifiedActivity];
 //            
 //            //detect steps
 //            if([stepDetector detectStepsOnValues:sendArray]){

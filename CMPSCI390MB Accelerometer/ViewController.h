@@ -25,6 +25,7 @@
 @property(nonatomic, strong) IBOutlet UILabel *xLabel;
 @property(nonatomic, strong) IBOutlet UILabel *yLabel;
 @property(nonatomic, strong) IBOutlet UILabel *zLabel;
+@property(nonatomic, strong) IBOutlet UILabel *activityLabel;
 @property(nonatomic, strong) IBOutlet UIButton *walkButton;
 @property(nonatomic, strong) IBOutlet UIButton  *runButton;
 @property (nonatomic, strong) IBOutlet UIButton *sitButton;
