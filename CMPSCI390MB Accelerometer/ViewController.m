@@ -37,9 +37,9 @@
 static const NSTimeInterval accelerationInterval= .1;
 
 -(IBAction)buttonPress:(UIButton*) button{
-    [self togglewithLabel:[button currentTitle]];
+    [self togglewithButton:button];
 //    [self changeLayout:button];
-    
+//    [button setTitle:@"Stop" forState:UIControlStateNormal];
 }
 
 -(void) changeLayout: (UIButton*) button{
@@ -83,11 +83,13 @@ static const NSTimeInterval accelerationInterval= .1;
     }
 }
 
--(void)togglewithLabel:(NSString*)label{
+-(void)togglewithButton:(UIButton *)button{
     
-    if(![label isEqualToString:@"STOP"]){
-        stepDetector=[[StepDetector alloc] init];
-        steps = 0;
+    if(![[button currentTitle] isEqualToString:@"STOP"]){
+        [button setTitle:@"STOP" forState:UIControlStateNormal];
+//        stepDetector=[[StepDetector alloc] init];
+//        steps = 0;
+        logArray = [[NSMutableArray alloc] init];
         [motionManager startAccelerometerUpdatesToQueue:[NSOperationQueue mainQueue] withHandler:^(CMAccelerometerData *accelerometerData, NSError *error) {
             //store values
             NSDate *dateStamp = [NSDate date];
@@ -105,28 +107,25 @@ static const NSTimeInterval accelerationInterval= .1;
 
         
             //filter out noise
-            smoothingFilter=[[KMESmoothingFilter alloc]init];
-            // NSArray *filteredData= [smoothingFilter getFilteredValuesOfXValue:numX ofYValue:numY ofZValue:numZ];
-
-            NSArray *rawArray = [[NSArray alloc] initWithObjects:xVal, yVal, zVal, nil];
-            NSArray* amplifiedValues= [stepDetector amplifyValues:rawArray];
-            
-            ReorientAxis* reorienter=[[ReorientAxis alloc] init];
-            NSArray* reorientedValues= [reorienter getReorientedX: [[amplifiedValues objectAtIndex:0] doubleValue] Y:[[amplifiedValues objectAtIndex:1] doubleValue] Z:[[amplifiedValues objectAtIndex:2] doubleValue]];
-            
-            //Get Extracted Features
-            
-            
-            //TODO:Get timestamp as a double.
-            NSMutableArray* extractedFeatures= [activityFeatureExtractor extractFeaturesWithFeatures:millisecondsSince1970 ortAcX:[[reorientedValues objectAtIndex:0] doubleValue] ortAcY:[[reorientedValues objectAtIndex:1] doubleValue] ortAcZ:[[reorientedValues objectAtIndex:2] doubleValue] acX:[[amplifiedValues objectAtIndex:0] doubleValue] acY:[[amplifiedValues objectAtIndex:1] doubleValue] acZ:[[amplifiedValues objectAtIndex:2] doubleValue]];
-            
-            
-            NSString* classifiedActivity= [decisionTree decideBasedOnValues:extractedFeatures];
-            
-            
-            NSLog(@"ViewController: %@", classifiedActivity);
-            [activityLabel setText:classifiedActivity];
+//            smoothingFilter=[[KMESmoothingFilter alloc]init];
+//            // NSArray *filteredData= [smoothingFilter getFilteredValuesOfXValue:numX ofYValue:numY ofZValue:numZ];
+//
+//            NSArray *rawArray = [[NSArray alloc] initWithObjects:xVal, yVal, zVal, nil];
+//            NSArray* amplifiedValues= [stepDetector amplifyValues:rawArray];
 //            
+//            ReorientAxis* reorienter=[[ReorientAxis alloc] init];
+//            NSArray* reorientedValues= [reorienter getReorientedX: [[amplifiedValues objectAtIndex:0] doubleValue] Y:[[amplifiedValues objectAtIndex:1] doubleValue] Z:[[amplifiedValues objectAtIndex:2] doubleValue]];
+//            
+//            //Get Extracted Features
+//            NSMutableArray* extractedFeatures= [activityFeatureExtractor extractFeaturesWithFeatures:millisecondsSince1970 ortAcX:[[reorientedValues objectAtIndex:0] doubleValue] ortAcY:[[reorientedValues objectAtIndex:1] doubleValue] ortAcZ:[[reorientedValues objectAtIndex:2] doubleValue] acX:[[amplifiedValues objectAtIndex:0] doubleValue] acY:[[amplifiedValues objectAtIndex:1] doubleValue] acZ:[[amplifiedValues objectAtIndex:2] doubleValue]];
+//            
+//            
+//            NSString* classifiedActivity= [decisionTree decideBasedOnValues:extractedFeatures];
+//            
+//            
+//            NSLog(@"ViewController: %@", classifiedActivity);
+//            [activityLabel setText:classifiedActivity];
+//
 //            //detect steps
 //            if([stepDetector detectStepsOnValues:sendArray]){
 //                steps++;
@@ -134,16 +133,16 @@ static const NSTimeInterval accelerationInterval= .1;
 //
             
             //update UI
-            [stepCounterLabel setText:[[NSString alloc] initWithFormat:@"%d", steps]];
+//            [stepCounterLabel setText:[[NSString alloc] initWithFormat:@"%d", steps]];
             
-            /*//log values
+            //log values
             [logArray addObject:[[NSString alloc] initWithFormat:@"%f,%@,%@,%@\n",
                                  millisecondsSince1970,
                                  xVal,
                                  yVal,
                                  zVal]];
             
-            
+            /*
             
             //periodically log and refresh array. May need a new thread
             if([logArray count] >=1000){
@@ -154,15 +153,17 @@ static const NSTimeInterval accelerationInterval= .1;
     }
     
     else{
+        NSLog(@"Hit stop code");
         //reset labels, kill updates
+        [button setTitle:@"START" forState:UIControlStateNormal];
         [motionManager stopAccelerometerUpdates];
         //write array to file
         
-//        if ([logArray count] > 0) {
-//            [self arrayToFile:logArray];
-//        }
+        if ([logArray count] > 0) {
+            [self arrayToFile:logArray];
+        }
         
-       // [self emailFile];
+        [self emailFile];
     }
 }
 
@@ -190,16 +191,21 @@ static const NSTimeInterval accelerationInterval= .1;
 
 -(IBAction)emailFile{
     
-    //find the accelerometer file
-    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-    NSString *documentsDirectory = [paths objectAtIndex:0];
-    NSString *fp = [documentsDirectory stringByAppendingPathComponent:@"filteredaccelerometerlog.csv"];
-    NSURL *filePath= [[NSURL alloc] initWithString:fp];
-
+//    //find the accelerometer file
+//    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+//    NSString *documentsDirectory = [paths objectAtIndex:0];
+//    NSString *fp = [documentsDirectory stringByAppendingPathComponent:@"filteredaccelerometerlog.csv"];
+//    NSURL *filePath= [[NSURL alloc] initWithString:fp];
+//
+//    
+//    //get the data from the file
+//    NSData *fileData = [NSData dataWithContentsOfURL:filePath];
     
-    //get the data from the file
-    
-    NSData *fileData = [NSData dataWithContentsOfURL:filePath];
+    //dump data into body of email
+    NSMutableString *bodyString = [[NSMutableString alloc] init];
+    for(NSString *s in logArray){
+        [bodyString appendString:s];
+    }
     
     //set email parameters
     NSString *emailTitle = @"Filtered Accelerometer Data .csv File";
@@ -211,7 +217,9 @@ static const NSTimeInterval accelerationInterval= .1;
     mc.mailComposeDelegate = self;
     [mc setSubject:emailTitle];
     [mc setToRecipients:toRecipents];
-    [mc addAttachmentData:fileData mimeType:@"text/html" fileName:@"Filtered Accelerometer Data .csv File"];
+    [mc setMessageBody:bodyString isHTML:NO];
+    
+//    [mc addAttachmentData:fileData mimeType:@"text/html" fileName:@"Filtered Accelerometer Data .csv File"];
     
     //present VC
     [self presentViewController:mc animated:TRUE completion:NULL];

@@ -18,7 +18,7 @@
 @interface ViewController : UIViewController <UIAccelerometerDelegate, UIActionSheetDelegate, MFMailComposeViewControllerDelegate>
 
 -(IBAction)buttonPress:(UIButton*) button;
--(IBAction)togglewithLabel:(NSString*)label;
+-(IBAction)togglewithButton:(UIButton *) button;
 
 
 @property(nonatomic, strong) NSMutableArray *logArray;
