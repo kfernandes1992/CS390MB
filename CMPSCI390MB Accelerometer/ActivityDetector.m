@@ -23,18 +23,11 @@
 
 static const NSTimeInterval accelerationInterval= .1;
 
--(id)init{
-    self = [super init];
-    if (self) {
-        [self togglewithButton:[[UIButton alloc] init]];
-    }
-    return self;
-}
 
--(void)togglewithButton:(UIButton *)button{
+-(void)runTheBitch{
     
     /* initialize stuff */
-    [button setTitle:@"STOP" forState:UIControlStateNormal];
+//    [button setTitle:@"STOP" forState:UIControlStateNormal];
     stepDetector=[[StepDetector alloc] init];
     steps = 0;
     logArray = [[NSMutableArray alloc] init];
@@ -126,10 +119,10 @@ static const NSTimeInterval accelerationInterval= .1;
 
 -(id)getActivityCellView{
     //set up view
-//    CGRect frame = CGRectMake(0.0, 0.0, 320.0, 100.0);
+    CGRect frame = CGRectMake(0.0, 0.0, 320.0, 100.0);
     
     //get data for view
-    return [[ActivityCellView alloc] init];
+    return [[ActivityCellView alloc] initWithFrame:frame andReadings:readings];
 }
 
 -(id)getAccelerometerCellView{
@@ -188,26 +181,27 @@ static const NSTimeInterval accelerationInterval= .1;
 //    [self dismissViewControllerAnimated:TRUE completion:NULL];
 //};
 //
-//- (id)init
-//{
-//    self = [super init];
-//	
-//    if (self) {
-//        logArray = [[NSMutableArray alloc] init];
-//        motionManager= [[CMMotionManager alloc]init];
-//        steps = 0;
-//        activityFeatureExtractor= [[ActivityFeatureExtractor alloc] init];
-//        decisionTree = [[DecisionTree alloc] init];
-//        reorientAxis = [[ReorientAxis alloc] init];
-//        readings = [[NSMutableArray alloc] init];
-//        
-//        if ([motionManager isAccelerometerAvailable] == YES) {
-//            [motionManager setAccelerometerUpdateInterval:accelerationInterval];
-//            
-//        }
-//    }
-//    return self;
-//}
+- (id)init
+{
+    self = [super init];
+	
+    if (self) {
+        logArray = [[NSMutableArray alloc] init];
+        motionManager= [[CMMotionManager alloc]init];
+        steps = 0;
+        activityFeatureExtractor= [[ActivityFeatureExtractor alloc] init];
+        decisionTree = [[DecisionTree alloc] init];
+        reorientAxis = [[ReorientAxis alloc] init];
+        readings = [[NSMutableArray alloc] init];
+        
+        if ([motionManager isAccelerometerAvailable] == YES) {
+            [motionManager setAccelerometerUpdateInterval:accelerationInterval];
+            [self runTheBitch];
+
+        }
+    }
+    return self;
+}
 //
 //- (void)didReceiveMemoryWarning
 //{

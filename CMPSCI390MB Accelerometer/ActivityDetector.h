@@ -31,6 +31,8 @@
 @property(nonatomic, strong) DecisionTree *decisionTree;
 @property BOOL hasBeenPressed;
 
+-(void)runTheBitch;
+
 -(id)getStepDetectorCellView;
 -(id)getActivityCellView;
 -(id)getAccelerometerCellView;

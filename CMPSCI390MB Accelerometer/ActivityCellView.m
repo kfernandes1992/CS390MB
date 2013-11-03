@@ -13,9 +13,9 @@
 @synthesize readings;
 
 -(void) drawRect:(CGRect)rect{
-    double diameter = 10.0;
     int skip = 1;
-    int numberOfCircles = 20;
+    double diameter = 5.0;
+    int numberOfCircles = 40;
     CGContextRef context = UIGraphicsGetCurrentContext();
     CGContextSetLineWidth(context, 2.0);
     CGContextSetFillColorWithColor(context, [UIColor lightGrayColor].CGColor);
@@ -26,30 +26,39 @@
         skip = readings.count / numberOfCircles;
     }
     
-    for (int i = 10; i <= 240; i += skip) {
+    int i = 0;
+    int j = 0;
+    
+    while (readings.count > 1 && i < readings.count) {
         r = [readings objectAtIndex:i];
         
         if ([r.activityString isEqualToString:@"Stationary"]){
             //set color
             CGContextSetFillColorWithColor(context, [UIColor redColor].CGColor);
             CGContextSetStrokeColorWithColor(context, [UIColor redColor].CGColor);
+            CGRect circlePoint = (CGRectMake((double)j, 20, diameter, diameter));
+            CGContextFillEllipseInRect(context, circlePoint);
         }
         
         else if([r.activityString isEqualToString:@"Walking"]){
             //set color
             CGContextSetFillColorWithColor(context, [UIColor orangeColor].CGColor);
             CGContextSetStrokeColorWithColor(context, [UIColor orangeColor].CGColor);
+            CGRect circlePoint = (CGRectMake((double)j, 20, diameter, diameter));
+            CGContextFillEllipseInRect(context, circlePoint);
         }
         
         else if([r.activityString isEqualToString:@"Running"]){
             //set color
             CGContextSetFillColorWithColor(context, [UIColor greenColor].CGColor);
             CGContextSetStrokeColorWithColor(context, [UIColor greenColor].CGColor);
+            CGRect circlePoint = (CGRectMake((double)j, 20, diameter, diameter));
+            CGContextFillEllipseInRect(context, circlePoint);
         }
-        
-        CGRect circlePoint = (CGRectMake((double)i, 20, diameter, diameter));
-        CGContextFillEllipseInRect(context, circlePoint);
+        i += skip;
+        j += 5;
     }
+    i = 0;
 }
 
 
@@ -58,7 +67,7 @@
     self = [super initWithFrame:frame];
     if (self) {
         // Initialization code
-        self.readings = read;
+        self.readings = [[NSMutableArray alloc] initWithArray:read];
     }
     return self;
 }

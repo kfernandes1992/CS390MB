@@ -11,6 +11,8 @@
 
 @interface ActivityCellView : UIView
 
-@property (nonatomic, weak) NSMutableArray *readings;
+@property (nonatomic, strong) NSMutableArray *readings;
+
+- (id)initWithFrame:(CGRect)frame andReadings:(NSMutableArray *)read;
 
 @end

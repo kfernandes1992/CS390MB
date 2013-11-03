@@ -13,5 +13,6 @@
 @interface VisualizationTableViewController : UITableViewController
 
 @property (nonatomic, strong) ActivityDetector *activityDetector;
+@property (nonatomic, strong) NSTimer *timer;
 
 @end

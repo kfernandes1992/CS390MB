@@ -15,6 +15,7 @@
 @implementation VisualizationTableViewController
 
 @synthesize activityDetector;
+@synthesize timer;
 
 - (id)initWithStyle:(UITableViewStyle)style
 {
@@ -29,6 +30,8 @@
 {
     [super viewDidLoad];
     activityDetector = [[ActivityDetector alloc] init];
+    timer = [NSTimer scheduledTimerWithTimeInterval:2.0 target:self.tableView selector:@selector(reloadData) userInfo:nil repeats:YES];
+    
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
  
@@ -148,8 +151,6 @@
 //    CellIdentifier = @"Cell";
     cell.backgroundView = [activityDetector getActivityCellView];
     cell.selectedBackgroundView = [activityDetector getActivityCellView];
-//    cell.backgroundView = [[ActivityCellView alloc] init];
-//    cell.selectedBackgroundView = [[ActivityCellView alloc] init];
     cell.textLabel.text = @"Blah";
     cell.textLabel.backgroundColor = [UIColor clearColor];
     return cell;
