@@ -56,6 +56,38 @@
     return tempArray;
 }
 
+//for activity detection
+-(NSArray *)squareValues: (NSArray *) rawValues{
+    NSNumber *newNumber;
+    NSMutableArray *tempArray = [[NSMutableArray alloc] init];
+    double product;
+    
+    for (NSNumber *n in rawValues) {
+        product = [n doubleValue] * 10.0;
+        newNumber = [[NSNumber alloc] initWithDouble:pow(product, 2)]; //square
+        [tempArray addObject:newNumber];
+    }
+    
+    return tempArray;
+
+}
+
+//for step detection
+-(NSArray *)cubeValues: (NSArray *) rawValues{
+    NSNumber *newNumber;
+    NSMutableArray *tempArray = [[NSMutableArray alloc] init];
+    double product;
+    
+    for (NSNumber *n in rawValues) {
+        product = [n doubleValue] * 10.0;
+        newNumber = [[NSNumber alloc] initWithDouble:pow(product, 3)]; //cube
+        [tempArray addObject:newNumber];
+    }
+    
+    return tempArray;
+}
+
+
 //returns true if buffer is ready for step detection
 -(BOOL)addToBuffer: (NSArray *) newVals{
     if([buffer count] < 5){

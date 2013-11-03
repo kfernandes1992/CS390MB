@@ -4,7 +4,7 @@
 //
 //  Created by Erik Risinger, Kevin Fernandes, Marco Chiang on 9/12/13.
 //  Copyright (c) 2013 Erik Risinger. All rights reserved.
-//yes
+//
 
 #import "ViewController.h"
 
@@ -33,6 +33,7 @@
 @synthesize activityFeatureExtractor;
 @synthesize decisionTree;
 @synthesize reorientAxis;
+@synthesize readings;
 
 static const NSTimeInterval accelerationInterval= .1;
 
@@ -86,79 +87,82 @@ static const NSTimeInterval accelerationInterval= .1;
 -(void)togglewithButton:(UIButton *)button{
     
     if(![[button currentTitle] isEqualToString:@"STOP"]){
+        
+        /* initialize stuff */
         [button setTitle:@"STOP" forState:UIControlStateNormal];
-//        stepDetector=[[StepDetector alloc] init];
-//        steps = 0;
+        stepDetector=[[StepDetector alloc] init];
+        steps = 0;
         logArray = [[NSMutableArray alloc] init];
         [motionManager startAccelerometerUpdatesToQueue:[NSOperationQueue mainQueue] withHandler:^(CMAccelerometerData *accelerometerData, NSError *error) {
-            //store values
+            
+            //accesory values
+            BOOL activityIsStep = false;
             NSDate *dateStamp = [NSDate date];
             NSTimeInterval millisecondsSince1970 = [dateStamp timeIntervalSince1970] * 1000;
             
-//            NSString *xVal = [[NSString alloc] initWithFormat:@"%f",[accelerometerData acceleration].x];
-//            NSString *yVal = [[NSString alloc] initWithFormat:@"%f",[accelerometerData acceleration].y];
-//            NSString *zVal = [[NSString alloc] initWithFormat:@"%f",[accelerometerData acceleration].z];
-
+            //accelerometer readings
             NSNumber *xVal= [[NSNumber alloc] initWithDouble:[accelerometerData acceleration].x];
-            NSNumber *yVal= [[NSNumber alloc] initWithDouble:[accelerometerData acceleration].x];
-            NSNumber *zVal= [[NSNumber alloc] initWithDouble:[accelerometerData acceleration].x];
+            NSNumber *yVal= [[NSNumber alloc] initWithDouble:[accelerometerData acceleration].y];
+            NSNumber *zVal= [[NSNumber alloc] initWithDouble:[accelerometerData acceleration].z];
             
-           //[stepCounterLabel setText:[[NSString alloc] initWithFormat:@"%d", steps]];
+            /* prepare data for detection */
+            
+            //get raw values from accelerometer
+            NSArray *rawArray = [[NSArray alloc] initWithObjects:xVal, yVal, zVal, nil];
+            
+            /*
+             //filter out noise
+             smoothingFilter=[[KMESmoothingFilter alloc]init];
+             NSArray *filteredData= [smoothingFilter getFilteredValuesOfXValue:numX ofYValue:numY ofZValue:numZ];
+             */
 
-        
-            //filter out noise
-//            smoothingFilter=[[KMESmoothingFilter alloc]init];
-//            // NSArray *filteredData= [smoothingFilter getFilteredValuesOfXValue:numX ofYValue:numY ofZValue:numZ];
-//
-//            NSArray *rawArray = [[NSArray alloc] initWithObjects:xVal, yVal, zVal, nil];
-//            NSArray* amplifiedValues= [stepDetector amplifyValues:rawArray];
-//            
-//            ReorientAxis* reorienter=[[ReorientAxis alloc] init];
-//            NSArray* reorientedValues= [reorienter getReorientedX: [[amplifiedValues objectAtIndex:0] doubleValue] Y:[[amplifiedValues objectAtIndex:1] doubleValue] Z:[[amplifiedValues objectAtIndex:2] doubleValue]];
-//            
-//            //Get Extracted Features
-//            NSMutableArray* extractedFeatures= [activityFeatureExtractor extractFeaturesWithFeatures:millisecondsSince1970 ortAcX:[[reorientedValues objectAtIndex:0] doubleValue] ortAcY:[[reorientedValues objectAtIndex:1] doubleValue] ortAcZ:[[reorientedValues objectAtIndex:2] doubleValue] acX:[[amplifiedValues objectAtIndex:0] doubleValue] acY:[[amplifiedValues objectAtIndex:1] doubleValue] acZ:[[amplifiedValues objectAtIndex:2] doubleValue]];
-//            
-//            
-//            NSString* classifiedActivity= [decisionTree decideBasedOnValues:extractedFeatures];
-//            
-//            
-//            NSLog(@"ViewController: %@", classifiedActivity);
-//            [activityLabel setText:classifiedActivity];
-//
-//            //detect steps
-//            if([stepDetector detectStepsOnValues:sendArray]){
-//                steps++;
-//            }
-//
             
-            //update UI
-//            [stepCounterLabel setText:[[NSString alloc] initWithFormat:@"%d", steps]];
+            /* detect activity */
             
-            //log values
+            //square values for activity detection
+            NSArray *squaredValues = [stepDetector squareValues:rawArray];
+            
+            //reorient, get extracted features
+            ReorientAxis* reorienter=[[ReorientAxis alloc] init];
+            NSArray* reorientedValues= [reorienter getReorientedX: [[squaredValues objectAtIndex:0] doubleValue] Y:[[squaredValues objectAtIndex:1] doubleValue] Z:[[squaredValues objectAtIndex:2] doubleValue]];
+
+            NSArray* extractedFeatures = [activityFeatureExtractor extractFeaturesWithFeatures:millisecondsSince1970 ortAcX:[[reorientedValues objectAtIndex:0] doubleValue] ortAcY:[[reorientedValues objectAtIndex:1] doubleValue] ortAcZ:[[reorientedValues objectAtIndex:2] doubleValue] acX:[[squaredValues objectAtIndex:0] doubleValue] acY:[[squaredValues objectAtIndex:1] doubleValue] acZ:[[squaredValues objectAtIndex:2] doubleValue]];
+            
+            //classify activity
+            NSString* classifiedActivity= [decisionTree decideBasedOnValues:extractedFeatures];
+            
+            /* detect steps */
+            
+            //cube values for step detection
+            NSArray *cubedValues = [stepDetector cubeValues:rawArray];
+            if([stepDetector detectStepsOnValues:cubedValues]){
+                activityIsStep = true;
+                steps++;
+            }
+            
+            /* record findings */
+            
+            //log values (for csv)
             [logArray addObject:[[NSString alloc] initWithFormat:@"%f,%@,%@,%@\n",
                                  millisecondsSince1970,
                                  xVal,
                                  yVal,
                                  zVal]];
             
-            /*
-            
-            //periodically log and refresh array. May need a new thread
-            if([logArray count] >=1000){
-               [self arrayToFile:logArray];
-            }*/
+            //store reading
+            ActivityReading *a = [[ActivityReading alloc] initWithAccelerometerValues:rawArray features:extractedFeatures activity:classifiedActivity stepDetected:activityIsStep timeStamp:millisecondsSince1970];
+            [readings addObject:a];
             
         }];
     }
     
     else{
-        NSLog(@"Hit stop code");
+        
         //reset labels, kill updates
         [button setTitle:@"START" forState:UIControlStateNormal];
         [motionManager stopAccelerometerUpdates];
-        //write array to file
         
+        //write array to file
         if ([logArray count] > 0) {
             [self arrayToFile:logArray];
         }
@@ -182,8 +186,6 @@ static const NSTimeInterval accelerationInterval= .1;
     for(NSMutableString *s in log){
         [writeString appendString: s];
     }
-    
-///TO DO: ensure that file is not being overwritten every 1000th time
 
     [writeString writeToURL:filePath atomically:FALSE encoding:NSUTF8StringEncoding error:NULL];
 }
@@ -244,6 +246,7 @@ static const NSTimeInterval accelerationInterval= .1;
     activityFeatureExtractor= [[ActivityFeatureExtractor alloc] init];
     decisionTree = [[DecisionTree alloc] init];
     reorientAxis = [[ReorientAxis alloc] init];
+    readings = [[NSMutableArray alloc] init];
     
     if ([motionManager isAccelerometerAvailable] == YES) {
         [motionManager setAccelerometerUpdateInterval:accelerationInterval];

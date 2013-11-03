@@ -14,6 +14,7 @@
 #import "ActivityFeatureExtractor.h"
 #import "ReorientAxis.h"
 #import "DecisionTree.h"
+#import "ActivityReading.h"
 
 @interface ViewController : UIViewController <UIAccelerometerDelegate, UIActionSheetDelegate, MFMailComposeViewControllerDelegate>
 
@@ -32,6 +33,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *stepCounterLabel;
 @property (strong, nonatomic) KMESmoothingFilter *smoothingFilter;
 @property (strong, nonatomic) StepDetector *stepDetector;
+@property (nonatomic, strong) NSMutableArray *readings;
 @property (nonatomic, assign) int steps;
 
 @property(strong, nonatomic) CMMotionManager *motionManager;
