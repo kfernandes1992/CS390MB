@@ -9,7 +9,7 @@
 #import "CPTGraphView.h"
 
 @implementation CPTGraphView
-@synthesize graph;
+@synthesize graph, data;
 
 - (id)init
 {
@@ -63,15 +63,27 @@
     
     
 }
+-(void) addPlotFromData: (NSMutableArray*) dataArray{
+    self.data=dataArray;
+    CPTScatterPlot *xSquaredPlot = [[CPTScatterPlot alloc] initWithFrame:graph.defaultPlotSpace.accessibilityFrame];
+                 xSquaredPlot.identifier = @"X Squared Plot";
+    CPTMutableLineStyle *ls1 = [CPTMutableLineStyle lineStyle];
+    ls1.lineWidth = 1.0f;
+    ls1.lineColor = [CPTColor redColor];
+    xSquaredPlot.dataLineStyle = ls1;
+    xSquaredPlot.dataSource = self;
+    [graph addPlot:xSquaredPlot];
+    
+    CPTPlotSymbol *greenCirclePlotSymbol = [CPTPlotSymbol ellipsePlotSymbol];
+    greenCirclePlotSymbol.fill = [CPTFill fillWithColor:[CPTColor greenColor]];
+    greenCirclePlotSymbol.size = CGSizeMake(2.0, 2.0);
+    xSquaredPlot.plotSymbol = greenCirclePlotSymbol;
 
-//CPTScatterPlot *xSquaredPlot = [[CPTScatterPlot alloc] initWithFrame:graph.defaultPlotSpace.accessibilityFrame];
-//xSquaredPlot.identifier = @"X Squared Plot";
-//CPTMutableLineStyle *ls1 = [CPTMutableLineStyle lineStyle];
-//ls1.lineWidth = 1.0f;
-//ls1.lineColor = [CPTColor redColor];
-//xSquaredPlot.dataLineStyle = ls1;
-//xSquaredPlot.dataSource = self;
-//[graph addPlot:xSquaredPlot];
+}
+//
+//
+//
+
 //
 //CPTPlotSymbol *greenCirclePlotSymbol = [CPTPlotSymbol ellipsePlotSymbol];
 //greenCirclePlotSymbol.fill = [CPTFill fillWithColor:[CPTColor greenColor]];
@@ -89,29 +101,18 @@
 //[graph addPlot:xInversePlot];
 //}
 
-
--(NSUInteger)numberOfRecords {
-    return 51;
-}
+                
+- (NSUInteger) numberOfRecordsForPlot:(CPTPlot *) plot{
+    //dummy no idea what it returns.
+    return 35;
+                     }
 
 -(NSNumber *)numberForPlot:(CPTPlot *)plot
                      field:(NSUInteger)fieldEnum
                recordIndex:(NSUInteger)index
 {
-    double val = (index/5.0)-5;
-    
-    if(fieldEnum == CPTScatterPlotFieldX)
-    { return [NSNumber numberWithDouble:val]; }
-    else
-    {
-        if([plot.identifier  isEqual: @"X Squared Plot"])
-        { return [NSNumber numberWithDouble:val*val]; }
-        else
-        { return [NSNumber numberWithDouble:1/val]; }
-    }
-}
-
-    // End CorePlot
+    NSNumber *d= [[NSNumber alloc] initWithDouble:2.0f];
+    return d;}
 
 
 @end

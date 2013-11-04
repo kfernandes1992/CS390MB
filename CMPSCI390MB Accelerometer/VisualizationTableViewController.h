@@ -9,8 +9,9 @@
 #import <UIKit/UIKit.h>
 #import "VisualizationCell.h"
 #import "ActivityDetector.h"
+#import "CPTGraphView.h"
 
-@interface VisualizationTableViewController : UITableViewController
+@interface VisualizationTableViewController : UITableViewController 
 
 @property (nonatomic, strong) ActivityDetector *activityDetector;
 @property (nonatomic, strong) NSTimer *timer;

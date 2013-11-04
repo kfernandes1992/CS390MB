@@ -98,11 +98,18 @@
             break;
         
         //raw accelerometer data
-        case 2:
-            cell.backgroundView = [activityDetector getAccelerometerCellView];
-            cell.selectedBackgroundView = [activityDetector getAccelerometerCellView];
-            break;
+        case 2:{
+            //cell.backgroundView = [activityDetector getAccelerometerCellView];
+            //cell.selectedBackgroundView = [activityDetector getAccelerometerCellView];
             
+            NSMutableArray *data=[[NSMutableArray alloc]initWithArray:@[@1,@2,@3,@4,@5,@6]];
+            
+            CPTGraphView  *graphView= [[CPTGraphView alloc]init];
+            [graphView addPlotFromData:data];
+            cell.selectedBackgroundView=graphView;
+            
+            break;
+        }
         //xFFT3 data
         case 3:
             cell.backgroundView = [activityDetector getXFFT3CellView];
