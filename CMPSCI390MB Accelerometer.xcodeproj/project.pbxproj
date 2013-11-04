@@ -42,6 +42,7 @@
 		950C8F5B18271205003918AE /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 950C8F5A18271205003918AE /* QuartzCore.framework */; };
 		950C8F5D18271212003918AE /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 950C8F5C18271212003918AE /* Accelerate.framework */; };
 		950C8F6118275250003918AE /* libCorePlot-CocoaTouch.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 950C8F57182711C7003918AE /* libCorePlot-CocoaTouch.a */; };
+		950C8F751828434A003918AE /* CPTGraphView.m in Sources */ = {isa = PBXBuildFile; fileRef = 950C8F741828434A003918AE /* CPTGraphView.m */; };
 		CE2040B91811CFA4006213C3 /* computeMean in Resources */ = {isa = PBXBuildFile; fileRef = CE2040B81811CFA4006213C3 /* computeMean */; };
 		CE8B867C17F8CAB0006DDA51 /* StepDetector.m in Sources */ = {isa = PBXBuildFile; fileRef = CE8B867B17F8CAB0006DDA51 /* StepDetector.m */; };
 		CEA6BAC21814AE73007CC4E4 /* DecisionTree.m in Sources */ = {isa = PBXBuildFile; fileRef = CEA6BAC11814AE73007CC4E4 /* DecisionTree.m */; };
@@ -130,6 +131,8 @@
 		950C8F5C18271212003918AE /* Accelerate.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accelerate.framework; path = System/Library/Frameworks/Accelerate.framework; sourceTree = SDKROOT; };
 		950C8F62182754DD003918AE /* CorePlot.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = CorePlot.xcodeproj; path = ../CorePlot_1.4/Source/framework/CorePlot.xcodeproj; sourceTree = "<group>"; };
 		950C8F6E182755E6003918AE /* libCorePlot-CocoaTouch.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libCorePlot-CocoaTouch.a"; path = "../CorePlot_1.4/Binaries/iOS/libCorePlot-CocoaTouch.a"; sourceTree = "<group>"; };
+		950C8F731828434A003918AE /* CPTGraphView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPTGraphView.h; sourceTree = "<group>"; };
+		950C8F741828434A003918AE /* CPTGraphView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPTGraphView.m; sourceTree = "<group>"; };
 		CE2040B81811CFA4006213C3 /* computeMean */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = computeMean; sourceTree = "<group>"; };
 		CE8B867A17F8CAB0006DDA51 /* StepDetector.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StepDetector.h; sourceTree = "<group>"; };
 		CE8B867B17F8CAB0006DDA51 /* StepDetector.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StepDetector.m; sourceTree = "<group>"; };
@@ -208,6 +211,8 @@
 		936CD63317E36D3900B69E9B /* CMPSCI390MB Accelerometer */ = {
 			isa = PBXGroup;
 			children = (
+				950C8F731828434A003918AE /* CPTGraphView.h */,
+				950C8F741828434A003918AE /* CPTGraphView.m */,
 				CEA6BAC01814AE73007CC4E4 /* DecisionTree.h */,
 				CEA6BAC11814AE73007CC4E4 /* DecisionTree.m */,
 				933412AF17F8A65C006215F3 /* KMESmoothingFilter.h */,
@@ -445,6 +450,7 @@
 				93F617451825C37300B420C0 /* VisualizationCell.m in Sources */,
 				938ED65E1826FA6F0093C648 /* ActivityCellView.m in Sources */,
 				CEA6BAC21814AE73007CC4E4 /* DecisionTree.m in Sources */,
+				950C8F751828434A003918AE /* CPTGraphView.m in Sources */,
 				93B1AAAE1811E2250046F6B6 /* ReorientAxis.m in Sources */,
 				93B38BE917E5E785002F12B0 /* InfoViewController.m in Sources */,
 			);
