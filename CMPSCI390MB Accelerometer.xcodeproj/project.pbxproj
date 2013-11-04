@@ -41,6 +41,7 @@
 		950C8F59182711C7003918AE /* libCorePlot-CocoaTouch.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 950C8F57182711C7003918AE /* libCorePlot-CocoaTouch.a */; };
 		950C8F5B18271205003918AE /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 950C8F5A18271205003918AE /* QuartzCore.framework */; };
 		950C8F5D18271212003918AE /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 950C8F5C18271212003918AE /* Accelerate.framework */; };
+		950C8F6118275250003918AE /* libCorePlot-CocoaTouch.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 950C8F57182711C7003918AE /* libCorePlot-CocoaTouch.a */; };
 		CE2040B91811CFA4006213C3 /* computeMean in Resources */ = {isa = PBXBuildFile; fileRef = CE2040B81811CFA4006213C3 /* computeMean */; };
 		CE8B867C17F8CAB0006DDA51 /* StepDetector.m in Sources */ = {isa = PBXBuildFile; fileRef = CE8B867B17F8CAB0006DDA51 /* StepDetector.m */; };
 		CEA6BAC21814AE73007CC4E4 /* DecisionTree.m in Sources */ = {isa = PBXBuildFile; fileRef = CEA6BAC11814AE73007CC4E4 /* DecisionTree.m */; };
@@ -53,6 +54,27 @@
 			proxyType = 1;
 			remoteGlobalIDString = 936CD62917E36D3900B69E9B;
 			remoteInfo = "CMPSCI390MB Accelerometer";
+		};
+		950C8F68182754DD003918AE /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 950C8F62182754DD003918AE /* CorePlot.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 8DC2EF5B0486A6940098B216;
+			remoteInfo = CorePlot;
+		};
+		950C8F6A182754DD003918AE /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 950C8F62182754DD003918AE /* CorePlot.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 0730F600109492D800E95162;
+			remoteInfo = UnitTests;
+		};
+		950C8F6C1827552C003918AE /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 950C8F62182754DD003918AE /* CorePlot.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 8DC2EF4F0486A6940098B216;
+			remoteInfo = CorePlot;
 		};
 /* End PBXContainerItemProxy section */
 
@@ -102,10 +124,12 @@
 		93F617411825C2BF00B420C0 /* VisualizationTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VisualizationTableViewController.m; sourceTree = "<group>"; };
 		93F617431825C37300B420C0 /* VisualizationCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VisualizationCell.h; sourceTree = "<group>"; };
 		93F617441825C37300B420C0 /* VisualizationCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VisualizationCell.m; sourceTree = "<group>"; };
-		950C8F56182711C7003918AE /* CorePlotHeaders */ = {isa = PBXFileReference; lastKnownFileType = folder; name = CorePlotHeaders; path = ../../CorePlot_1.4/Binaries/iOS/CorePlotHeaders; sourceTree = "<group>"; };
-		950C8F57182711C7003918AE /* libCorePlot-CocoaTouch.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libCorePlot-CocoaTouch.a"; path = "../../CorePlot_1.4/Binaries/iOS/libCorePlot-CocoaTouch.a"; sourceTree = "<group>"; };
+		950C8F56182711C7003918AE /* CorePlotHeaders */ = {isa = PBXFileReference; lastKnownFileType = folder; name = CorePlotHeaders; path = ../CorePlot_1.4/Binaries/iOS/CorePlotHeaders; sourceTree = "<group>"; };
+		950C8F57182711C7003918AE /* libCorePlot-CocoaTouch.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libCorePlot-CocoaTouch.a"; path = "../CorePlot_1.4/Binaries/iOS/libCorePlot-CocoaTouch.a"; sourceTree = "<group>"; };
 		950C8F5A18271205003918AE /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		950C8F5C18271212003918AE /* Accelerate.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accelerate.framework; path = System/Library/Frameworks/Accelerate.framework; sourceTree = SDKROOT; };
+		950C8F62182754DD003918AE /* CorePlot.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = CorePlot.xcodeproj; path = ../CorePlot_1.4/Source/framework/CorePlot.xcodeproj; sourceTree = "<group>"; };
+		950C8F6E182755E6003918AE /* libCorePlot-CocoaTouch.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libCorePlot-CocoaTouch.a"; path = "../CorePlot_1.4/Binaries/iOS/libCorePlot-CocoaTouch.a"; sourceTree = "<group>"; };
 		CE2040B81811CFA4006213C3 /* computeMean */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = computeMean; sourceTree = "<group>"; };
 		CE8B867A17F8CAB0006DDA51 /* StepDetector.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StepDetector.h; sourceTree = "<group>"; };
 		CE8B867B17F8CAB0006DDA51 /* StepDetector.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StepDetector.m; sourceTree = "<group>"; };
@@ -118,6 +142,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				950C8F6118275250003918AE /* libCorePlot-CocoaTouch.a in Frameworks */,
 				950C8F5D18271212003918AE /* Accelerate.framework in Frameworks */,
 				950C8F5B18271205003918AE /* QuartzCore.framework in Frameworks */,
 				93A1FEF517E919330085B15B /* MessageUI.framework in Frameworks */,
@@ -146,6 +171,8 @@
 		936CD62117E36D3900B69E9B = {
 			isa = PBXGroup;
 			children = (
+				950C8F62182754DD003918AE /* CorePlot.xcodeproj */,
+				950C8F60182751E0003918AE /* CorePlot */,
 				936CD63317E36D3900B69E9B /* CMPSCI390MB Accelerometer */,
 				936CD65A17E36D3900B69E9B /* CMPSCI390MB AccelerometerTests */,
 				936CD62C17E36D3900B69E9B /* Frameworks */,
@@ -165,6 +192,7 @@
 		936CD62C17E36D3900B69E9B /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				950C8F6E182755E6003918AE /* libCorePlot-CocoaTouch.a */,
 				950C8F5C18271212003918AE /* Accelerate.framework */,
 				950C8F5A18271205003918AE /* QuartzCore.framework */,
 				93A1FEF417E919330085B15B /* MessageUI.framework */,
@@ -243,12 +271,28 @@
 		936CD65B17E36D3900B69E9B /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				950C8F56182711C7003918AE /* CorePlotHeaders */,
-				950C8F57182711C7003918AE /* libCorePlot-CocoaTouch.a */,
 				936CD65C17E36D3900B69E9B /* CMPSCI390MB AccelerometerTests-Info.plist */,
 				936CD65D17E36D3900B69E9B /* InfoPlist.strings */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		950C8F60182751E0003918AE /* CorePlot */ = {
+			isa = PBXGroup;
+			children = (
+				950C8F56182711C7003918AE /* CorePlotHeaders */,
+				950C8F57182711C7003918AE /* libCorePlot-CocoaTouch.a */,
+			);
+			name = CorePlot;
+			sourceTree = "<group>";
+		};
+		950C8F63182754DD003918AE /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				950C8F69182754DD003918AE /* CorePlot.framework */,
+				950C8F6B182754DD003918AE /* UnitTests.octest */,
+			);
+			name = Products;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -265,6 +309,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				950C8F6D1827552C003918AE /* PBXTargetDependency */,
 			);
 			name = "CMPSCI390MB Accelerometer";
 			productName = "CMPSCI390MB Accelerometer";
@@ -309,6 +354,12 @@
 			mainGroup = 936CD62117E36D3900B69E9B;
 			productRefGroup = 936CD62B17E36D3900B69E9B /* Products */;
 			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = 950C8F63182754DD003918AE /* Products */;
+					ProjectRef = 950C8F62182754DD003918AE /* CorePlot.xcodeproj */;
+				},
+			);
 			projectRoot = "";
 			targets = (
 				936CD62917E36D3900B69E9B /* CMPSCI390MB Accelerometer */,
@@ -316,6 +367,23 @@
 			);
 		};
 /* End PBXProject section */
+
+/* Begin PBXReferenceProxy section */
+		950C8F69182754DD003918AE /* CorePlot.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = CorePlot.framework;
+			remoteRef = 950C8F68182754DD003918AE /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		950C8F6B182754DD003918AE /* UnitTests.octest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = UnitTests.octest;
+			remoteRef = 950C8F6A182754DD003918AE /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+/* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
 		936CD62817E36D3900B69E9B /* Resources */ = {
@@ -397,6 +465,11 @@
 			isa = PBXTargetDependency;
 			target = 936CD62917E36D3900B69E9B /* CMPSCI390MB Accelerometer */;
 			targetProxy = 936CD65817E36D3900B69E9B /* PBXContainerItemProxy */;
+		};
+		950C8F6D1827552C003918AE /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = CorePlot;
+			targetProxy = 950C8F6C1827552C003918AE /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -504,7 +577,17 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "CMPSCI390MB Accelerometer/CMPSCI390MB Accelerometer-Prefix.pch";
 				GCC_VERSION = "";
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
+					"/Users/marcochiang/Programming/iOS\\ Workspace/CmpSci390/CorePlot_1.4/Source/framework",
+					"/Users/marcochiang/Programming/iOS\\ Workspace/CmpSci390/CorePlot_1.4/Binaries/iOS/CorePlotHeaders",
+				);
 				INFOPLIST_FILE = "CMPSCI390MB Accelerometer/CMPSCI390MB Accelerometer-Info.plist";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"/Users/marcochiang/Programming/iOS\\ Workspace/CmpSci390/CorePlot_1.4/Binaries/iOS",
+				);
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
@@ -521,7 +604,17 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "CMPSCI390MB Accelerometer/CMPSCI390MB Accelerometer-Prefix.pch";
 				GCC_VERSION = "";
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
+					"/Users/marcochiang/Programming/iOS\\ Workspace/CmpSci390/CorePlot_1.4/Source/framework",
+					"/Users/marcochiang/Programming/iOS\\ Workspace/CmpSci390/CorePlot_1.4/Binaries/iOS/CorePlotHeaders",
+				);
 				INFOPLIST_FILE = "CMPSCI390MB Accelerometer/CMPSCI390MB Accelerometer-Info.plist";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"/Users/marcochiang/Programming/iOS\\ Workspace/CmpSci390/CorePlot_1.4/Binaries/iOS",
+				);
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;

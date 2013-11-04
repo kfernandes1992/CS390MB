@@ -15,9 +15,12 @@
 #import "ReorientAxis.h"
 #import "DecisionTree.h"
 #import "ActivityReading.h"
+#import "CorePlot-CocoaTouch.h"
 
-@interface ViewController : UIViewController <UIAccelerometerDelegate, UIActionSheetDelegate, MFMailComposeViewControllerDelegate>
-
+@interface ViewController : UIViewController <UIAccelerometerDelegate, UIActionSheetDelegate, MFMailComposeViewControllerDelegate, CPTPlotDataSource>
+{
+    CPTGraph *graph;
+}
 -(IBAction)buttonPress:(UIButton*) button;
 -(IBAction)togglewithButton:(UIButton *) button;
 
@@ -44,5 +47,24 @@
 
 
 -(IBAction)emailFile;
+
+@end
+
+@protocol CPTPlotDataSource <NSObject>
+
+-(NSUInteger)numberOfRecords;
+
+@optional
+
+-(NSArray *)numbersForPlot:(CPTPlot *)plot
+                     field:(NSUInteger)fieldEnum
+          recordIndexRange:(NSRange)indexRange;
+
+-(NSNumber *)numberForPlot:(CPTPlot *)plot
+                     field:(NSUInteger)fieldEnum
+               recordIndex:(NSUInteger)index;
+
+-(NSRange)recordIndexRangeForPlot:(CPTPlot *)plot
+                        plotRange:(CPTPlotRange *)plotRect;
 
 @end
