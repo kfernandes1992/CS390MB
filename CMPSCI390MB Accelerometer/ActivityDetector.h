@@ -17,6 +17,9 @@
 #import "DecisionTree.h"
 #import "ActivityReading.h"
 #import "ActivityCellView.h"
+#import "AccelerometerCellView.h"
+#import "XFFT3CellView.h"
+#import "SpeedMeanCellView.h"
 
 @interface ActivityDetector : NSObject
 

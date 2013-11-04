@@ -39,6 +39,8 @@
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
 }
 
+-(BOOL)shouldAutorotate{ return NO; }
+
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
@@ -79,86 +81,53 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     static NSString *CellIdentifier = @"Cell";
-//    static NSString *StepCellIdentifier = @"StepCell";
-//    static NSString *ActivityCellIdentifier = @"ActivityCell";
-//    static NSString *AccelerometerCellIdentifier = @"AccelerometerCell";
-//    static NSString *xFFT3CellIdentifier = @"xFFT3Cell";
-//    static NSString *SpeedMeanCellIdentifier = @"SpeedMeanCell";
-//    
-//    
-//    switch (indexPath.section) {
-//        case 0:
-//            CellIdentifier = @"StepCell";
-//            break;
-//        case 1:
-//            CellIdentifier = @"ActivityCell";
-//            break;
-//        case 2:
-//            CellIdentifier = @"AccelerometerCell";
-//            break;
-//        case 3:
-//            CellIdentifier = @"xFFTCell";
-//            break;
-//        case 4:
-//            CellIdentifier = @"speedMeanCell";
-//            break;
-//        default:
-//            break;
-//    }
-    
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
     
-//    switch (indexPath.section) {
-//        //step detector
-//        case 0:
-//            CellIdentifier = @"StepCell";
-//            cell.backgroundView = [activityDetector getActivityCellView];
-//            cell.selectedBackgroundView = [activityDetector getActivityCellView];
-//            break;
-//        
-//        //activity detector
-//        case 1:
-//            CellIdentifier = @"ActivityCell";
-//            cell.backgroundView = [activityDetector getActivityCellView];
-//            cell.selectedBackgroundView = [activityDetector getActivityCellView];
-//            break;
-//        
-//        //raw accelerometer data
-//        case 2:
-//            CellIdentifier = @"AccelerometerCell";
-//            cell.backgroundView = [activityDetector getActivityCellView];
-//            cell.selectedBackgroundView = [activityDetector getActivityCellView];
-//            break;
-//            
-//        //xFFT3 data
-//        case 3:
-//            CellIdentifier = @"XFFTCell";
-//            cell.backgroundView = [activityDetector getActivityCellView];
-//            cell.selectedBackgroundView = [activityDetector getActivityCellView];
-//            break;
-//            
-//        //speedMean data
-//        case 4:
-//            CellIdentifier = @"SpeedMeanCell";
-//            cell.backgroundView = [activityDetector getActivityCellView];
-//            cell.selectedBackgroundView = [activityDetector getActivityCellView];
-//            break;
-//            
-//        default:
-//            break;
-//    }
+    switch (indexPath.section) {
+        //step detector
+        case 0:
+            //TO DO
+            cell.backgroundView = [activityDetector getActivityCellView];
+            cell.selectedBackgroundView = [activityDetector getActivityCellView];
+            break;
+        
+        //activity detector
+        case 1:
+            cell.backgroundView = [activityDetector getActivityCellView];
+            cell.selectedBackgroundView = [activityDetector getActivityCellView];
+            break;
+        
+        //raw accelerometer data
+        case 2:
+            cell.backgroundView = [activityDetector getAccelerometerCellView];
+            cell.selectedBackgroundView = [activityDetector getAccelerometerCellView];
+            break;
+            
+        //xFFT3 data
+        case 3:
+            cell.backgroundView = [activityDetector getXFFT3CellView];
+            cell.selectedBackgroundView = [activityDetector getXFFT3CellView];
+            break;
+            
+        //speedMean data
+        case 4:
+            cell.backgroundView = [activityDetector getSpeedMeanCellView];
+            cell.selectedBackgroundView = [activityDetector getSpeedMeanCellView];
+            break;
+            
+        default:
+            break;
+    }
 
-//    CellIdentifier = @"Cell";
-    cell.backgroundView = [activityDetector getActivityCellView];
-    cell.selectedBackgroundView = [activityDetector getActivityCellView];
-    cell.textLabel.text = @"Blah";
+    
+//    cell.textLabel.text = @"Blah";
     cell.textLabel.backgroundColor = [UIColor clearColor];
     return cell;
 }
 
--(void)tableView:(UITableView *)tableView didDeselectRowAtIndexPath:(NSIndexPath *)indexPath{
-    [self.tableView reloadData];
-}
+//-(void)tableView:(UITableView *)tableView didDeselectRowAtIndexPath:(NSIndexPath *)indexPath{
+//    [self.tableView reloadData];
+//}
 
 
 /*

@@ -22,6 +22,19 @@
 @synthesize motionManager;
 
 static const NSTimeInterval accelerationInterval= .1;
+double maxX = 0;
+double minX = 0;
+double maxY = 0;
+double minY = 0;
+double maxZ = 0;
+double minZ = 0;
+double maxAccelerometerValue = 0;
+double minAccelerometerValue = 0;
+double maxXFFT3 = 0;
+double minXFFT3 = 0;
+double maxSpeedMean = 0;
+double minSpeedMean = 0;
+int cellHeight = 1000;
 
 
 -(void)runTheBitch{
@@ -90,8 +103,86 @@ static const NSTimeInterval accelerationInterval= .1;
         //store reading
         ActivityReading *a = [[ActivityReading alloc] initWithAccelerometerValues:rawArray features:extractedFeatures activity:classifiedActivity stepDetected:activityIsStep timeStamp:millisecondsSince1970];
         [readings addObject:a];
+        [self updateMaxesAndMins];
         
     }];
+}
+
+-(void)updateMaxesAndMins{
+    ActivityReading *currentReading = readings.lastObject;
+    
+    double currentX = [[currentReading.accelerometerValues objectAtIndex:0] doubleValue];
+    double currentY = [[currentReading.accelerometerValues objectAtIndex:1] doubleValue];
+    double currentZ = [[currentReading.accelerometerValues objectAtIndex:2] doubleValue];
+    double currentXFFT3 = [[currentReading.features objectAtIndex:5] doubleValue];
+    double currentSpeedMean = [[currentReading.features objectAtIndex:27] doubleValue];
+    
+    /* accelerometer readings */
+    
+    //update X
+    if (currentX > maxX) {
+        maxX = currentX;
+    }
+    else if(currentX < minX){
+        minX = currentX;
+    }
+    
+    //update y
+    if (currentY > maxY) {
+        maxY = currentY;
+    }
+    else if(currentY < minY){
+        minY = currentY;
+    }
+    
+    //update z
+    if (currentZ > maxZ) {
+        maxZ = currentZ;
+    }
+    else if(currentZ < minZ){
+        minZ = currentZ;
+    }
+    
+    //update accelerometer maxes and mins
+    if (maxX > maxAccelerometerValue) {
+        maxAccelerometerValue = maxX;
+    }
+    else if (minX < minAccelerometerValue){
+        minAccelerometerValue = minX;
+    }
+    
+    if (maxY > maxAccelerometerValue) {
+        maxAccelerometerValue = maxY;
+    }
+    else if (minY < minAccelerometerValue){
+        minAccelerometerValue = minY;
+    }
+    
+    if (maxZ > maxAccelerometerValue) {
+        maxAccelerometerValue = maxZ;
+    }
+    else if (minZ < minAccelerometerValue){
+        minAccelerometerValue = minZ;
+    }
+    
+    /* features */
+    
+    //update XFFT3
+    if (currentXFFT3 > maxXFFT3) {
+        maxXFFT3 = currentXFFT3;
+    }
+    else if(currentXFFT3 < minXFFT3){
+        minXFFT3 = currentXFFT3;
+    }
+    
+    //update speed mean
+    if (currentSpeedMean > maxSpeedMean) {
+        maxSpeedMean = currentSpeedMean;
+    }
+    else if(currentSpeedMean < minSpeedMean){
+        minSpeedMean = currentSpeedMean;
+    }
+    
 }
 
 -(void)arrayToFile:(NSMutableArray *) log{
@@ -119,25 +210,32 @@ static const NSTimeInterval accelerationInterval= .1;
 
 -(id)getActivityCellView{
     //set up view
-    CGRect frame = CGRectMake(0.0, 0.0, 320.0, 100.0);
+    double accelCellHeight = 100;
+    CGRect frame = CGRectMake(0.0, 0.0, 320.0, accelCellHeight);
     
     //get data for view
     return [[ActivityCellView alloc] initWithFrame:frame andReadings:readings];
 }
 
 -(id)getAccelerometerCellView{
+    double divisor = (double)((maxAccelerometerValue - minAccelerometerValue) / cellHeight);
+    CGRect frame = CGRectMake(0.0, 0.0, 320.0, cellHeight);
     
-    return nil;
+    return [[AccelerometerCellView alloc] initWithFrame:frame andReadings:readings andDivisor:divisor];
 }
 
 -(id)getXFFT3CellView{
+    double divisor = (double)((maxXFFT3 - minXFFT3) / cellHeight);
+    CGRect frame = CGRectMake(0.0, 0.0, 320.0, cellHeight);
     
-    return nil;
+    return [[XFFT3CellView alloc] initWithFrame:frame andReadings:readings andDivisor:divisor];
 }
 
 -(id)getSpeedMeanCellView{
+    double divisor = (double)((maxSpeedMean - minSpeedMean) / cellHeight);
+    CGRect frame = CGRectMake(0.0, 0.0, 320.0, cellHeight);
     
-    return nil;
+    return [[XFFT3CellView alloc] initWithFrame:frame andReadings:readings andDivisor:divisor];
 }
 
 

@@ -13,52 +13,77 @@
 @synthesize readings;
 
 -(void) drawRect:(CGRect)rect{
-    int skip = 1;
+    int skip;
+    int numberOfCircles;
+    int maxNumberOfCircles = 40;
     double diameter = 5.0;
-    int numberOfCircles = 40;
     CGContextRef context = UIGraphicsGetCurrentContext();
     CGContextSetLineWidth(context, 2.0);
     CGContextSetFillColorWithColor(context, [UIColor lightGrayColor].CGColor);
-    CGContextSetStrokeColorWithColor(context, [UIColor lightGrayColor].CGColor);
+    CGContextSetStrokeColorWithColor(context, [UIColor blackColor].CGColor);
     ActivityReading *r;
     
-    if (readings.count > numberOfCircles) {
+    //draw background
+    CGContextFillRect(context, self.frame);
+    
+    //draw dots
+    if (readings.count > maxNumberOfCircles) {
+        numberOfCircles = maxNumberOfCircles;
         skip = readings.count / numberOfCircles;
+    }
+    else{
+        numberOfCircles = readings.count;
+        skip = 1;
     }
     
     int i = 0;
     int j = 0;
-    
     while (readings.count > 1 && i < readings.count) {
+        
+        //grab object to represent
         r = [readings objectAtIndex:i];
         
+        //set color according to activity type
         if ([r.activityString isEqualToString:@"Stationary"]){
-            //set color
             CGContextSetFillColorWithColor(context, [UIColor redColor].CGColor);
             CGContextSetStrokeColorWithColor(context, [UIColor redColor].CGColor);
-            CGRect circlePoint = (CGRectMake((double)j, 20, diameter, diameter));
-            CGContextFillEllipseInRect(context, circlePoint);
         }
         
         else if([r.activityString isEqualToString:@"Walking"]){
-            //set color
             CGContextSetFillColorWithColor(context, [UIColor orangeColor].CGColor);
             CGContextSetStrokeColorWithColor(context, [UIColor orangeColor].CGColor);
-            CGRect circlePoint = (CGRectMake((double)j, 20, diameter, diameter));
-            CGContextFillEllipseInRect(context, circlePoint);
         }
         
         else if([r.activityString isEqualToString:@"Running"]){
-            //set color
             CGContextSetFillColorWithColor(context, [UIColor greenColor].CGColor);
             CGContextSetStrokeColorWithColor(context, [UIColor greenColor].CGColor);
-            CGRect circlePoint = (CGRectMake((double)j, 20, diameter, diameter));
-            CGContextFillEllipseInRect(context, circlePoint);
         }
+        
+        //draw dot
+        CGRect circlePoint = (CGRectMake((double)j, 20, diameter, diameter));
+        CGContextFillEllipseInRect(context, circlePoint);
+        
+        //update indices
         i += skip;
         j += 5;
     }
-    i = 0;
+    
+    //draw current activity dot
+    if ([[readings.lastObject activityString] isEqualToString:@"Stationary"]) {
+        CGContextSetFillColorWithColor(context, [UIColor redColor].CGColor);
+    }
+    else if([[readings.lastObject activityString] isEqualToString:@"Walking"]){
+        CGContextSetFillColorWithColor(context, [UIColor orangeColor].CGColor);
+    }
+    else if([[readings.lastObject activityString] isEqualToString:@"Running"]){
+        CGContextSetFillColorWithColor(context, [UIColor greenColor].CGColor);
+    }
+    else{
+        CGContextSetFillColorWithColor(context, [UIColor lightGrayColor].CGColor);
+    }
+    
+    CGRect currentActivityDot = CGRectMake(280.0, 10.0, 20.0, 20.0);
+    CGContextFillEllipseInRect(context, currentActivityDot);
 }
 
 

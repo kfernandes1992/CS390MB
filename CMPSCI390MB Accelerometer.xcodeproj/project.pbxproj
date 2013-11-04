@@ -27,6 +27,10 @@
 		936CD65F17E36D3900B69E9B /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 936CD65D17E36D3900B69E9B /* InfoPlist.strings */; };
 		936CD66217E36D3900B69E9B /* CMPSCI390MB_AccelerometerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 936CD66117E36D3900B69E9B /* CMPSCI390MB_AccelerometerTests.m */; };
 		938ED65E1826FA6F0093C648 /* ActivityCellView.m in Sources */ = {isa = PBXBuildFile; fileRef = 938ED65D1826FA6F0093C648 /* ActivityCellView.m */; };
+		938ED6611827F9A60093C648 /* StepDetectorCellView.m in Sources */ = {isa = PBXBuildFile; fileRef = 938ED6601827F9A60093C648 /* StepDetectorCellView.m */; };
+		938ED664182831D30093C648 /* AccelerometerCellView.m in Sources */ = {isa = PBXBuildFile; fileRef = 938ED663182831D30093C648 /* AccelerometerCellView.m */; };
+		938ED667182840400093C648 /* XFFT3CellView.m in Sources */ = {isa = PBXBuildFile; fileRef = 938ED666182840400093C648 /* XFFT3CellView.m */; };
+		938ED66A182842170093C648 /* SpeedMeanCellView.m in Sources */ = {isa = PBXBuildFile; fileRef = 938ED669182842170093C648 /* SpeedMeanCellView.m */; };
 		93A1FEF517E919330085B15B /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 93A1FEF417E919330085B15B /* MessageUI.framework */; };
 		93B1AAAE1811E2250046F6B6 /* ReorientAxis.m in Sources */ = {isa = PBXBuildFile; fileRef = 93B1AAAD1811E2250046F6B6 /* ReorientAxis.m */; };
 		93B1AAB11811E8F70046F6B6 /* ActivityFeatureExtractor.m in Sources */ = {isa = PBXBuildFile; fileRef = 93B1AAB01811E8F70046F6B6 /* ActivityFeatureExtractor.m */; };
@@ -86,6 +90,14 @@
 		936CD66117E36D3900B69E9B /* CMPSCI390MB_AccelerometerTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CMPSCI390MB_AccelerometerTests.m; sourceTree = "<group>"; };
 		938ED65C1826FA6F0093C648 /* ActivityCellView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ActivityCellView.h; sourceTree = "<group>"; };
 		938ED65D1826FA6F0093C648 /* ActivityCellView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ActivityCellView.m; sourceTree = "<group>"; };
+		938ED65F1827F9A60093C648 /* StepDetectorCellView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StepDetectorCellView.h; sourceTree = "<group>"; };
+		938ED6601827F9A60093C648 /* StepDetectorCellView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StepDetectorCellView.m; sourceTree = "<group>"; };
+		938ED662182831D30093C648 /* AccelerometerCellView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AccelerometerCellView.h; sourceTree = "<group>"; };
+		938ED663182831D30093C648 /* AccelerometerCellView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AccelerometerCellView.m; sourceTree = "<group>"; };
+		938ED665182840400093C648 /* XFFT3CellView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XFFT3CellView.h; sourceTree = "<group>"; };
+		938ED666182840400093C648 /* XFFT3CellView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XFFT3CellView.m; sourceTree = "<group>"; };
+		938ED668182842170093C648 /* SpeedMeanCellView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SpeedMeanCellView.h; sourceTree = "<group>"; };
+		938ED669182842170093C648 /* SpeedMeanCellView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SpeedMeanCellView.m; sourceTree = "<group>"; };
 		93A1FEF417E919330085B15B /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
 		93B1AAAC1811E2250046F6B6 /* ReorientAxis.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ReorientAxis.h; sourceTree = "<group>"; };
 		93B1AAAD1811E2250046F6B6 /* ReorientAxis.m */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 5; lastKnownFileType = sourcecode.c.objc; path = ReorientAxis.m; sourceTree = "<group>"; };
@@ -191,6 +203,8 @@
 				93F617441825C37300B420C0 /* VisualizationCell.m */,
 				93F617401825C2BF00B420C0 /* VisualizationTableViewController.h */,
 				93F617411825C2BF00B420C0 /* VisualizationTableViewController.m */,
+				938ED65F1827F9A60093C648 /* StepDetectorCellView.h */,
+				938ED6601827F9A60093C648 /* StepDetectorCellView.m */,
 				93B38BE717E5E785002F12B0 /* InfoViewController.h */,
 				93B38BE817E5E785002F12B0 /* InfoViewController.m */,
 				936CD64817E36D3900B69E9B /* MainStoryboard_iPad.storyboard */,
@@ -198,6 +212,12 @@
 				936CD64C17E36D3900B69E9B /* ViewController.m */,
 				93F6173D1825C12000B420C0 /* ActivityDetector.h */,
 				93F6173E1825C12000B420C0 /* ActivityDetector.m */,
+				938ED665182840400093C648 /* XFFT3CellView.h */,
+				938ED666182840400093C648 /* XFFT3CellView.m */,
+				938ED668182842170093C648 /* SpeedMeanCellView.h */,
+				938ED669182842170093C648 /* SpeedMeanCellView.m */,
+				938ED662182831D30093C648 /* AccelerometerCellView.h */,
+				938ED663182831D30093C648 /* AccelerometerCellView.m */,
 				938ED65C1826FA6F0093C648 /* ActivityCellView.h */,
 				938ED65D1826FA6F0093C648 /* ActivityCellView.m */,
 				93F617371825A6F400B420C0 /* ActivityReading.h */,
@@ -366,13 +386,17 @@
 			files = (
 				93F617391825A6F400B420C0 /* ActivityReading.m in Sources */,
 				936CD63A17E36D3900B69E9B /* main.m in Sources */,
+				938ED6611827F9A60093C648 /* StepDetectorCellView.m in Sources */,
 				933412B117F8A65C006215F3 /* KMESmoothingFilter.m in Sources */,
 				93B1AAB11811E8F70046F6B6 /* ActivityFeatureExtractor.m in Sources */,
 				93F6173F1825C12000B420C0 /* ActivityDetector.m in Sources */,
 				9367F07D181476860097B5F3 /* Coefficient.m in Sources */,
 				936CD63E17E36D3900B69E9B /* AppDelegate.m in Sources */,
+				938ED664182831D30093C648 /* AccelerometerCellView.m in Sources */,
 				CE8B867C17F8CAB0006DDA51 /* StepDetector.m in Sources */,
+				938ED667182840400093C648 /* XFFT3CellView.m in Sources */,
 				93F617421825C2BF00B420C0 /* VisualizationTableViewController.m in Sources */,
+				938ED66A182842170093C648 /* SpeedMeanCellView.m in Sources */,
 				936CD64D17E36D3900B69E9B /* ViewController.m in Sources */,
 				93F617451825C37300B420C0 /* VisualizationCell.m in Sources */,
 				938ED65E1826FA6F0093C648 /* ActivityCellView.m in Sources */,
