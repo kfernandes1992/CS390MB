@@ -37,6 +37,7 @@
 
 static const NSTimeInterval accelerationInterval= .1;
 
+
 -(IBAction)buttonPress:(UIButton*) button{
     [self togglewithButton:button];
 //    [self changeLayout:button];
@@ -239,6 +240,7 @@ static const NSTimeInterval accelerationInterval= .1;
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view, typically from a nib.
+    
     
     logArray = [[NSMutableArray alloc] init];
     motionManager= [[CMMotionManager alloc]init];
