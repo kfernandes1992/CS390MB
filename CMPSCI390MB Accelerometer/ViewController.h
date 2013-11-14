@@ -15,7 +15,6 @@
 #import "ReorientAxis.h"
 #import "DecisionTree.h"
 #import "ActivityReading.h"
-#import "CorePlot-CocoaTouch.h"
 
 @interface ViewController : UIViewController <UIAccelerometerDelegate, UIActionSheetDelegate, MFMailComposeViewControllerDelegate>
 -(IBAction)buttonPress:(UIButton*) button;
