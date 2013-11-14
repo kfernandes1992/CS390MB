@@ -730,12 +730,8 @@
 				INFOPLIST_FILE = "CMPSCI390MB Accelerometer/CMPSCI390MB Accelerometer-Info.plist";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"/Users/erikrisinger/Dropbox/Coding/Objective-C/CS390MB",
-					"/Users/marcochiang/Programming/iOS\\ Workspace/CmpSci390/CorePlot_1.4/Binaries/iOS",
 					/Users/User/Downloads/CorePlot_1.4/Binaries/iOS/,
 					/Users/User/SkyDrive/Documents/SeniorYear/CS390MB/AccelerometerApp,
-					clone/,
-					"/Users/erikrisinger/Dropbox/Coding/Objective-C/CS390MB\\ clone",
 				);
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -764,12 +760,8 @@
 				INFOPLIST_FILE = "CMPSCI390MB Accelerometer/CMPSCI390MB Accelerometer-Info.plist";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"/Users/erikrisinger/Dropbox/Coding/Objective-C/CS390MB",
-					"/Users/marcochiang/Programming/iOS\\ Workspace/CmpSci390/CorePlot_1.4/Binaries/iOS",
 					/Users/User/Downloads/CorePlot_1.4/Binaries/iOS/,
 					/Users/User/SkyDrive/Documents/SeniorYear/CS390MB/AccelerometerApp,
-					clone/,
-					"/Users/erikrisinger/Dropbox/Coding/Objective-C/CS390MB\\ clone",
 				);
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";

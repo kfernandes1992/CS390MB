@@ -11,21 +11,15 @@
 
 @interface CPTGraphView : CPTGraphHostingView <CPTPlotDataSource>
 @property (nonatomic, strong) CPTXYGraph* graph;
+@property (atomic, strong) NSMutableArray* data;
 
 
+-(void) addPlotFromData: (NSMutableArray*) dataArray;
+- (NSUInteger) numberOfRecordsForPlot:(CPTPlot *) plot;
 
--(NSUInteger)numberOfRecords;
-
-
--(NSArray *)numbersForPlot:(CPTPlot *)plot
-                     field:(NSUInteger)fieldEnum
-          recordIndexRange:(NSRange)indexRange;
 
 -(NSNumber *)numberForPlot:(CPTPlot *)plot
                      field:(NSUInteger)fieldEnum
                recordIndex:(NSUInteger)index;
-
--(NSRange)recordIndexRangeForPlot:(CPTPlot *)plot
-                        plotRange:(CPTPlotRange *)plotRect;
 
 @end
