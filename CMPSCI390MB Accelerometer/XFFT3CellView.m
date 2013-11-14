@@ -7,16 +7,22 @@
 //
 
 #import "XFFT3CellView.h"
+#import "ActivityDetector.h"
 double divisor;
-NSMutableArray *readings;
 
 @implementation XFFT3CellView
 
+@synthesize activityDetector;
+@synthesize readings;
+
 -(void)drawRect:(CGRect)rect{
+    readings = activityDetector.readings;
+    divisor = 10 / (activityDetector.maxXFFT3 - activityDetector.minXFFT3);
     int skip;
     int numberOfCircles;
-    int maxNumberOfCircles = 300;
-    double diameter = 2.0;
+    int maxNumberOfCircles = 200;
+    double diameter = 5.0;
+    double cellHeight = 100.0;
     CGContextRef context = UIGraphicsGetCurrentContext();
     CGContextSetLineWidth(context, 2.0);
     CGContextSetFillColorWithColor(context, [UIColor lightGrayColor].CGColor);
@@ -45,26 +51,24 @@ NSMutableArray *readings;
         
         //plot
         double xFFTValue = [[r.features objectAtIndex:5] doubleValue];
-        CGContextSetFillColorWithColor(context, [UIColor redColor].CGColor);
-        CGContextSetStrokeColorWithColor(context, [UIColor redColor].CGColor);
-        plotPoint = (CGRectMake((double)j, xFFTValue / divisor, diameter, diameter));
+        CGContextSetFillColorWithColor(context, [UIColor whiteColor].CGColor);
+        CGContextSetStrokeColorWithColor(context, [UIColor blackColor].CGColor);
+        plotPoint = (CGRectMake((double)j, (cellHeight) - (xFFTValue / 4), diameter, diameter));
         CGContextFillEllipseInRect(context, plotPoint);
         
         //update skip
         i += skip;
         j++;
     }
-    
-    
-
 }
 
-- (id)initWithFrame:(CGRect)frame andReadings:(NSMutableArray *)read andDivisor:(double)div{
+- (id)initWithFrame:(CGRect)frame andActivityDetector:(ActivityDetector *)d
+{
     self = [super initWithFrame:frame];
     if (self) {
         // Initialization code
-        divisor = div;
-        readings = read;
+        activityDetector = d;
+        
     }
     return self;
 }

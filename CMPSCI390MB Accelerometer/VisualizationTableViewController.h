@@ -9,10 +9,17 @@
 #import <UIKit/UIKit.h>
 #import "VisualizationCell.h"
 #import "ActivityDetector.h"
+#import "StepDetectorCellView.h"
+#import "ActivityCellView.h"
+#import "AccelerometerCellView.h"
+#import "XFFT3CellView.h"
+#import "SpeedMeanCellView.h"
+#import "ViewSelectionController.h"
+#import "SelectionViewNavigationControllerViewController.h"
 
 @interface VisualizationTableViewController : UITableViewController
-
 @property (nonatomic, strong) ActivityDetector *activityDetector;
 @property (nonatomic, strong) NSTimer *timer;
+@property (nonatomic, strong) IBOutlet UIBarButtonItem *modalViewButton;
 
 @end

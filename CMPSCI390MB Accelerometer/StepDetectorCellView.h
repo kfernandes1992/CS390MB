@@ -7,7 +7,13 @@
 //
 
 #import <UIKit/UIKit.h>
+//#import "ActivityDetector.h"
+@class ActivityDetector;
 
 @interface StepDetectorCellView : UIView
+
+@property (nonatomic, weak) ActivityDetector *activityDetector;
+
+- (id)initWithFrame:(CGRect)frame andActivityDetector:(ActivityDetector *) d;
 
 @end

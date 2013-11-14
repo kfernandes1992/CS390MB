@@ -5,7 +5,7 @@
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3746"/>
     </dependencies>
     <scenes>
-        <!--Visualization Table View Controller-->
+        <!--Visualization Table View Controller - Features-->
         <scene sceneID="nwd-7c-cm7">
             <objects>
                 <tableViewController id="HrZ-By-4db" customClass="VisualizationTableViewController" sceneMemberID="viewController">
@@ -24,16 +24,84 @@
                             </tableViewCell>
                         </prototypes>
                     </tableView>
-                    <navigationItem key="navigationItem" id="rY2-E3-epm"/>
+                    <navigationItem key="navigationItem" title="Features" id="rY2-E3-epm">
+                        <barButtonItem key="rightBarButtonItem" style="plain" id="RPz-PM-5By">
+                            <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="ZkK-ZL-Txn">
+                                <rect key="frame" x="233" y="5" width="71" height="33"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                <state key="normal" title="Edit">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <segue destination="uoP-yI-6j4" kind="modal" identifier="showModal" id="RXm-ic-uRn"/>
+                                </connections>
+                            </button>
+                        </barButtonItem>
+                    </navigationItem>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="oeX-LS-X3y" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="488" y="-35"/>
         </scene>
-        <!--Navigation Controller-->
+        <!--View Selection Controller - Edit-->
+        <scene sceneID="8qU-8X-MaJ">
+            <objects>
+                <tableViewController id="fwP-ec-dKQ" customClass="ViewSelectionController" sceneMemberID="viewController">
+                    <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="t6Y-KP-MxE">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <prototypes>
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="SelectionCell" id="TJ0-hN-QfM">
+                                <rect key="frame" x="0.0" y="86" width="320" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="TJ0-hN-QfM" id="WUN-dz-gtU">
+                                    <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                        </prototypes>
+                    </tableView>
+                    <navigationItem key="navigationItem" title="Edit" id="2xd-cx-x5M">
+                        <barButtonItem key="rightBarButtonItem" style="plain" id="pUp-kk-eNB">
+                            <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="Hzv-O1-ce0">
+                                <rect key="frame" x="233" y="5" width="71" height="33"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                <state key="normal" title="Done">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="doneEditing:" destination="fwP-ec-dKQ" eventType="touchUpInside" id="fcD-ic-zTK"/>
+                                </connections>
+                            </button>
+                        </barButtonItem>
+                    </navigationItem>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="n5o-fJ-ipe" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1378" y="320"/>
+        </scene>
+        <!--Selection View Navigation Controller View Controller-->
+        <scene sceneID="P5u-Tj-uoq">
+            <objects>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="cFw-Kv-sQ8" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <navigationController storyboardIdentifier="selectionController" definesPresentationContext="YES" id="uoP-yI-6j4" customClass="SelectionViewNavigationControllerViewController" sceneMemberID="viewController">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="TcH-S9-0rJ">
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="fwP-ec-dKQ" kind="relationship" relationship="rootViewController" id="YY2-Dh-m0C"/>
+                    </connections>
+                </navigationController>
+            </objects>
+            <point key="canvasLocation" x="912" y="-35"/>
+        </scene>
+        <!--Root View Navigation Controller-->
         <scene sceneID="7Fl-Df-xJt">
             <objects>
-                <navigationController definesPresentationContext="YES" id="xAM-w7-cA0" sceneMemberID="viewController">
+                <navigationController definesPresentationContext="YES" id="xAM-w7-cA0" customClass="RootViewNavigationController" sceneMemberID="viewController">
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="ZYO-9P-AW3">
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>

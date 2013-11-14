@@ -20,6 +20,12 @@
 #import "AccelerometerCellView.h"
 #import "XFFT3CellView.h"
 #import "SpeedMeanCellView.h"
+#import "StepDetectorCellView.h"
+
+//@class StepDetectorCellView;
+//@class AccelerometerCellView;
+//@class XFFT3CellView;
+
 
 @interface ActivityDetector : NSObject
 
@@ -28,18 +34,38 @@
 @property (nonatomic, strong) NSMutableArray *readings;
 @property (strong, nonatomic) KMESmoothingFilter *smoothingFilter;
 @property (strong, nonatomic) StepDetector *stepDetector;
-@property (nonatomic, assign) int steps;
+@property int steps;
 @property(nonatomic, strong) ReorientAxis *reorientAxis;
 @property(nonatomic, strong) ActivityFeatureExtractor *activityFeatureExtractor;
 @property(nonatomic, strong) DecisionTree *decisionTree;
 @property BOOL hasBeenPressed;
 
--(void)runTheBitch;
+@property (nonatomic, strong) StepDetectorCellView *stepCellView;
+@property (nonatomic, strong) ActivityCellView *activityCellView;
+@property (nonatomic, strong) AccelerometerCellView *accelerometerCellView;
+@property (nonatomic, strong) XFFT3CellView *xFFT3CellView;
+@property (nonatomic, strong) SpeedMeanCellView *speedMeanCellView;
 
--(id)getStepDetectorCellView;
--(id)getActivityCellView;
--(id)getAccelerometerCellView;
--(id)getXFFT3CellView;
--(id)getSpeedMeanCellView;
+//@property double maxX;
+//@property double minX;
+//@property double maxY;
+//@property double minY;
+//@property double maxZ;
+//@property double minZ;
+@property double maxAccelerometerValue;
+@property double minAccelerometerValue;
+@property double maxXFFT3;
+@property double minXFFT3;
+@property double maxSpeedMean;
+@property double minSpeedMean;
+
+-(void)runTheBitch;
+-(int)getSteps;
+
+//-(id)getStepDetectorCellView;
+//-(id)getActivityCellView;
+//-(id)getAccelerometerCellView;
+//-(id)getXFFT3CellView;
+//-(id)getSpeedMeanCellView;
 
 @end

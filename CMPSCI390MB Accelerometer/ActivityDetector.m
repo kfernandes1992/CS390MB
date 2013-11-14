@@ -9,6 +9,8 @@
 
 #import "ActivityDetector.h"
 
+
+
 @implementation ActivityDetector : NSObject
 
 @synthesize logArray;
@@ -21,21 +23,22 @@
 @synthesize readings;
 @synthesize motionManager;
 
-static const NSTimeInterval accelerationInterval= .1;
+@synthesize stepCellView;
+@synthesize accelerometerCellView;
+@synthesize activityCellView;
+@synthesize xFFT3CellView;
+@synthesize speedMeanCellView;
+
+@synthesize maxAccelerometerValue, minAccelerometerValue, maxXFFT3, minXFFT3, maxSpeedMean, minSpeedMean;
+
 double maxX = 0;
 double minX = 0;
 double maxY = 0;
 double minY = 0;
 double maxZ = 0;
 double minZ = 0;
-double maxAccelerometerValue = 0;
-double minAccelerometerValue = 0;
-double maxXFFT3 = 0;
-double minXFFT3 = 0;
-double maxSpeedMean = 0;
-double minSpeedMean = 0;
-int cellHeight = 1000;
 
+static const NSTimeInterval accelerationInterval= .1;
 
 -(void)runTheBitch{
     
@@ -115,7 +118,7 @@ int cellHeight = 1000;
     double currentY = [[currentReading.accelerometerValues objectAtIndex:1] doubleValue];
     double currentZ = [[currentReading.accelerometerValues objectAtIndex:2] doubleValue];
     double currentXFFT3 = [[currentReading.features objectAtIndex:5] doubleValue];
-    double currentSpeedMean = [[currentReading.features objectAtIndex:27] doubleValue];
+    double currentSpeedMean = [[currentReading.features objectAtIndex:29] doubleValue];
     
     /* accelerometer readings */
     
@@ -204,39 +207,50 @@ int cellHeight = 1000;
     [writeString writeToURL:filePath atomically:FALSE encoding:NSUTF8StringEncoding error:NULL];
 }
 
--(id)getStepDetectorCellView{
-    return nil;
+-(int) getSteps{
+    return steps;
 }
 
--(id)getActivityCellView{
-    //set up view
-    double accelCellHeight = 100;
-    CGRect frame = CGRectMake(0.0, 0.0, 320.0, accelCellHeight);
-    
-    //get data for view
-    return [[ActivityCellView alloc] initWithFrame:frame andReadings:readings];
-}
-
--(id)getAccelerometerCellView{
-    double divisor = (double)((maxAccelerometerValue - minAccelerometerValue) / cellHeight);
-    CGRect frame = CGRectMake(0.0, 0.0, 320.0, cellHeight);
-    
-    return [[AccelerometerCellView alloc] initWithFrame:frame andReadings:readings andDivisor:divisor];
-}
-
--(id)getXFFT3CellView{
-    double divisor = (double)((maxXFFT3 - minXFFT3) / cellHeight);
-    CGRect frame = CGRectMake(0.0, 0.0, 320.0, cellHeight);
-    
-    return [[XFFT3CellView alloc] initWithFrame:frame andReadings:readings andDivisor:divisor];
-}
-
--(id)getSpeedMeanCellView{
-    double divisor = (double)((maxSpeedMean - minSpeedMean) / cellHeight);
-    CGRect frame = CGRectMake(0.0, 0.0, 320.0, cellHeight);
-    
-    return [[XFFT3CellView alloc] initWithFrame:frame andReadings:readings andDivisor:divisor];
-}
+//-(id)getStepDetectorCellView{
+//    //set up view
+//    double cellHeight = 100;
+//    CGRect frame = CGRectMake(0.0, 0.0, 320.0, cellHeight);
+//    return [[StepDetectorCellView alloc] initWithFrame:frame andStepCount:steps];
+//}
+//
+//-(id)getActivityCellView{
+//    //set up view
+//    double accelCellHeight = 100;
+//    CGRect frame = CGRectMake(0.0, 0.0, 320.0, accelCellHeight);
+//    
+//    //get data for view
+//    return [[ActivityCellView alloc] initWithFrame:frame andReadings:readings];
+//}
+//
+//-(id)getAccelerometerCellView{
+//    double cellHeight = 100;
+//    double divisor = (double)(cellHeight / (maxAccelerometerValue - minAccelerometerValue));
+//    CGRect frame = CGRectMake(0.0, 0.0, 320.0, cellHeight);
+//    AccelerometerCellView *a = [[AccelerometerCellView alloc] initWithFrame:frame andReadings:readings andDivisor:divisor];
+//    
+//    return a;
+//}
+//
+//-(id)getXFFT3CellView{
+//    int cellHeight = 10;
+//    double divisor = (double)(cellHeight / (maxXFFT3 - minXFFT3));
+//    CGRect frame = CGRectMake(0.0, 0.0, 320.0, cellHeight);
+//    
+//    return [[XFFT3CellView alloc] initWithFrame:frame andReadings:readings andDivisor:divisor];
+//}
+//
+//-(id)getSpeedMeanCellView{
+//    double cellHeight = 10;
+//    double divisor = (double)((maxSpeedMean - minSpeedMean) / cellHeight);
+//    CGRect frame = CGRectMake(0.0, 0.0, 320.0, cellHeight);
+//    
+//    return [[SpeedMeanCellView alloc] initWithFrame:frame andReadings:readings andDivisor:divisor];
+//}
 
 
 //-(IBAction)emailFile{
@@ -292,10 +306,16 @@ int cellHeight = 1000;
         reorientAxis = [[ReorientAxis alloc] init];
         readings = [[NSMutableArray alloc] init];
         
+        CGRect rect = CGRectMake(0, 0, 320, 100);
+        stepCellView = [[StepDetectorCellView alloc] initWithFrame:rect andActivityDetector:self];
+        activityCellView = [[ActivityCellView alloc] initWithFrame:rect andActivityDetector:self];
+        accelerometerCellView = [[AccelerometerCellView alloc] initWithFrame:rect andActivityDetector:self];
+        xFFT3CellView = [[XFFT3CellView alloc] initWithFrame:rect andActivityDetector:self];
+        speedMeanCellView = [[SpeedMeanCellView alloc] initWithFrame:rect andActivityDetector:self];
+        
         if ([motionManager isAccelerometerAvailable] == YES) {
             [motionManager setAccelerometerUpdateInterval:accelerationInterval];
             [self runTheBitch];
-
         }
     }
     return self;

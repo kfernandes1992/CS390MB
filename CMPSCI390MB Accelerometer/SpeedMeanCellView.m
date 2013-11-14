@@ -7,17 +7,24 @@
 //
 
 #import "SpeedMeanCellView.h"
-
-NSMutableArray *readings;
+#import "ActivityDetector.h"
 double divisor;
 
 @implementation SpeedMeanCellView
 
+@synthesize activityDetector;
+@synthesize readings;
+
 -(void)drawRect:(CGRect)rect{
+    
+    readings = activityDetector.readings;
+    divisor = (activityDetector.maxSpeedMean - activityDetector.minSpeedMean) / 100;
+    
     int skip;
     int numberOfCircles;
     int maxNumberOfCircles = 300;
-    double diameter = 2.0;
+    double diameter = 5.0;
+    double cellHeight = 100.0;
     CGContextRef context = UIGraphicsGetCurrentContext();
     CGContextSetLineWidth(context, 2.0);
     CGContextSetFillColorWithColor(context, [UIColor lightGrayColor].CGColor);
@@ -46,9 +53,9 @@ double divisor;
         
         //plot
         double speedMeanValue = [[r.features objectAtIndex:27] doubleValue];
-        CGContextSetFillColorWithColor(context, [UIColor redColor].CGColor);
-        CGContextSetStrokeColorWithColor(context, [UIColor redColor].CGColor);
-        plotPoint = (CGRectMake((double)j, speedMeanValue / divisor, diameter, diameter));
+        CGContextSetFillColorWithColor(context, [UIColor whiteColor].CGColor);
+        CGContextSetStrokeColorWithColor(context, [UIColor blackColor].CGColor);
+        plotPoint = (CGRectMake((double)j, (cellHeight) - (speedMeanValue / 5), diameter, diameter));
         CGContextFillEllipseInRect(context, plotPoint);
         
         //update skip
@@ -57,13 +64,13 @@ double divisor;
     }
 }
 
-- (id)initWithFrame:(CGRect)frame andReadings:(NSMutableArray *)read andDivisor:(double)div
+- (id)initWithFrame:(CGRect)frame andActivityDetector:(ActivityDetector *)d
 {
     self = [super initWithFrame:frame];
     if (self) {
         // Initialization code
-        divisor = div;
-        readings = read;
+        activityDetector = d;
+        
     }
     return self;
 }

@@ -8,9 +8,14 @@
 
 #import <UIKit/UIKit.h>
 #import "ActivityReading.h"
+//#import "ActivityDetector.h"
+@class ActivityDetector;
 
 @interface XFFT3CellView : UIView
 
-- (id)initWithFrame:(CGRect)frame andReadings:(NSMutableArray *)read andDivisor:(double)div;
+@property (nonatomic, weak) ActivityDetector *activityDetector;
+@property(nonatomic, strong) NSMutableArray *readings;
+
+- (id)initWithFrame:(CGRect)frame andActivityDetector:(ActivityDetector *) d;
 
 @end

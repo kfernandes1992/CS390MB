@@ -7,17 +7,24 @@
 //
 
 #import "AccelerometerCellView.h"
+#import "ActivityDetector.h"
 
 double divisor;
-NSMutableArray *readings;
+//NSMutableArray *readings;
 
 @implementation AccelerometerCellView
 
+@synthesize activityDetector;
+@synthesize readings;
+
 -(void)drawRect:(CGRect)rect{
+    readings = activityDetector.readings;
+    divisor = 100/(activityDetector.maxAccelerometerValue = activityDetector.minAccelerometerValue);
     int skip;
     int numberOfCircles;
-    int maxNumberOfCircles = 300;
+    int maxNumberOfCircles = 200;
     double diameter = 2.0;
+    double cellHeight = 100;
     CGContextRef context = UIGraphicsGetCurrentContext();
     CGContextSetLineWidth(context, 2.0);
     CGContextSetFillColorWithColor(context, [UIColor lightGrayColor].CGColor);
@@ -48,38 +55,36 @@ NSMutableArray *readings;
         double xValue = [[r.accelerometerValues objectAtIndex:0] doubleValue];
         CGContextSetFillColorWithColor(context, [UIColor redColor].CGColor);
         CGContextSetStrokeColorWithColor(context, [UIColor redColor].CGColor);
-        plotPoint = (CGRectMake((double)j, xValue / divisor, diameter, diameter));
+        plotPoint = (CGRectMake((double)j, (cellHeight / 2) - (xValue * divisor), diameter, diameter));
         CGContextFillEllipseInRect(context, plotPoint);
         
         //map y axis
         double yValue = [[r.accelerometerValues objectAtIndex:1] doubleValue];
         CGContextSetFillColorWithColor(context, [UIColor orangeColor].CGColor);
         CGContextSetStrokeColorWithColor(context, [UIColor orangeColor].CGColor);
-        plotPoint = (CGRectMake((double)j, yValue / divisor, diameter, diameter));
+        plotPoint = (CGRectMake((double)j, (cellHeight / 2) - (yValue * divisor), diameter, diameter));
         CGContextFillEllipseInRect(context, plotPoint);
         
         //map z axis
         double zValue = [[r.accelerometerValues objectAtIndex:2] doubleValue];
         CGContextSetFillColorWithColor(context, [UIColor greenColor].CGColor);
         CGContextSetStrokeColorWithColor(context, [UIColor greenColor].CGColor);
-        plotPoint = (CGRectMake((double)j, zValue / divisor, diameter, diameter));
+        plotPoint = (CGRectMake((double)j, (cellHeight / 2) - (zValue * divisor), diameter, diameter));
         CGContextFillEllipseInRect(context, plotPoint);
 
         //update skip
         i += skip;
         j++;
     }
-
-    
 }
 
-- (id)initWithFrame:(CGRect)frame andReadings:(NSMutableArray *)read andDivisor:(double)div
+- (id)initWithFrame:(CGRect)frame andActivityDetector:(ActivityDetector *)d
 {
     self = [super initWithFrame:frame];
     if (self) {
         // Initialization code
-        divisor = div;
-        readings = read;
+        activityDetector = d;
+        
     }
     return self;
 }

@@ -7,16 +7,18 @@
 //
 
 #import "ActivityCellView.h"
-
+#import "ActivityDetector.h"
 @implementation ActivityCellView
 
+@synthesize activityDetector;
 @synthesize readings;
 
 -(void) drawRect:(CGRect)rect{
+    readings = activityDetector.readings;
     int skip;
     int numberOfCircles;
-    int maxNumberOfCircles = 40;
-    double diameter = 5.0;
+    int maxNumberOfCircles = 90;
+//    double diameter = 10.0;
     CGContextRef context = UIGraphicsGetCurrentContext();
     CGContextSetLineWidth(context, 2.0);
     CGContextSetFillColorWithColor(context, [UIColor lightGrayColor].CGColor);
@@ -60,12 +62,14 @@
         }
         
         //draw dot
-        CGRect circlePoint = (CGRectMake((double)j, 20, diameter, diameter));
-        CGContextFillEllipseInRect(context, circlePoint);
+//        CGRect circleRect = (CGRectMake((double)j, 50, diameter, diameter));
+//        CGContextFillEllipseInRect(context, circleRect);
+        CGRect barRect = CGRectMake((double)j, 25, 3, 50);
+        CGContextFillRect(context, barRect);
         
         //update indices
         i += skip;
-        j += 5;
+        j += 2;
     }
     
     //draw current activity dot
@@ -82,17 +86,18 @@
         CGContextSetFillColorWithColor(context, [UIColor lightGrayColor].CGColor);
     }
     
-    CGRect currentActivityDot = CGRectMake(280.0, 10.0, 20.0, 20.0);
+    CGRect currentActivityDot = CGRectMake(300.0, 10.0, 10.0, 10.0);
     CGContextFillEllipseInRect(context, currentActivityDot);
 }
 
 
-- (id)initWithFrame:(CGRect)frame andReadings:(NSMutableArray *)read
+- (id)initWithFrame:(CGRect)frame andActivityDetector:(ActivityDetector *)d
 {
     self = [super initWithFrame:frame];
     if (self) {
         // Initialization code
-        self.readings = [[NSMutableArray alloc] initWithArray:read];
+        activityDetector = d;
+        
     }
     return self;
 }

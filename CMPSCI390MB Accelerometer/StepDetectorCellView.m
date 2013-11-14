@@ -7,14 +7,36 @@
 //
 
 #import "StepDetectorCellView.h"
+#import "ActivityDetector.h"
 
 @implementation StepDetectorCellView
 
-- (id)initWithFrame:(CGRect)frame
+@synthesize activityDetector;
+
+int steps;
+
+-(void)drawRect:(CGRect)rect{
+    steps = [activityDetector getSteps];
+    CGContextRef context = UIGraphicsGetCurrentContext();
+    CGContextSetLineWidth(context, 2.0);
+    CGContextSetFillColorWithColor(context, [UIColor lightGrayColor].CGColor);
+    CGContextSetStrokeColorWithColor(context, [UIColor blackColor].CGColor);
+    
+    //draw background
+    CGContextFillRect(context, self.frame);
+    NSString *stepCount = [[NSString alloc] initWithFormat:@"%d steps", steps];
+    CGContextSetFillColorWithColor(context, [UIColor blackColor].CGColor);
+    [stepCount drawAtPoint:CGPointMake(10.0, 10.0) withFont:[UIFont boldSystemFontOfSize:22.0]];
+}
+
+- (id)initWithFrame:(CGRect)frame andActivityDetector:(ActivityDetector *)d
 {
     self = [super initWithFrame:frame];
+    NSLog(@"Frame: %@", NSStringFromCGRect(frame));
     if (self) {
         // Initialization code
+        activityDetector = d;
+        
     }
     return self;
 }
