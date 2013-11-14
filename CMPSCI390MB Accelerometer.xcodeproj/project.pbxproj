@@ -47,6 +47,7 @@
 		93F617451825C37300B420C0 /* VisualizationCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 93F617441825C37300B420C0 /* VisualizationCell.m */; };
 		950C8F5B18271205003918AE /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 950C8F5A18271205003918AE /* QuartzCore.framework */; };
 		950C8F5D18271212003918AE /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 950C8F5C18271212003918AE /* Accelerate.framework */; };
+		95714FE218357831000E411E /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 95714FE118357831000E411E /* AVFoundation.framework */; };
 		CE2040B91811CFA4006213C3 /* computeMean in Resources */ = {isa = PBXBuildFile; fileRef = CE2040B81811CFA4006213C3 /* computeMean */; };
 		CE8B867C17F8CAB0006DDA51 /* StepDetector.m in Sources */ = {isa = PBXBuildFile; fileRef = CE8B867B17F8CAB0006DDA51 /* StepDetector.m */; };
 		CEA6BAC21814AE73007CC4E4 /* DecisionTree.m in Sources */ = {isa = PBXBuildFile; fileRef = CEA6BAC11814AE73007CC4E4 /* DecisionTree.m */; };
@@ -126,6 +127,7 @@
 		93F617441825C37300B420C0 /* VisualizationCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VisualizationCell.m; sourceTree = "<group>"; };
 		950C8F5A18271205003918AE /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		950C8F5C18271212003918AE /* Accelerate.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accelerate.framework; path = System/Library/Frameworks/Accelerate.framework; sourceTree = SDKROOT; };
+		95714FE118357831000E411E /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		CE2040B81811CFA4006213C3 /* computeMean */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = computeMean; sourceTree = "<group>"; };
 		CE8B867A17F8CAB0006DDA51 /* StepDetector.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StepDetector.h; sourceTree = "<group>"; };
 		CE8B867B17F8CAB0006DDA51 /* StepDetector.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StepDetector.m; sourceTree = "<group>"; };
@@ -138,6 +140,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				95714FE218357831000E411E /* AVFoundation.framework in Frameworks */,
 				950C8F5D18271212003918AE /* Accelerate.framework in Frameworks */,
 				950C8F5B18271205003918AE /* QuartzCore.framework in Frameworks */,
 				93A1FEF517E919330085B15B /* MessageUI.framework in Frameworks */,
@@ -184,6 +187,7 @@
 		936CD62C17E36D3900B69E9B /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				95714FE118357831000E411E /* AVFoundation.framework */,
 				950C8F5C18271212003918AE /* Accelerate.framework */,
 				950C8F5A18271205003918AE /* QuartzCore.framework */,
 				93A1FEF417E919330085B15B /* MessageUI.framework */,
