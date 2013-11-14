@@ -25,6 +25,19 @@
                         </prototypes>
                     </tableView>
                     <navigationItem key="navigationItem" title="Features" id="rY2-E3-epm">
+                        <barButtonItem key="leftBarButtonItem" title="Record" style="plain" id="wYr-1j-acc">
+                            <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="7Yr-aq-Xxq">
+                                <rect key="frame" x="16" y="5" width="71" height="33"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                <state key="normal" title="Button">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <segue destination="YZ5-sg-fY0" kind="modal" id="4Bm-PQ-0Ks"/>
+                                </connections>
+                            </button>
+                        </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" style="plain" id="RPz-PM-5By">
                             <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="ZkK-ZL-Txn">
                                 <rect key="frame" x="233" y="5" width="71" height="33"/>
@@ -86,7 +99,6 @@
         <!--Selection View Navigation Controller View Controller-->
         <scene sceneID="P5u-Tj-uoq">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="cFw-Kv-sQ8" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <navigationController storyboardIdentifier="selectionController" definesPresentationContext="YES" id="uoP-yI-6j4" customClass="SelectionViewNavigationControllerViewController" sceneMemberID="viewController">
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="TcH-S9-0rJ">
                         <autoresizingMask key="autoresizingMask"/>
@@ -95,8 +107,46 @@
                         <segue destination="fwP-ec-dKQ" kind="relationship" relationship="rootViewController" id="YY2-Dh-m0C"/>
                     </connections>
                 </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="cFw-Kv-sQ8" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="912" y="-35"/>
+        </scene>
+        <!--Record Audio ModalVC View Controller-->
+        <scene sceneID="l7A-6R-5fM">
+            <objects>
+                <viewController id="YZ5-sg-fY0" customClass="RecordAudioModalVCViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="VbD-JI-ZcY"/>
+                        <viewControllerLayoutGuide type="bottom" id="nG9-y1-OSJ"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="Zgq-lg-Ey9">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CJ0-Sv-zND">
+                                <rect key="frame" x="56" y="269" width="85" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Record">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mz5-6E-fdE">
+                                <rect key="frame" x="221" y="269" width="46" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Stop">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="stopRecording:" destination="YZ5-sg-fY0" eventType="touchUpInside" id="9T5-a0-e3o"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="5xY-D7-I5d" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="912" y="634"/>
         </scene>
         <!--Root View Navigation Controller-->
         <scene sceneID="7Fl-Df-xJt">

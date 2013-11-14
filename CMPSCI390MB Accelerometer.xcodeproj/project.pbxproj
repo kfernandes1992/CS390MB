@@ -12,6 +12,7 @@
 		9361EB89182A90E80067EF58 /* SelectionViewNavigationControllerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9361EB88182A90E80067EF58 /* SelectionViewNavigationControllerViewController.m */; };
 		9367F07D181476860097B5F3 /* Coefficient.m in Sources */ = {isa = PBXBuildFile; fileRef = 9367F07C181476860097B5F3 /* Coefficient.m */; };
 		936A7B741835715B00CCB8AE /* FFT.m in Sources */ = {isa = PBXBuildFile; fileRef = 936A7B731835715B00CCB8AE /* FFT.m */; };
+		936A7B771835797700CCB8AE /* RecordAudioModalVCViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 936A7B761835797700CCB8AE /* RecordAudioModalVCViewController.m */; };
 		936CD62E17E36D3900B69E9B /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 936CD62D17E36D3900B69E9B /* UIKit.framework */; };
 		936CD63017E36D3900B69E9B /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 936CD62F17E36D3900B69E9B /* Foundation.framework */; };
 		936CD63217E36D3900B69E9B /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 936CD63117E36D3900B69E9B /* CoreGraphics.framework */; };
@@ -74,6 +75,8 @@
 		9367F07C181476860097B5F3 /* Coefficient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Coefficient.m; sourceTree = "<group>"; };
 		936A7B721835715B00CCB8AE /* FFT.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FFT.h; sourceTree = "<group>"; };
 		936A7B731835715B00CCB8AE /* FFT.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FFT.m; sourceTree = "<group>"; };
+		936A7B751835797700CCB8AE /* RecordAudioModalVCViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RecordAudioModalVCViewController.h; sourceTree = "<group>"; };
+		936A7B761835797700CCB8AE /* RecordAudioModalVCViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RecordAudioModalVCViewController.m; sourceTree = "<group>"; };
 		936CD62A17E36D3900B69E9B /* CMPSCI390MB Accelerometer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "CMPSCI390MB Accelerometer.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		936CD62D17E36D3900B69E9B /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		936CD62F17E36D3900B69E9B /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -210,6 +213,8 @@
 				936CD63C17E36D3900B69E9B /* AppDelegate.h */,
 				936CD63D17E36D3900B69E9B /* AppDelegate.m */,
 				936CD64517E36D3900B69E9B /* MainStoryboard_iPhone.storyboard */,
+				936A7B751835797700CCB8AE /* RecordAudioModalVCViewController.h */,
+				936A7B761835797700CCB8AE /* RecordAudioModalVCViewController.m */,
 				93F617431825C37300B420C0 /* VisualizationCell.h */,
 				93F617441825C37300B420C0 /* VisualizationCell.m */,
 				93F617401825C2BF00B420C0 /* VisualizationTableViewController.h */,
@@ -423,6 +428,7 @@
 				CEA6BAC21814AE73007CC4E4 /* DecisionTree.m in Sources */,
 				93B1AAAE1811E2250046F6B6 /* ReorientAxis.m in Sources */,
 				93B38BE917E5E785002F12B0 /* InfoViewController.m in Sources */,
+				936A7B771835797700CCB8AE /* RecordAudioModalVCViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
