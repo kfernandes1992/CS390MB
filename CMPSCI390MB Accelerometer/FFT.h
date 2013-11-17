@@ -16,5 +16,7 @@
 @property(nonatomic, strong) NSMutableArray *cosines;
 @property(nonatomic, strong) NSMutableArray *sines;
 
+-(id)initWithN:(int)initialN;
+-(void)fftFromReals:(NSMutableArray *)reals andImaginaries:(NSMutableArray *)imaginaries;
 
 @end

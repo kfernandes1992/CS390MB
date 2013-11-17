@@ -100,9 +100,17 @@
 //            t1 = re[i];
 //            re[i] = re[j];
 //            re[j] = t1;
+            
 //            t1 = im[i];
 //            im[i] = im[j];
 //            im[j] = t1;
+            t1 = [[reals objectAtIndex:i] doubleValue];
+            [reals setObject:[reals objectAtIndex:j] atIndexedSubscript:i];
+            [reals setObject:[NSNumber numberWithDouble: t1] atIndexedSubscript:j];
+            
+            t1 = [[imaginaries objectAtIndex:i] doubleValue];
+            [imaginaries setObject:[imaginaries objectAtIndex:j] atIndexedSubscript:i];
+            [imaginaries setObject: [NSNumber numberWithDouble:t1] atIndexedSubscript:j];
 
             
         }
@@ -122,17 +130,29 @@
         {
 //            c = cos[a];
 //            s = sin[a];
-//            a +=  1 << (m-i-1);
-//            
-//            for (k=j; k < n; k=k+n2)
-//            {
+            c = [[cosines objectAtIndex:a] doubleValue];
+            s = [[sines objectAtIndex:a] doubleValue];
+            
+            a +=  1 << (m-i-1);
+            
+            for (k=j; k < n; k=k+n2)
+            {
 //                t1 = c*re[k+n1] - s*im[k+n1];
 //                t2 = s*re[k+n1] + c*im[k+n1];
+                
+                t1 = c * [[reals objectAtIndex:k + n1] doubleValue] - s * [[imaginaries objectAtIndex:k + n1] doubleValue];
+                t2 = s * [[reals objectAtIndex:k + n1] doubleValue] - c * [[imaginaries objectAtIndex:k + n1] doubleValue];
+                
 //                re[k+n1] = re[k] - t1;
 //                im[k+n1] = im[k] - t2;
+                [reals setObject:[NSNumber numberWithDouble:[[reals objectAtIndex:k] doubleValue] - t1] atIndexedSubscript:k + n1];
+                [imaginaries setObject:[NSNumber numberWithDouble:[[imaginaries objectAtIndex:k] doubleValue] - t2] atIndexedSubscript:k + n1];
+                
 //                re[k] = re[k] + t1;
 //                im[k] = im[k] + t2;
-//            }
+                [reals setObject:[NSNumber numberWithDouble:[[reals objectAtIndex:k] doubleValue] + t1] atIndexedSubscript:k];
+                [imaginaries setObject:[NSNumber numberWithDouble:[[imaginaries objectAtIndex:k] doubleValue] + t2] atIndexedSubscript:k];
+            }
         }
     }
 }
