@@ -15,7 +15,7 @@
 
 -(Matrix *)initWithM:(int)newM n:(int)newN;
 -(Matrix *)initWithM:(int)newM n:(int)newN s:(double)newS;
--(Matrix *)times:(double) s;
+-(Matrix *)times:(Matrix *)B;
 -(Matrix *)getMatrixWithInitialRow:(int)initialR finalRow:(int)finalR initialCol:(int)initialC finalCol:(int)finalC;
 
 @end
