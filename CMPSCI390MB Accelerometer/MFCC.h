@@ -7,6 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "Matrix.h"
 
 @interface MFCC : NSObject
     @property double minMelFreq;
