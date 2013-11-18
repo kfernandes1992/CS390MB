@@ -102,20 +102,55 @@
 }
 
 //public Matrix times (double s) {
--(Matrix *) times:(double) s
+//-(Matrix *) times:(double) s
+//{
+////    Matrix X = new Matrix(m,n);
+//    Matrix *X = [[Matrix alloc] init];
+////    double[][] C = X.getArray();
+//    NSMutableArray *C = X.A;
+//    for (int i = 0; i < m; i++) {
+//        NSMutableArray *inner = [[NSMutableArray alloc] init];
+//        for (int j = 0; j < n; j++) {
+////            C[i][j] = s*A[i][j];
+//            NSNumber *a = [NSNumber numberWithDouble:[[A objectAtIndex:j] doubleValue] * s];
+//            [inner setObject:a atIndexedSubscript:j];
+//        }
+//        [C setObject:inner atIndexedSubscript:i];
+//    }
+//    return X;
+//}
+
+//public Matrix times (Matrix B) {
+-(Matrix *)times:(Matrix *)B
 {
-//    Matrix X = new Matrix(m,n);
-    Matrix *X = [[Matrix alloc] init];
+//    if (B.m != n) {
+//        throw new IllegalArgumentException("Matrix inner dimensions must agree.");
+//    }
+//    Matrix X = new Matrix(m,B.n);
+    Matrix *X = [[Matrix alloc] initWithM:m n:B.n];
 //    double[][] C = X.getArray();
-    NSMutableArray *C = X.A;
-    for (int i = 0; i < m; i++) {
+    NSMutableArray *C = [[NSMutableArray alloc] init];
+    
+//    double[] Bcolj = new double[n];
+    NSMutableArray *Bcolj = [[NSMutableArray alloc] init];
+    for (int j = 0; j < B.n; j++) {
         NSMutableArray *inner = [[NSMutableArray alloc] init];
-        for (int j = 0; j < n; j++) {
-//            C[i][j] = s*A[i][j];
-            NSNumber *a = [NSNumber numberWithDouble:[[A objectAtIndex:j] doubleValue] * s];
-            [inner setObject:a atIndexedSubscript:j];
+        for (int k = 0; k < n; k++) {
+            Bcolj[k] = B.A[k][j];
         }
-        [C setObject:inner atIndexedSubscript:i];
+        for (int i = 0; i < m; i++) {
+//            double[] Arowi = A[i];
+            NSMutableArray *Arowi = [[NSMutableArray alloc] init];
+            double s = 0;
+            for (int k = 0; k < n; k++) {
+//                s += Arowi[k]*Bcolj[k];
+                s += [[Arowi objectAtIndex:k] doubleValue] * [[Bcolj objectAtIndex:k] doubleValue];
+            }
+            [inner setObject:[NSNumber numberWithDouble:s] atIndexedSubscript:i];
+//            C[i][j] = s;
+            
+        }
+        [C setObject:inner atIndexedSubscript:j];
     }
     return X;
 }
