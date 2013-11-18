@@ -56,7 +56,7 @@ static const int MEL_BANDS = 20;
     
     // Get MFCCs
 //    featureCepstrum = featureMFCC.cepstrum(fftBufferR, fftBufferI);
-    featureCepstrum = [featureMFCC cepstrumWithReals:fftBufferR andImaginaries:fftBufferI];
+    featureCepstrum = [featureMFCC cepstrumWithREArray:fftBufferR WithIMArray:fftBufferI];
     return featureCepstrum;
 }
 
@@ -69,8 +69,9 @@ static const int MEL_BANDS = 20;
         //MFCC featureMFCC = new MFCC(FFT_SIZE, MFCCS_VALUE, MEL_BANDS, BITRATE);
         featureFFT = [[FFT alloc] initWithN:FFT_SIZE];
         featureWin = [[Window alloc] initWithWindowSize:BITRATE];
-        featureMFCC = [[MFCC alloc] ]
+        featureMFCC = [[MFCC alloc] initWithFFTSize:FFT_SIZE WithNumCoeffs:MFCCS_VALUE WithMelBands:MEL_BANDS WithSampleRate:BITRATE];
     }
+    return self;
 }
 
 

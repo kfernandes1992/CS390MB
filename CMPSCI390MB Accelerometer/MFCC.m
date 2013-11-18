@@ -124,10 +124,10 @@
     Matrix* logMelSpec = [[Matrix alloc] initWithM:melBands n:1];
     for (int i = 0; i < melBands; i ++)
     {
-        logMelSpec.A[i][0] = log(aSpec.A[i][0]);
+        logMelSpec.A[i][0] = [[NSNumber alloc] initWithDouble:log([aSpec.A[i][0] doubleValue])];
     }
     
-    Matrix melCeps = dctMat.times(logMelSpec);
+    Matrix* melCeps = [dctMat times:(logMelSpec)];
     
     NSMutableArray* ceps = [[NSMutableArray alloc] init];
     for (int i = 0; i < numCoeffs; i ++)
