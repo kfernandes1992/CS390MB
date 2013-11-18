@@ -26,7 +26,7 @@
 -(id) initWithFFTSize: (int)fftSize WithNumCoeffs:(int) numCoefs WithMelBands: (int) mBs
        WithSampleRate:(double)sRate{
     // Precompute mel-scale auditory perceptual spectrum
-    melWeights = [Matrix alloc] initWith melBands, fftSize, 0);
+    melWeights = [[Matrix alloc] initWithM:melBands n:fftSize s:0];
     
     // Number of non-redundant frequency bins
     numFreqs = fftSize/2 + 1;
@@ -65,10 +65,10 @@
     melWeights.A = outerArray;
     
     // Keep only positive frequency parts of Fourier transform
-    melWeights = melWeights getMatrix:(0, melBands - 1, 0, numFreqs - 1);
+    melWeights = [melWeights getMatrixWithInitialRow:0 finalRow:melBands-1 initialCol:0 finalCol:numFreqs-1];
     
     // Precompute DCT matrix
-    dctMat = new Matrix(numCoeffs, melBands, 0);
+    dctMat = [[Matrix alloc]initWithM:numCoeffs n:melBands s:0];
     
     double scale = sqrt(2.0/melBands);
    
@@ -100,12 +100,13 @@
     {
         lifterWeights[i] = [[NSNumber alloc]initWithDouble: pow((double)i, lifterExp)];
     }
+    return self;
 }
 
 
 -(NSMutableArray*) cepstrumWithREArray:(NSMutableArray*)re WithIMArray:(NSMutableArray*) im
 {
-    Matrix* powerSpec = new Matrix(numFreqs, 1);
+    Matrix* powerSpec = [[Matrix alloc]initWithM:numFreqs n:1];
     for (int i = 0; i < numFreqs; i ++)
     {
         NSMutableArray *inner=powerSpec.A[i];
@@ -119,8 +120,8 @@
     // dctMat     - numCoeffs x melBands
     // dctMat*log(aSpec) - numCoeffs x 1
     
-    Matrix* aSpec = melWeights.times(powerSpec);
-    Matrix* logMelSpec = new Matrix(melBands, 1);
+    Matrix* aSpec = [melWeights times:powerSpec];
+    Matrix* logMelSpec = [[Matrix alloc] initWithM:melBands n:1];
     for (int i = 0; i < melBands; i ++)
     {
         logMelSpec.A[i][0] = log(aSpec.A[i][0]);
@@ -128,10 +129,10 @@
     
     Matrix melCeps = dctMat.times(logMelSpec);
     
-    double[] ceps = new double[numCoeffs];
+    NSMutableArray* ceps = [[NSMutableArray alloc] init];
     for (int i = 0; i < numCoeffs; i ++)
     {
-        ceps[i] = lifterWeights[i]*melCeps.A[i][0];
+        ceps[i] = [[NSNumber alloc]initWithDouble:[lifterWeights[i] doubleValue]* [melCeps.A[i][0] doubleValue]];
     }
     
     return ceps;
