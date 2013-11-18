@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		933412B117F8A65C006215F3 /* KMESmoothingFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = 933412B017F8A65C006215F3 /* KMESmoothingFilter.m */; };
 		935DF4C318398008004DF0E7 /* MFCC.m in Sources */ = {isa = PBXBuildFile; fileRef = 935DF4C218398008004DF0E7 /* MFCC.m */; };
+		935DF4C61839865E004DF0E7 /* Matrix.m in Sources */ = {isa = PBXBuildFile; fileRef = 935DF4C51839865E004DF0E7 /* Matrix.m */; };
 		9361EB861829E3370067EF58 /* ViewSelectionController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9361EB851829E3370067EF58 /* ViewSelectionController.m */; };
 		9361EB89182A90E80067EF58 /* SelectionViewNavigationControllerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9361EB88182A90E80067EF58 /* SelectionViewNavigationControllerViewController.m */; };
 		9367F07D181476860097B5F3 /* Coefficient.m in Sources */ = {isa = PBXBuildFile; fileRef = 9367F07C181476860097B5F3 /* Coefficient.m */; };
@@ -72,6 +73,8 @@
 		933412B017F8A65C006215F3 /* KMESmoothingFilter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = KMESmoothingFilter.m; path = ../KMESmoothingFilter.m; sourceTree = "<group>"; };
 		935DF4C118398008004DF0E7 /* MFCC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MFCC.h; sourceTree = "<group>"; };
 		935DF4C218398008004DF0E7 /* MFCC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MFCC.m; sourceTree = "<group>"; };
+		935DF4C41839865E004DF0E7 /* Matrix.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Matrix.h; sourceTree = "<group>"; };
+		935DF4C51839865E004DF0E7 /* Matrix.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Matrix.m; sourceTree = "<group>"; };
 		9361EB841829E3370067EF58 /* ViewSelectionController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ViewSelectionController.h; sourceTree = "<group>"; };
 		9361EB851829E3370067EF58 /* ViewSelectionController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ViewSelectionController.m; sourceTree = "<group>"; };
 		9361EB87182A90E80067EF58 /* SelectionViewNavigationControllerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SelectionViewNavigationControllerViewController.h; sourceTree = "<group>"; };
@@ -245,6 +248,8 @@
 				935DF4C218398008004DF0E7 /* MFCC.m */,
 				936A7B7B183583E300CCB8AE /* FeatureExtractor.h */,
 				936A7B7C183583E300CCB8AE /* FeatureExtractor.m */,
+				935DF4C41839865E004DF0E7 /* Matrix.h */,
+				935DF4C51839865E004DF0E7 /* Matrix.m */,
 				938ED65F1827F9A60093C648 /* StepDetectorCellView.h */,
 				938ED6601827F9A60093C648 /* StepDetectorCellView.m */,
 				938ED65C1826FA6F0093C648 /* ActivityCellView.h */,
@@ -440,6 +445,7 @@
 				938ED66A182842170093C648 /* SpeedMeanCellView.m in Sources */,
 				936CD64D17E36D3900B69E9B /* ViewController.m in Sources */,
 				9361EB861829E3370067EF58 /* ViewSelectionController.m in Sources */,
+				935DF4C61839865E004DF0E7 /* Matrix.m in Sources */,
 				93F617451825C37300B420C0 /* VisualizationCell.m in Sources */,
 				938ED65E1826FA6F0093C648 /* ActivityCellView.m in Sources */,
 				936A7B7D183583E300CCB8AE /* FeatureExtractor.m in Sources */,

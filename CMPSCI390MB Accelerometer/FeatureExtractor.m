@@ -48,15 +48,15 @@ static const int MEL_BANDS = 20;
     
     // In-place windowing
 //    featureWin.applyWindow(fftBufferR);
-    //[fea]
+    [featureWin applyWindowWithBuffer:fftBufferR];
     
     // In-place FFT
 //    featureFFT.fft(fftBufferR, fftBufferI);
     [featureFFT fftFromReals:fftBufferR andImaginaries:fftBufferI];
     
     // Get MFCCs
-    featureCepstrum = featureMFCC.cepstrum(fftBufferR, fftBufferI);
-    
+//    featureCepstrum = featureMFCC.cepstrum(fftBufferR, fftBufferI);
+    featureCepstrum = [featureMFCC cepstrumWithReals:fftBufferR andImaginaries:fftBufferI];
     return featureCepstrum;
 }
 
