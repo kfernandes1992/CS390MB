@@ -79,7 +79,7 @@
 //    Matrix X = new Matrix(i1-i0+1,j1-j0+1);
     Matrix *X = [[Matrix alloc] initWithM:finalR - initialR + 1 n:finalC - initialC + 1];
 //    double[][] B = X.getArray();
-    NSMutableArray *B = X.getArray;
+    NSMutableArray *B = X.A;
 //    try {
 //        for (int i = i0; i <= i1; i++) {
 //            for (int j = j0; j <= j1; j++) {
@@ -107,7 +107,7 @@
 //    Matrix X = new Matrix(m,n);
     Matrix *X = [[Matrix alloc] init];
 //    double[][] C = X.getArray();
-    NSMutableArray *C = [X getArray];
+    NSMutableArray *C = X.A;
     for (int i = 0; i < m; i++) {
         NSMutableArray *inner = [[NSMutableArray alloc] init];
         for (int j = 0; j < n; j++) {

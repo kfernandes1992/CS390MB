@@ -15,6 +15,7 @@
 
 -(Matrix *)initWithM:(int)newM n:(int)newN;
 -(Matrix *)initWithM:(int)newM n:(int)newN s:(double)newS;
--(NSMutableArray *)getArray;
+-(Matrix *)times:(double) s;
+-(Matrix *)getMatrixWithInitialRow:(int)initialR finalRow:(int)finalR initialCol:(int)initialC finalCol:(int)finalC;
 
 @end
