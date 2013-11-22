@@ -7,13 +7,16 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <MessageUI/MessageUI.h>
 
-@interface RecordAudioModalVCViewController : UIViewController
+@interface RecordAudioModalVCViewController : UIViewController <MFMailComposeViewControllerDelegate>
 
 @property(nonatomic, strong) IBOutlet UIButton *stopButton;
 @property(nonatomic, strong) IBOutlet UIButton *recordButton;
 
 -(IBAction)stopRecording:(id)sender;
 -(IBAction)startRecording:(id)sender;
+-(IBAction)emailData:(id)sender;
+-(IBAction)clearData:(id)sender;
 
 @end

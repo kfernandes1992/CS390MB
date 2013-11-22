@@ -7,6 +7,7 @@
 //
 
 #import "RecordAudioModalVCViewController.h"
+#import <MessageUI/MessageUI.h>
 
 @interface RecordAudioModalVCViewController ()
 
@@ -19,7 +20,26 @@
 }
 
 -(void)stopRecording:(id)sender{
-    [self.presentingViewController dismissViewControllerAnimated:YES completion:nil];
+    //[self.presentingViewController dismissViewControllerAnimated:YES completion:nil];
+}
+
+-(IBAction)emailData:(id)sender{
+    NSLog(@"emailing data");
+    NSDate *timeStamp = [[NSDate alloc] init];
+    NSDateFormatter *dateFormater= [[NSDateFormatter alloc] init];
+    
+    NSString *emailTitle= [NSString stringWithFormat:@"Voice iOS Data %@",[dateFormater stringFromDate:timeStamp]];
+    
+    NSString *messageBody= [NSString stringWithFormat:@"Voice data from %@",[dateFormater stringFromDate:timeStamp]];
+    
+    MFMailComposeViewController *mc = [[MFMailComposeViewController alloc] init];
+    [mc setMailComposeDelegate:self];
+    [mc setSubject:emailTitle];
+    [mc setMessageBody:messageBody isHTML:NO];
+
+}
+-(IBAction)clearData:(id)sender{
+
 }
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
