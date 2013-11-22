@@ -36,6 +36,10 @@
     [mc setMailComposeDelegate:self];
     [mc setSubject:emailTitle];
     [mc setMessageBody:messageBody isHTML:NO];
+    
+    [self presentViewController:mc animated:TRUE completion:NULL];
+    
+    
 
 }
 -(IBAction)clearData:(id)sender{
@@ -62,5 +66,27 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+
+- (void) mailComposeController:(MFMailComposeViewController *)controller didFinishWithResult:(MFMailComposeResult)result error:(NSError *)error{
+    switch (result)
+    {
+        case MFMailComposeResultCancelled:
+        NSLog(@"Mail cancelled");
+        break;
+        case MFMailComposeResultSaved:
+        NSLog(@"Mail saved");
+        break;
+        case MFMailComposeResultSent:
+        NSLog(@"Mail sent");
+        break;
+        case MFMailComposeResultFailed:
+        NSLog(@"Mail sent failure: %@", [error localizedDescription]);
+        break;
+        default:
+        break;
+    }
+    [self dismissViewControllerAnimated:TRUE completion:NULL];
+}
+
 
 @end

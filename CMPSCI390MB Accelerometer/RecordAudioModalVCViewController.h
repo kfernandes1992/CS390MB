@@ -19,4 +19,5 @@
 -(IBAction)emailData:(id)sender;
 -(IBAction)clearData:(id)sender;
 
+- (void) mailComposeController:(MFMailComposeViewController *)controller didFinishWithResult:(MFMailComposeResult)result error:(NSError *)error;
 @end
