@@ -24,6 +24,8 @@
 }
 
 -(IBAction)emailData:(id)sender{
+    
+    //set up email VC
     NSLog(@"emailing data");
     NSDate *timeStamp = [[NSDate alloc] init];
     NSDateFormatter *dateFormater= [[NSDateFormatter alloc] init];
@@ -37,10 +39,18 @@
     [mc setSubject:emailTitle];
     [mc setMessageBody:messageBody isHTML:NO];
     
+    
+    //find and attach file
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    NSString *documentsDirectory = [paths objectAtIndex:0];
+    NSString *fp = [documentsDirectory stringByAppendingPathComponent:@"test.txt"];
+    NSURL *filePath= [[NSURL alloc] initWithString:fp];
+    NSData *fileData = [NSData dataWithContentsOfURL:filePath];
+    [mc addAttachmentData:fileData mimeType:@"text/html" fileName:@"test.txt"];
+
     [self presentViewController:mc animated:TRUE completion:NULL];
     
     
-
 }
 -(IBAction)clearData:(id)sender{
 
@@ -59,6 +69,7 @@
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
+    [self createDummyFile];
 }
 
 - (void)didReceiveMemoryWarning
@@ -88,5 +99,14 @@
     [self dismissViewControllerAnimated:TRUE completion:NULL];
 }
 
-
+-(void) createDummyFile{
+    // create a filePath with the name accelerometerlog.csv
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    NSString *documentsDirectory = [paths objectAtIndex:0];
+    NSString *fp = [documentsDirectory stringByAppendingPathComponent:@"test.txt"];
+    NSURL *filePath= [[NSURL alloc] initWithString:fp];
+    
+    NSString *dummyText=@"Please work";
+    [dummyText writeToURL:filePath atomically:FALSE encoding:NSUTF8StringEncoding error:NULL];
+    }
 @end
