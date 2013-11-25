@@ -8,8 +8,12 @@
 
 #import <UIKit/UIKit.h>
 #import <MessageUI/MessageUI.h>
+#import <AVFoundation/AVFoundation.h>
 
-@interface RecordAudioModalVCViewController : UIViewController <MFMailComposeViewControllerDelegate>
+@interface RecordAudioModalVCViewController : UIViewController <MFMailComposeViewControllerDelegate, AVAudioRecorderDelegate>
+{
+    AVAudioRecorder *audioRecorder;
+}
 
 @property(nonatomic, strong) IBOutlet UIButton *stopButton;
 @property(nonatomic, strong) IBOutlet UIButton *recordButton;

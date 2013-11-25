@@ -16,11 +16,25 @@
 @implementation RecordAudioModalVCViewController
 
 -(void)startRecording:(id)sender{
-    
+    NSLog(@"button clicked");
+    if (!audioRecorder.recording)
+    {
+        NSLog(@"recording");
+        _stopButton.enabled = YES;
+        [audioRecorder record];
+    }
 }
 
 -(void)stopRecording:(id)sender{
     //[self.presentingViewController dismissViewControllerAnimated:YES completion:nil];
+    _stopButton.enabled = NO;
+    _recordButton.enabled = YES;
+    NSLog(@"stop button pressed");
+    if (audioRecorder.recording)
+    {
+        NSLog(@"stopped recording");
+        [audioRecorder stop];
+    }
 }
 
 -(IBAction)emailData:(id)sender{
@@ -43,10 +57,10 @@
     //find and attach file
     NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
     NSString *documentsDirectory = [paths objectAtIndex:0];
-    NSString *fp = [documentsDirectory stringByAppendingPathComponent:@"test.txt"];
+    NSString *fp = [documentsDirectory stringByAppendingPathComponent:@"sound.caf"];
     NSURL *filePath= [[NSURL alloc] initWithString:fp];
     NSData *fileData = [NSData dataWithContentsOfURL:filePath];
-    [mc addAttachmentData:fileData mimeType:@"text/html" fileName:@"test.txt"];
+    [mc addAttachmentData:fileData mimeType:@"text/html" fileName:@"sound.caf"];
 
     [self presentViewController:mc animated:TRUE completion:NULL];
     
@@ -70,6 +84,40 @@
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
     [self createDummyFile];
+    
+    _recordButton.enabled = NO;
+    _stopButton.enabled = NO;
+    
+    NSArray *dirPaths;
+    NSString *docsDir;
+    
+    dirPaths = NSSearchPathForDirectoriesInDomains(
+                                                   NSDocumentDirectory, NSUserDomainMask, YES);
+    docsDir = [dirPaths objectAtIndex:0];
+    NSString *soundFilePath = [docsDir
+                               stringByAppendingPathComponent:@"sound.caf"];
+    
+    NSURL *soundFileURL = [NSURL fileURLWithPath:soundFilePath];
+    
+    NSDictionary *recordSetting = [[NSMutableDictionary alloc] init];
+    [recordSetting setValue :[NSNumber numberWithInt:32]  forKey:AVLinearPCMBitDepthKey];
+    [recordSetting setValue :[NSNumber numberWithBool:NO] forKey:AVLinearPCMIsBigEndianKey];
+    [recordSetting setValue :[NSNumber numberWithBool:NO] forKey:AVLinearPCMIsFloatKey];
+    
+    NSError *error = nil;
+    
+    audioRecorder = [[AVAudioRecorder alloc]
+                     initWithURL:soundFileURL
+                     settings:recordSetting
+                     error:&error];
+    
+    if (error)
+    {
+        NSLog(@"error: %@", [error localizedDescription]);
+        
+    } else {
+        [audioRecorder prepareToRecord];
+    }
 }
 
 - (void)didReceiveMemoryWarning
