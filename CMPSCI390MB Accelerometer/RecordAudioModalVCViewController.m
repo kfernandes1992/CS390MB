@@ -21,7 +21,7 @@
     {
         NSLog(@"recording");
         _stopButton.enabled = YES;
-        [audioRecorder record];
+        NSLog(@"recording status: %hhd", [audioRecorder record]);
     }
 }
 
@@ -60,7 +60,9 @@
     NSString *fp = [documentsDirectory stringByAppendingPathComponent:@"sound.caf"];
     NSURL *filePath= [[NSURL alloc] initWithString:fp];
     NSData *fileData = [NSData dataWithContentsOfURL:filePath];
-    [mc addAttachmentData:fileData mimeType:@"text/html" fileName:@"sound.caf"];
+    NSLog(@"Recorded File size: %i", [fileData length]);
+    NSLog(@"File Path: %@", [[audioRecorder url] path]);
+    [mc addAttachmentData:fileData mimeType:@"audio/caf" fileName:@"sound.caf"];
 
     [self presentViewController:mc animated:TRUE completion:NULL];
     
@@ -85,8 +87,8 @@
 	// Do any additional setup after loading the view.
     [self createDummyFile];
     
-    _recordButton.enabled = NO;
-    _stopButton.enabled = NO;
+    //_recordButton.enabled = NO;
+    //_stopButton.enabled = NO;
     
     NSArray *dirPaths;
     NSString *docsDir;
@@ -99,10 +101,20 @@
     
     NSURL *soundFileURL = [NSURL fileURLWithPath:soundFilePath];
     
-    NSDictionary *recordSetting = [[NSMutableDictionary alloc] init];
-    [recordSetting setValue :[NSNumber numberWithInt:32]  forKey:AVLinearPCMBitDepthKey];
-    [recordSetting setValue :[NSNumber numberWithBool:NO] forKey:AVLinearPCMIsBigEndianKey];
-    [recordSetting setValue :[NSNumber numberWithBool:NO] forKey:AVLinearPCMIsFloatKey];
+    NSLog(@"File Path: %@", [soundFileURL path]);
+    
+    NSDictionary *recordSetting = [NSDictionary dictionaryWithObjectsAndKeys:
+                                   [NSNumber numberWithFloat: 44100.0],                 AVSampleRateKey,
+                                   [NSNumber numberWithInt: kAudioFormatAppleLossless], AVFormatIDKey,
+                                   [NSNumber numberWithInt: 1],                         AVNumberOfChannelsKey,
+                                   [NSNumber numberWithInt: AVAudioQualityMax],         AVEncoderAudioQualityKey,
+                                   nil];
+    //[[NSMutableDictionary alloc] init];
+    //[recordSetting setValue :[NSNumber numberWithInt:32]  forKey:AVLinearPCMBitDepthKey];
+    //[recordSetting setValue :[NSNumber numberWithBool:NO] forKey:AVLinearPCMIsBigEndianKey];
+    //[recordSetting setValue :[NSNumber numberWithBool:NO] forKey:AVLinearPCMIsFloatKey];
+    
+    [[AVAudioSession sharedInstance] setCategory:AVAudioSessionCategoryRecord error:NULL];
     
     NSError *error = nil;
     
@@ -116,6 +128,7 @@
         NSLog(@"error: %@", [error localizedDescription]);
         
     } else {
+        NSLog(@"Prepare to record");
         [audioRecorder prepareToRecord];
     }
 }
