@@ -362,7 +362,7 @@
 				ORGANIZATIONNAME = "Erik Risinger";
 				TargetAttributes = {
 					936CD62917E36D3900B69E9B = {
-						DevelopmentTeam = NTMAJVW4U7;
+						DevelopmentTeam = LYM393R5FZ;
 					};
 				};
 			};
