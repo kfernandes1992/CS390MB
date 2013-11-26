@@ -96,16 +96,16 @@
     NSLog(@"File Path: %@", [soundFileURL path]);
     
     NSDictionary *recordSetting = [NSDictionary dictionaryWithObjectsAndKeys:
-                                   [NSNumber numberWithFloat: 44100.0],                 AVSampleRateKey,
-                                   [NSNumber numberWithInt: kAudioFormatAppleLossless], AVFormatIDKey,
+                                   [NSNumber numberWithFloat: 8000.0],                 AVSampleRateKey,
+                                   //[NSNumber numberWithInt: kAudioFormatAppleLossless], AVFormatIDKey,
                                    [NSNumber numberWithInt: 1],                         AVNumberOfChannelsKey,
                                    [NSNumber numberWithInt: AVAudioQualityMax],         AVEncoderAudioQualityKey,
                                    nil];
     
 //    [[NSMutableDictionary alloc] init];
-//    [recordSetting setValue :[NSNumber numberWithInt:32]  forKey:AVLinearPCMBitDepthKey];
-//    [recordSetting setValue :[NSNumber numberWithBool:NO] forKey:AVLinearPCMIsBigEndianKey];
-//    [recordSetting setValue :[NSNumber numberWithBool:NO] forKey:AVLinearPCMIsFloatKey];
+    [recordSetting setValue :[NSNumber numberWithInt:16]  forKey:AVLinearPCMBitDepthKey];
+    [recordSetting setValue :[NSNumber numberWithBool:NO] forKey:AVLinearPCMIsBigEndianKey];
+    [recordSetting setValue :[NSNumber numberWithBool:NO] forKey:AVLinearPCMIsFloatKey];
     
     [[AVAudioSession sharedInstance] setCategory:AVAudioSessionCategoryPlayAndRecord error:NULL];
     
