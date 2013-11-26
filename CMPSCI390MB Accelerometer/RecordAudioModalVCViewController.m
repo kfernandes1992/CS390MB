@@ -78,7 +78,6 @@
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
-    [self createDummyFile];
     
     //_recordButton.enabled = NO;
     //_stopButton.enabled = NO;
@@ -156,30 +155,6 @@
 }
 
 
--(void)startRecording:(id)sender{
-    NSLog(@"button clicked");
-    if (!audioRecorder.recording)
-    {
-        NSLog(@"recording");
-        _stopButton.enabled = YES;
-        NSLog(@"recording status: %hhd", [audioRecorder record]);
-    }
-}
-
--(void)stopRecording:(id)sender{
-    //[self.presentingViewController dismissViewControllerAnimated:YES completion:nil];
-    _stopButton.enabled = NO;
-    _recordButton.enabled = YES;
-    NSLog(@"stop button pressed");
-    if (audioRecorder.recording)
-    {
-        [audioRecorder stop];
-        NSLog(@"stopped recording: %hhd", audioRecorder.recording);
-        [audioRecorder updateMeters];
-        NSLog(@"avg power: %f", [audioRecorder peakPowerForChannel:1]);
-    }
-}
-
 -(void)audioRecorderDidFinishRecording:(AVAudioRecorder *)recorder successfully:(BOOL)flag
 {
     if (!flag) {
@@ -197,49 +172,4 @@
     }
 }
 
--(IBAction)emailData:(id)sender{
-    
-    //set up email VC
-    NSLog(@"emailing data");
-    NSDate *timeStamp = [[NSDate alloc] init];
-    NSDateFormatter *dateFormater= [[NSDateFormatter alloc] init];
-    
-    NSString *emailTitle= [NSString stringWithFormat:@"Voice iOS Data %@",[dateFormater stringFromDate:timeStamp]];
-    
-    NSString *messageBody= [NSString stringWithFormat:@"Voice data from %@",[dateFormater stringFromDate:timeStamp]];
-    
-    MFMailComposeViewController *mc = [[MFMailComposeViewController alloc] init];
-    [mc setMailComposeDelegate:self];
-    [mc setSubject:emailTitle];
-    [mc setMessageBody:messageBody isHTML:NO];
-    
-    
-    //find and attach file
-    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-    NSString *documentsDirectory = [paths objectAtIndex:0];
-    NSString *fp = [documentsDirectory stringByAppendingPathComponent:@"sound.caf"];
-    NSURL *filePath= [[NSURL alloc] initWithString:fp];
-    NSData *fileData = [NSData dataWithContentsOfURL:filePath];
-    NSLog(@"Recorded File size: %i", [fileData length]);
-    NSLog(@"File Path: %@", [[audioRecorder url] path]);
-    [mc addAttachmentData:fileData mimeType:@"audio/caf" fileName:@"sound.caf"];
-    
-    [self presentViewController:mc animated:TRUE completion:NULL];
-    
-    
-}
--(IBAction)clearData:(id)sender{
-    
-}
-
--(void) createDummyFile{
-    // create a filePath with the name accelerometerlog.csv
-    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-    NSString *documentsDirectory = [paths objectAtIndex:0];
-    NSString *fp = [documentsDirectory stringByAppendingPathComponent:@"test.txt"];
-    NSURL *filePath= [[NSURL alloc] initWithString:fp];
-    
-    NSString *dummyText=@"Please work";
-    [dummyText writeToURL:filePath atomically:FALSE encoding:NSUTF8StringEncoding error:NULL];
-    }
 @end
