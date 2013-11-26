@@ -102,12 +102,13 @@
                                    [NSNumber numberWithInt: 1],                         AVNumberOfChannelsKey,
                                    [NSNumber numberWithInt: AVAudioQualityMax],         AVEncoderAudioQualityKey,
                                    nil];
-    //[[NSMutableDictionary alloc] init];
-    //[recordSetting setValue :[NSNumber numberWithInt:32]  forKey:AVLinearPCMBitDepthKey];
-    //[recordSetting setValue :[NSNumber numberWithBool:NO] forKey:AVLinearPCMIsBigEndianKey];
-    //[recordSetting setValue :[NSNumber numberWithBool:NO] forKey:AVLinearPCMIsFloatKey];
     
-    [[AVAudioSession sharedInstance] setCategory:AVAudioSessionCategoryRecord error:NULL];
+//    [[NSMutableDictionary alloc] init];
+//    [recordSetting setValue :[NSNumber numberWithInt:32]  forKey:AVLinearPCMBitDepthKey];
+//    [recordSetting setValue :[NSNumber numberWithBool:NO] forKey:AVLinearPCMIsBigEndianKey];
+//    [recordSetting setValue :[NSNumber numberWithBool:NO] forKey:AVLinearPCMIsFloatKey];
+    
+    [[AVAudioSession sharedInstance] setCategory:AVAudioSessionCategoryPlayAndRecord error:NULL];
     
     NSError *error = nil;
     
@@ -115,6 +116,7 @@
                      initWithURL:soundFileURL
                      settings:recordSetting
                      error:&error];
+    audioRecorder.delegate = self;
     
     if (error)
     {
@@ -122,7 +124,7 @@
         
     } else {
         NSLog(@"Prepare to record");
-        [audioRecorder prepareToRecord];
+        //[audioRecorder prepareToRecord];
     }
 }
 
@@ -151,6 +153,83 @@
         break;
     }
     [self dismissViewControllerAnimated:TRUE completion:NULL];
+}
+
+
+-(void)startRecording:(id)sender{
+    NSLog(@"button clicked");
+    if (!audioRecorder.recording)
+    {
+        NSLog(@"recording");
+        _stopButton.enabled = YES;
+        NSLog(@"recording status: %hhd", [audioRecorder record]);
+    }
+}
+
+-(void)stopRecording:(id)sender{
+    //[self.presentingViewController dismissViewControllerAnimated:YES completion:nil];
+    _stopButton.enabled = NO;
+    _recordButton.enabled = YES;
+    NSLog(@"stop button pressed");
+    if (audioRecorder.recording)
+    {
+        [audioRecorder stop];
+        NSLog(@"stopped recording: %hhd", audioRecorder.recording);
+        [audioRecorder updateMeters];
+        NSLog(@"avg power: %f", [audioRecorder peakPowerForChannel:1]);
+    }
+}
+
+-(void)audioRecorderDidFinishRecording:(AVAudioRecorder *)recorder successfully:(BOOL)flag
+{
+    if (!flag) {
+        NSLog(@"finished recording unsuccessfully");
+    }
+    else{
+        NSLog(@"finished recording successfully");
+        NSError* error;
+        AVAudioPlayer* player = [[AVAudioPlayer alloc] initWithContentsOfURL:[recorder url] error:&error];
+        NSLog(@"%@", [recorder.url path]);
+        if (!error)
+        {
+            [player play];
+        }
+    }
+}
+
+-(IBAction)emailData:(id)sender{
+    
+    //set up email VC
+    NSLog(@"emailing data");
+    NSDate *timeStamp = [[NSDate alloc] init];
+    NSDateFormatter *dateFormater= [[NSDateFormatter alloc] init];
+    
+    NSString *emailTitle= [NSString stringWithFormat:@"Voice iOS Data %@",[dateFormater stringFromDate:timeStamp]];
+    
+    NSString *messageBody= [NSString stringWithFormat:@"Voice data from %@",[dateFormater stringFromDate:timeStamp]];
+    
+    MFMailComposeViewController *mc = [[MFMailComposeViewController alloc] init];
+    [mc setMailComposeDelegate:self];
+    [mc setSubject:emailTitle];
+    [mc setMessageBody:messageBody isHTML:NO];
+    
+    
+    //find and attach file
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    NSString *documentsDirectory = [paths objectAtIndex:0];
+    NSString *fp = [documentsDirectory stringByAppendingPathComponent:@"sound.caf"];
+    NSURL *filePath= [[NSURL alloc] initWithString:fp];
+    NSData *fileData = [NSData dataWithContentsOfURL:filePath];
+    NSLog(@"Recorded File size: %i", [fileData length]);
+    NSLog(@"File Path: %@", [[audioRecorder url] path]);
+    [mc addAttachmentData:fileData mimeType:@"audio/caf" fileName:@"sound.caf"];
+    
+    [self presentViewController:mc animated:TRUE completion:NULL];
+    
+    
+}
+-(IBAction)clearData:(id)sender{
+    
 }
 
 -(void) createDummyFile{
