@@ -29,10 +29,8 @@
     //[self.presentingViewController dismissViewControllerAnimated:YES completion:nil];
     _stopButton.enabled = NO;
     _recordButton.enabled = YES;
-    NSLog(@"stop button pressed");
     if (audioRecorder.recording)
     {
-        NSLog(@"stopped recording");
         [audioRecorder stop];
     }
 }
@@ -55,14 +53,9 @@
     
     
     //find and attach file
-    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-    NSString *documentsDirectory = [paths objectAtIndex:0];
-    NSString *fp = [documentsDirectory stringByAppendingPathComponent:@"sound.caf"];
-    NSURL *filePath= [[NSURL alloc] initWithString:fp];
-    NSData *fileData = [NSData dataWithContentsOfURL:filePath];
+    NSData *fileData = [NSData dataWithContentsOfURL:audioRecorder.url];
     NSLog(@"Recorded File size: %i", [fileData length]);
-    NSLog(@"File Path: %@", [[audioRecorder url] path]);
-    [mc addAttachmentData:fileData mimeType:@"audio/caf" fileName:@"sound.caf"];
+    [mc addAttachmentData:fileData mimeType:@"audio/x-caf" fileName:@"sound.caf"];
 
     [self presentViewController:mc animated:TRUE completion:NULL];
     
