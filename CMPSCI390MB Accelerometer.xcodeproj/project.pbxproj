@@ -12,6 +12,7 @@
 		935DF4C61839865E004DF0E7 /* Matrix.m in Sources */ = {isa = PBXBuildFile; fileRef = 935DF4C51839865E004DF0E7 /* Matrix.m */; };
 		9361EB861829E3370067EF58 /* ViewSelectionController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9361EB851829E3370067EF58 /* ViewSelectionController.m */; };
 		9361EB89182A90E80067EF58 /* SelectionViewNavigationControllerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9361EB88182A90E80067EF58 /* SelectionViewNavigationControllerViewController.m */; };
+		93650A6418470809007B71AC /* SpeechClassifier.m in Sources */ = {isa = PBXBuildFile; fileRef = 93650A6318470809007B71AC /* SpeechClassifier.m */; };
 		9367F07D181476860097B5F3 /* Coefficient.m in Sources */ = {isa = PBXBuildFile; fileRef = 9367F07C181476860097B5F3 /* Coefficient.m */; };
 		936A7B741835715B00CCB8AE /* FFT.m in Sources */ = {isa = PBXBuildFile; fileRef = 936A7B731835715B00CCB8AE /* FFT.m */; };
 		936A7B771835797700CCB8AE /* RecordAudioModalVCViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 936A7B761835797700CCB8AE /* RecordAudioModalVCViewController.m */; };
@@ -79,6 +80,8 @@
 		9361EB851829E3370067EF58 /* ViewSelectionController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ViewSelectionController.m; sourceTree = "<group>"; };
 		9361EB87182A90E80067EF58 /* SelectionViewNavigationControllerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SelectionViewNavigationControllerViewController.h; sourceTree = "<group>"; };
 		9361EB88182A90E80067EF58 /* SelectionViewNavigationControllerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SelectionViewNavigationControllerViewController.m; sourceTree = "<group>"; };
+		93650A6218470809007B71AC /* SpeechClassifier.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SpeechClassifier.h; sourceTree = "<group>"; };
+		93650A6318470809007B71AC /* SpeechClassifier.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SpeechClassifier.m; sourceTree = "<group>"; };
 		9367F07B181476860097B5F3 /* Coefficient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Coefficient.h; sourceTree = "<group>"; };
 		9367F07C181476860097B5F3 /* Coefficient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Coefficient.m; sourceTree = "<group>"; };
 		936A7B721835715B00CCB8AE /* FFT.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FFT.h; sourceTree = "<group>"; };
@@ -183,6 +186,8 @@
 		936CD62117E36D3900B69E9B = {
 			isa = PBXGroup;
 			children = (
+				93650A6218470809007B71AC /* SpeechClassifier.h */,
+				93650A6318470809007B71AC /* SpeechClassifier.m */,
 				936CD63317E36D3900B69E9B /* CMPSCI390MB Accelerometer */,
 				936CD65A17E36D3900B69E9B /* CMPSCI390MB AccelerometerTests */,
 				936CD62C17E36D3900B69E9B /* Frameworks */,
@@ -362,7 +367,7 @@
 				ORGANIZATIONNAME = "Erik Risinger";
 				TargetAttributes = {
 					936CD62917E36D3900B69E9B = {
-						DevelopmentTeam = NTMAJVW4U7;
+						DevelopmentTeam = LYM393R5FZ;
 					};
 				};
 			};
@@ -432,6 +437,7 @@
 			files = (
 				936A7B741835715B00CCB8AE /* FFT.m in Sources */,
 				93A80FE1182960C0008F4FEE /* RootViewNavigationController.m in Sources */,
+				93650A6418470809007B71AC /* SpeechClassifier.m in Sources */,
 				93F617391825A6F400B420C0 /* ActivityReading.m in Sources */,
 				936CD63A17E36D3900B69E9B /* main.m in Sources */,
 				938ED6611827F9A60093C648 /* StepDetectorCellView.m in Sources */,
